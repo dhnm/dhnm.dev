@@ -341,8 +341,8 @@ export default component$(() => {
                 )}
               </div>
               <div class="flex flex-1 justify-end md:justify-center">
-                <MobileNavigation class="pointer-events-auto md:hidden" />
-                <DesktopNavigation class="pointer-events-auto hidden md:block" />
+                {/* <MobileNavigation class="pointer-events-auto md:hidden" />
+                <DesktopNavigation class="pointer-events-auto hidden md:block" /> */}
               </div>
               <div class="flex justify-end md:flex-1"></div>
             </div>
