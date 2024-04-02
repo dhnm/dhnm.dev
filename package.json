@@ -1,6 +1,6 @@
 {
-  "name": "my-qwik-basic-starter",
-  "description": "Demo App with Routing built-in (recommended)",
+  "name": "dhnm.dev",
+  "description": "Nhật Minh - Personal Website",
   "engines": {
     "node": ">=15.0.0"
   },
@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@fontsource/fira-sans": "^5.0.19",
+    "@tailwindcss/typography": "^0.5.12",
     "clsx": "^2.1.0",
     "mailgun.js": "^10.2.1"
   }
