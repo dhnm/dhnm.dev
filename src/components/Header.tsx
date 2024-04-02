@@ -5,18 +5,18 @@ import Container from "./Container";
 import type { CSSProperties } from "@builder.io/qwik";
 import {
   component$,
-  Slot,
+  //Slot,
   type PropsOf,
   useSignal,
-  $,
+  //$,
   useVisibleTask$,
   useComputed$,
 } from "@builder.io/qwik";
 
 import AvatarImage from "../media/avatar.jpg?jsx";
-import { ChevronDownIcon, CloseIcon } from "./icons";
+//import { ChevronDownIcon, CloseIcon } from "./icons";
 
-const MobileNavItem = component$(({ href }: { href: string }) => {
+/* const MobileNavItem = component$(({ href }: { href: string }) => {
   return (
     <li>
       <Link href={href} class="block py-2">
@@ -116,7 +116,7 @@ function DesktopNavigation(props: PropsOf<"nav">) {
       </ul>
     </nav>
   );
-}
+} */
 
 function clamp(number: number, a: number, b: number) {
   const min = Math.min(a, b);
