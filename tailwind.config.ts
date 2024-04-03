@@ -25,7 +25,8 @@ export default {
     typography: typographyStyles,
     extend: {
       fontFamily: {
-        sans: ['"Fira Sans"', ...defaultTheme.fontFamily.sans],
+        sans: ['"Inter Variable"', ...defaultTheme.fontFamily.sans],
+        heading: ['"Fira Sans"', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         congress: {

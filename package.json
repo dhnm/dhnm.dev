@@ -52,6 +52,7 @@
     "wrangler": "^3.0.0"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.0.17",
     "@fontsource/fira-sans": "^5.0.19",
     "@tailwindcss/typography": "^0.5.12"
   }

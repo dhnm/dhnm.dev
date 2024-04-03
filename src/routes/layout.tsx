@@ -5,7 +5,11 @@ import type {
   RequestHandler,
 } from "@builder.io/qwik-city"
 
-import "@fontsource/fira-sans"
+import "@fontsource/fira-sans/400.css"
+import "@fontsource/fira-sans/500.css"
+import "@fontsource/fira-sans/600.css"
+import "@fontsource/fira-sans/700.css"
+import "@fontsource-variable/inter"
 
 import Header from "../components/Header"
 import Footer from "../components/Footer"
