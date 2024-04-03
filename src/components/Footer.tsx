@@ -27,7 +27,7 @@ export default component$(() => {
                 <NavLink href="/speaking">Speaking</NavLink>
                 <NavLink href="/uses">Uses</NavLink> */}
               </div>
-              <p class="text-sm text-zinc-400 dark:text-zinc-500">
+              <p class="text-sm text-zinc-500 dark:text-zinc-400">
                 &copy; {new Date().getFullYear()} Nhật Minh Đinh Huy. All rights
                 reserved.
               </p>
