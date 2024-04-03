@@ -1,13 +1,13 @@
-import { /*Slot,*/ component$ } from "@builder.io/qwik";
+import { /*Slot,*/ component$ } from "@builder.io/qwik"
 // import { Link } from "@builder.io/qwik-city";
 
-import { ContainerInner, ContainerOuter } from "./Container";
+import { ContainerInner, ContainerOuter } from "./Container"
 
 /* const NavLink = component$(({ href }: { href: string }) => {
   return (
     <Link
       href={href}
-      class="transition hover:text-teal-500 dark:hover:text-teal-400"
+      class="transition hover:text-congress-500 dark:hover:text-congress-400"
     >
       <Slot />
     </Link>
@@ -36,5 +36,5 @@ export default component$(() => {
         </div>
       </ContainerOuter>
     </footer>
-  );
-});
+  )
+})

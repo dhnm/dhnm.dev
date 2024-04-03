@@ -1,11 +1,11 @@
-import type { PropsOf, Signal, ClassList } from "@builder.io/qwik";
-import { component$, Slot } from "@builder.io/qwik";
-import clsx from "clsx";
+import type { PropsOf, Signal, ClassList } from "@builder.io/qwik"
+import { component$, Slot } from "@builder.io/qwik"
+import clsx from "clsx"
 
 type ContainerProps = PropsOf<"div"> & {
-  ref?: Signal<Element | undefined>;
-  class?: ClassList;
-};
+  ref?: Signal<Element | undefined>
+  class?: ClassList
+}
 
 export const ContainerOuter = component$<ContainerProps>(
   ({ ref, class: className, ...props }) => {
@@ -15,9 +15,9 @@ export const ContainerOuter = component$<ContainerProps>(
           <Slot />
         </div>
       </div>
-    );
+    )
   },
-);
+)
 
 export const ContainerInner = component$<ContainerProps>(
   ({ ref, class: className, ...props }) => {
@@ -31,9 +31,9 @@ export const ContainerInner = component$<ContainerProps>(
           <Slot />
         </div>
       </div>
-    );
+    )
   },
-);
+)
 
 export default component$<ContainerProps>(({ ref, ...props }) => {
   return (
@@ -42,5 +42,5 @@ export default component$<ContainerProps>(({ ref, ...props }) => {
         <Slot />
       </ContainerInner>
     </ContainerOuter>
-  );
-});
+  )
+})

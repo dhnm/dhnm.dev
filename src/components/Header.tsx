@@ -1,8 +1,8 @@
-import { Link, useLocation } from "@builder.io/qwik-city";
-import clsx from "clsx";
+import { Link, useLocation } from "@builder.io/qwik-city"
+import clsx from "clsx"
 
-import Container from "./Container";
-import type { CSSProperties } from "@builder.io/qwik";
+import Container from "./Container"
+import type { CSSProperties } from "@builder.io/qwik"
 import {
   component$,
   //Slot,
@@ -11,9 +11,9 @@ import {
   //$,
   useVisibleTask$,
   useComputed$,
-} from "@builder.io/qwik";
+} from "@builder.io/qwik"
 
-import AvatarImage from "../media/avatar.jpg?jsx";
+import AvatarImage from "../media/avatar.jpg?jsx"
 //import { ChevronDownIcon, CloseIcon } from "./icons";
 
 /* const MobileNavItem = component$(({ href }: { href: string }) => {
@@ -90,13 +90,13 @@ const NavItem = component$(({ href }: { href: string }) => {
         class={clsx(
           "relative block px-3 py-2 transition",
           isActive
-            ? "text-teal-500 dark:text-teal-400"
-            : "hover:text-teal-500 dark:hover:text-teal-400",
+            ? "text-congress-500 dark:text-congress-400"
+            : "hover:text-congress-500 dark:hover:text-congress-400",
         )}
       >
         <Slot />
         {isActive && (
-          <span class="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0" />
+          <span class="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-congress-500/0 via-congress-500/40 to-congress-500/0 dark:from-congress-400/0 dark:via-congress-400/40 dark:to-congress-400/0" />
         )}
       </Link>
     </li>
@@ -119,9 +119,9 @@ function DesktopNavigation(props: PropsOf<"nav">) {
 } */
 
 function clamp(number: number, a: number, b: number) {
-  const min = Math.min(a, b);
-  const max = Math.max(a, b);
-  return Math.min(Math.max(number, min), max);
+  const min = Math.min(a, b)
+  const max = Math.max(a, b)
+  return Math.min(Math.max(number, min), max)
 }
 
 function AvatarContainer({ class: className, ...props }: PropsOf<"div">) {
@@ -133,7 +133,7 @@ function AvatarContainer({ class: className, ...props }: PropsOf<"div">) {
       )}
       {...props}
     />
-  );
+  )
 }
 
 function Avatar({
@@ -141,7 +141,7 @@ function Avatar({
   class: className,
   ...props
 }: Omit<PropsOf<typeof Link>, "href"> & {
-  large?: boolean;
+  large?: boolean
 }) {
   return (
     <Link
@@ -158,119 +158,119 @@ function Avatar({
         )}
       />
     </Link>
-  );
+  )
 }
 
 export default component$(() => {
-  const location = useLocation();
-  const isHomePage = useComputed$(() => location.url.pathname === "/");
+  const location = useLocation()
+  const isHomePage = useComputed$(() => location.url.pathname === "/")
 
-  const headerRef = useSignal<HTMLElement | undefined>();
-  const avatarRef = useSignal<HTMLElement | undefined>();
-  const isInitial = useSignal(true);
+  const headerRef = useSignal<HTMLElement | undefined>()
+  const avatarRef = useSignal<HTMLElement | undefined>()
+  const isInitial = useSignal(true)
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track, cleanup }) => {
-    track(isHomePage);
+    track(isHomePage)
 
-    const downDelay = avatarRef.value?.offsetTop ?? 0;
-    const upDelay = 64;
+    const downDelay = avatarRef.value?.offsetTop ?? 0
+    const upDelay = 64
 
     function setProperty(property: string, value: string) {
-      document.documentElement.style.setProperty(property, value);
+      document.documentElement.style.setProperty(property, value)
     }
 
     function removeProperty(property: string) {
-      document.documentElement.style.removeProperty(property);
+      document.documentElement.style.removeProperty(property)
     }
 
     function updateHeaderStyles() {
       if (!headerRef.value) {
-        return;
+        return
       }
 
-      const { top, height } = headerRef.value.getBoundingClientRect();
+      const { top, height } = headerRef.value.getBoundingClientRect()
       const scrollY = clamp(
         window.scrollY,
         0,
         document.body.scrollHeight - window.innerHeight,
-      );
+      )
 
       if (isInitial.value) {
-        setProperty("--header-position", "sticky");
+        setProperty("--header-position", "sticky")
       }
 
-      setProperty("--content-offset", `${downDelay}px`);
+      setProperty("--content-offset", `${downDelay}px`)
 
       if (isInitial.value || scrollY < downDelay) {
-        setProperty("--header-height", `${downDelay + height}px`);
-        setProperty("--header-mb", `${-downDelay}px`);
+        setProperty("--header-height", `${downDelay + height}px`)
+        setProperty("--header-mb", `${-downDelay}px`)
       } else if (top + height < -upDelay) {
-        const offset = Math.max(height, scrollY - upDelay);
-        setProperty("--header-height", `${offset}px`);
-        setProperty("--header-mb", `${height - offset}px`);
+        const offset = Math.max(height, scrollY - upDelay)
+        setProperty("--header-height", `${offset}px`)
+        setProperty("--header-mb", `${height - offset}px`)
       } else if (top === 0) {
-        setProperty("--header-height", `${scrollY + height}px`);
-        setProperty("--header-mb", `${-scrollY}px`);
+        setProperty("--header-height", `${scrollY + height}px`)
+        setProperty("--header-mb", `${-scrollY}px`)
       }
 
       if (top === 0 && scrollY > 0 && scrollY >= downDelay) {
-        setProperty("--header-inner-position", "fixed");
-        removeProperty("--header-top");
-        removeProperty("--avatar-top");
+        setProperty("--header-inner-position", "fixed")
+        removeProperty("--header-top")
+        removeProperty("--avatar-top")
       } else {
-        removeProperty("--header-inner-position");
-        setProperty("--header-top", "0px");
-        setProperty("--avatar-top", "0px");
+        removeProperty("--header-inner-position")
+        setProperty("--header-top", "0px")
+        setProperty("--avatar-top", "0px")
       }
     }
 
     function updateAvatarStyles() {
       if (!isHomePage.value) {
-        return;
+        return
       }
 
-      const fromScale = 1;
-      const toScale = 36 / 64;
-      const fromX = 0;
-      const toX = 2 / 16;
+      const fromScale = 1
+      const toScale = 36 / 64
+      const fromX = 0
+      const toX = 2 / 16
 
-      const scrollY = downDelay - window.scrollY;
+      const scrollY = downDelay - window.scrollY
 
-      let scale = (scrollY * (fromScale - toScale)) / downDelay + toScale;
-      scale = clamp(scale, fromScale, toScale);
+      let scale = (scrollY * (fromScale - toScale)) / downDelay + toScale
+      scale = clamp(scale, fromScale, toScale)
 
-      let x = (scrollY * (fromX - toX)) / downDelay + toX;
-      x = clamp(x, fromX, toX);
+      let x = (scrollY * (fromX - toX)) / downDelay + toX
+      x = clamp(x, fromX, toX)
 
       setProperty(
         "--avatar-image-transform",
         `translate3d(${x}rem, 0, 0) scale(${scale})`,
-      );
+      )
 
-      const borderScale = 1 / (toScale / scale);
-      const borderX = (-toX + x) * borderScale;
-      const borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`;
+      const borderScale = 1 / (toScale / scale)
+      const borderX = (-toX + x) * borderScale
+      const borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`
 
-      setProperty("--avatar-border-transform", borderTransform);
-      setProperty("--avatar-border-opacity", scale === toScale ? "1" : "0");
+      setProperty("--avatar-border-transform", borderTransform)
+      setProperty("--avatar-border-opacity", scale === toScale ? "1" : "0")
     }
 
     function updateStyles() {
-      updateHeaderStyles();
-      updateAvatarStyles();
-      isInitial.value = false;
+      updateHeaderStyles()
+      updateAvatarStyles()
+      isInitial.value = false
     }
 
-    updateStyles();
-    window.addEventListener("scroll", updateStyles, { passive: true });
-    window.addEventListener("resize", updateStyles);
+    updateStyles()
+    window.addEventListener("scroll", updateStyles, { passive: true })
+    window.addEventListener("resize", updateStyles)
 
     cleanup(() => {
-      window.removeEventListener("scroll", updateStyles);
-      window.removeEventListener("resize", updateStyles);
-    });
-  });
+      window.removeEventListener("scroll", updateStyles)
+      window.removeEventListener("resize", updateStyles)
+    })
+  })
 
   return (
     <>
@@ -353,5 +353,5 @@ export default component$(() => {
         <div class="flex-none" style={{ height: "var(--content-offset)" }} />
       )}
     </>
-  );
-});
+  )
+})

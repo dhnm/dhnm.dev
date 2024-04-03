@@ -1,4 +1,4 @@
-import { type PluginUtils } from "tailwindcss/types/config";
+import { type PluginUtils } from "tailwindcss/types/config"
 
 export default function typographyStyles({ theme }: PluginUtils) {
   return {
@@ -29,10 +29,10 @@ export default function typographyStyles({ theme }: PluginUtils) {
       css: {
         "--tw-prose-body": theme("colors.zinc.600"),
         "--tw-prose-headings": theme("colors.zinc.900"),
-        "--tw-prose-links": theme("colors.teal.500"),
-        "--tw-prose-links-hover": theme("colors.teal.600"),
-        "--tw-prose-underline": theme("colors.teal.500 / 0.2"),
-        "--tw-prose-underline-hover": theme("colors.teal.500"),
+        "--tw-prose-links": theme("colors.congress.500"),
+        "--tw-prose-links-hover": theme("colors.congress.600"),
+        "--tw-prose-underline": theme("colors.congress.500 / 0.2"),
+        "--tw-prose-underline-hover": theme("colors.congress.500"),
         "--tw-prose-bold": theme("colors.zinc.900"),
         "--tw-prose-counters": theme("colors.zinc.900"),
         "--tw-prose-bullets": theme("colors.zinc.900"),
@@ -49,10 +49,10 @@ export default function typographyStyles({ theme }: PluginUtils) {
 
         "--tw-prose-invert-body": theme("colors.zinc.400"),
         "--tw-prose-invert-headings": theme("colors.zinc.200"),
-        "--tw-prose-invert-links": theme("colors.teal.400"),
-        "--tw-prose-invert-links-hover": theme("colors.teal.400"),
-        "--tw-prose-invert-underline": theme("colors.teal.400 / 0.3"),
-        "--tw-prose-invert-underline-hover": theme("colors.teal.400"),
+        "--tw-prose-invert-links": theme("colors.congress.400"),
+        "--tw-prose-invert-links-hover": theme("colors.congress.400"),
+        "--tw-prose-invert-underline": theme("colors.congress.400 / 0.3"),
+        "--tw-prose-invert-underline-hover": theme("colors.congress.400"),
         "--tw-prose-invert-bold": theme("colors.zinc.200"),
         "--tw-prose-invert-counters": theme("colors.zinc.200"),
         "--tw-prose-invert-bullets": theme("colors.zinc.200"),
@@ -279,5 +279,5 @@ export default function typographyStyles({ theme }: PluginUtils) {
         },
       },
     },
-  };
+  }
 }
