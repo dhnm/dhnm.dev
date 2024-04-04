@@ -165,137 +165,6 @@ export default component$(() => {
   const location = useLocation()
   const isHomePage = useComputed$(() => location.url.pathname === "/")
 
-  const headerRef = useSignal<HTMLElement | undefined>()
-  const avatarRef = useSignal<HTMLElement | undefined>()
-  const isInitial = useSignal(true)
-
-  // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(({ track, cleanup }) => {
-    track(isHomePage)
-
-    const downDelay = avatarRef.value?.offsetTop ?? 0
-    const upDelay = 64
-
-    function setProperty(property: string, value: string) {
-      document.documentElement.style.setProperty(property, value)
-    }
-
-    function removeProperty(property: string) {
-      document.documentElement.style.removeProperty(property)
-    }
-
-    function updateHeaderStyles() {
-      if (!headerRef.value) {
-        return
-      }
-
-      const { top, height } = headerRef.value.getBoundingClientRect()
-      const scrollY = clamp(
-        window.scrollY,
-        0,
-        document.body.scrollHeight - window.innerHeight,
-      )
-
-      if (isInitial.value) {
-        setProperty("--header-position", "sticky")
-      }
-
-      setProperty("--content-offset", `${downDelay}px`)
-
-      if (isInitial.value || scrollY < downDelay) {
-        setProperty("--header-height", `${downDelay + height}px`)
-        setProperty("--header-mb", `${-downDelay}px`)
-      } else if (top + height < -upDelay) {
-        const offset = Math.max(height, scrollY - upDelay)
-        setProperty("--header-height", `${offset}px`)
-        setProperty("--header-mb", `${height - offset}px`)
-      } else if (top === 0) {
-        setProperty("--header-height", `${scrollY + height}px`)
-        setProperty("--header-mb", `${-scrollY}px`)
-      }
-
-      if (top === 0 && scrollY > 0 && scrollY >= downDelay) {
-        setProperty("--header-inner-position", "fixed")
-        removeProperty("--header-top")
-        removeProperty("--avatar-top")
-      } else {
-        removeProperty("--header-inner-position")
-        setProperty("--header-top", "0px")
-        setProperty("--avatar-top", "0px")
-      }
-    }
-
-    function updateAvatarStyles() {
-      if (!isHomePage.value) {
-        return
-      }
-
-      const fromScale = 1
-      const toScale = 36 / 64
-      const fromX = 0
-      const toX = 2 / 16
-
-      const scrollY = downDelay - window.scrollY
-
-      let scale = (scrollY * (fromScale - toScale)) / downDelay + toScale
-      scale = clamp(scale, fromScale, toScale)
-
-      let x = (scrollY * (fromX - toX)) / downDelay + toX
-      x = clamp(x, fromX, toX)
-
-      setProperty(
-        "--avatar-image-transform",
-        `translate3d(${x}rem, 0, 0) scale(${scale})`,
-      )
-
-      const borderScale = 1 / (toScale / scale)
-      const borderX = (-toX + x) * borderScale
-      const borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`
-
-      setProperty("--avatar-border-transform", borderTransform)
-      setProperty("--avatar-border-opacity", scale === toScale ? "1" : "0")
-    }
-
-    function updateStyles() {
-      updateHeaderStyles()
-      updateAvatarStyles()
-      isInitial.value = false
-    }
-
-    function throttleRAF<T extends (...args: any[]) => any>(
-      func: T,
-    ): (...args: Parameters<T>) => void {
-      let waiting = false // Initially, not waiting for anything
-      return function (
-        this: ThisParameterType<T>,
-        ...args: Parameters<T>
-      ): void {
-        if (!waiting) {
-          // If not already waiting, request a frame
-          requestAnimationFrame(() => {
-            func.apply(this, args) // Execute the function in the next frame
-            waiting = false // Reset waiting status
-          })
-          waiting = true // Set waiting status to prevent multiple calls
-        }
-      }
-    }
-
-    updateStyles()
-
-    const throttledUpdateStyles = throttleRAF(updateStyles)
-
-    window.addEventListener("scroll", throttledUpdateStyles, {
-      passive: true,
-    })
-    window.addEventListener("resize", throttledUpdateStyles)
-
-    cleanup(() => {
-      window.removeEventListener("scroll", throttledUpdateStyles)
-      window.removeEventListener("resize", throttledUpdateStyles)
-    })
-  })
-
   return (
     <>
       <header
@@ -307,10 +176,7 @@ export default component$(() => {
       >
         {isHomePage.value && (
           <>
-            <div
-              ref={avatarRef}
-              class="order-last mt-[calc(theme(spacing.16)-theme(spacing.3))]"
-            />
+            <div class="order-last mt-[calc(theme(spacing.16)-theme(spacing.3))]" />
             <Container
               class="top-0 order-last -mb-3 pt-3"
               style={{
@@ -343,7 +209,6 @@ export default component$(() => {
           </>
         )}
         <div
-          ref={headerRef}
           class="top-0 z-10 h-16 pt-6"
           style={{
             position: "var(--header-position)" as CSSProperties["position"],
