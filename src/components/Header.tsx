@@ -37,34 +37,34 @@ const MobileNavigation = component$((props: PropsOf<"div">) => {
     <>
       <div {...props}>
         <button
-          class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20"
+          class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-stone-800 shadow-lg shadow-stone-800/5 ring-1 ring-stone-900/5 backdrop-blur dark:bg-stone-800/90 dark:text-stone-200 dark:ring-white/10 dark:hover:ring-white/20"
           onClick$={openMenu}
         >
           Menu
-          <ChevronDownIcon class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400" />
+          <ChevronDownIcon class="ml-3 h-auto w-2 stroke-stone-500 group-hover:stroke-stone-700 dark:group-hover:stroke-stone-400" />
         </button>
         <dialog ref={menuRef} class="modal modal-top">
           <form method="dialog" class="modal-backdrop">
-            <button class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80">
+            <button class="fixed inset-0 z-50 bg-stone-800/40 backdrop-blur-sm dark:bg-black/80">
               close
             </button>
           </form>
-          <div class="modal-box fixed inset-x-4 top-8 z-50 w-auto origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800">
+          <div class="modal-box fixed inset-x-4 top-8 z-50 w-auto origin-top rounded-3xl bg-white p-8 ring-1 ring-stone-900/5 dark:bg-stone-900 dark:ring-stone-800">
             <div class="flex flex-row-reverse items-center justify-between">
               <form method="dialog">
                 <button aria-label="Close menu" class="-m-1 p-1">
-                  <CloseIcon class="h-6 w-6 text-zinc-500 dark:text-zinc-400" />
+                  <CloseIcon class="h-6 w-6 text-stone-500 dark:text-stone-400" />
                 </button>
               </form>
               <h2
-                class="text-sm font-medium text-zinc-600 dark:text-zinc-400"
+                class="text-sm font-medium text-stone-600 dark:text-stone-400"
                 id="here"
               >
                 Menu
               </h2>
             </div>
             <nav class="mt-6">
-              <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+              <ul class="-my-2 divide-y divide-stone-100 text-base text-stone-800 dark:divide-stone-100/5 dark:text-stone-300">
                 <MobileNavItem href="/">Home</MobileNavItem>
                 <MobileNavItem href="/about">About</MobileNavItem>
                 <MobileNavItem href="/articles">Articles</MobileNavItem>
@@ -106,7 +106,7 @@ const NavItem = component$(({ href }: { href: string }) => {
 function DesktopNavigation(props: PropsOf<"nav">) {
   return (
     <nav {...props}>
-      <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+      <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-stone-800 shadow-lg shadow-stone-800/5 ring-1 ring-stone-900/5 backdrop-blur dark:bg-stone-800/90 dark:text-stone-200 dark:ring-white/10">
         <NavItem href="/">Home</NavItem>
         <NavItem href="/about">About</NavItem>
         <NavItem href="/articles">Articles</NavItem>
@@ -129,7 +129,7 @@ function AvatarContainer({ class: className, ...props }: PropsOf<"div">) {
     <div
       class={clsx(
         className,
-        "h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10",
+        "h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-stone-800/5 ring-1 ring-stone-900/5 backdrop-blur dark:bg-stone-800/90 dark:ring-white/10",
       )}
       {...props}
     />
@@ -153,7 +153,7 @@ function Avatar({
       <AvatarImage
         alt=""
         class={clsx(
-          "rounded-full bg-zinc-100 object-cover dark:bg-zinc-800",
+          "rounded-full bg-stone-100 object-cover dark:bg-stone-800",
           large ? "h-16 w-16" : "h-9 w-9",
         )}
       />
@@ -262,13 +262,37 @@ export default component$(() => {
       isInitial.value = false
     }
 
+    function throttleRAF<T extends (...args: any[]) => any>(
+      func: T,
+    ): (...args: Parameters<T>) => void {
+      let waiting = false // Initially, not waiting for anything
+      return function (
+        this: ThisParameterType<T>,
+        ...args: Parameters<T>
+      ): void {
+        if (!waiting) {
+          // If not already waiting, request a frame
+          requestAnimationFrame(() => {
+            func.apply(this, args) // Execute the function in the next frame
+            waiting = false // Reset waiting status
+          })
+          waiting = true // Set waiting status to prevent multiple calls
+        }
+      }
+    }
+
     updateStyles()
-    window.addEventListener("scroll", updateStyles, { passive: true })
-    window.addEventListener("resize", updateStyles)
+
+    const throttledUpdateStyles = throttleRAF(updateStyles)
+
+    window.addEventListener("scroll", throttledUpdateStyles, {
+      passive: true,
+    })
+    window.addEventListener("resize", throttledUpdateStyles)
 
     cleanup(() => {
-      window.removeEventListener("scroll", updateStyles)
-      window.removeEventListener("resize", updateStyles)
+      window.removeEventListener("scroll", throttledUpdateStyles)
+      window.removeEventListener("resize", throttledUpdateStyles)
     })
   })
 

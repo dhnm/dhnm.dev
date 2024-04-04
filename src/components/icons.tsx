@@ -1,6 +1,6 @@
-import type { PropsOf } from "@builder.io/qwik"
+import { component$, type PropsOf } from "@builder.io/qwik"
 
-export function DocumentIcon(props: PropsOf<"svg">) {
+export const DocumentIcon = component$((props: PropsOf<"svg">) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -21,7 +21,7 @@ export function DocumentIcon(props: PropsOf<"svg">) {
       />
     </svg>
   )
-}
+})
 
 export function CloseIcon(props: PropsOf<"svg">) {
   return (
@@ -102,14 +102,14 @@ export function MailIcon(props: PropsOf<"svg">) {
         stroke-miterlimit="10"
         stroke-width="1.5"
         d="M20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20Z"
-        class="fill-zinc-100 stroke-zinc-500 dark:fill-zinc-100/10 dark:stroke-zinc-400"
+        class="fill-stone-100 stroke-stone-500 dark:fill-stone-100/10 dark:stroke-stone-400"
       ></path>
       <path
         stroke-linecap="round"
         stroke-miterlimit="10"
         stroke-width="1.5"
         d="M20 4H4C2.9 4 2 4.9 2 6L12 13L22 6C22 4.9 21.1 4 20 4Z"
-        class="fill-zinc-100 stroke-zinc-500 dark:fill-zinc-100/10 dark:stroke-zinc-400"
+        class="fill-stone-100 stroke-stone-500 dark:fill-stone-100/10 dark:stroke-stone-400"
       ></path>
     </svg>
   )

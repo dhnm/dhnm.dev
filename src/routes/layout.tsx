@@ -10,6 +10,7 @@ import "@fontsource/fira-sans/500.css"
 import "@fontsource/fira-sans/600.css"
 import "@fontsource/fira-sans/700.css"
 import "@fontsource-variable/inter"
+import "@fontsource-variable/source-serif-4"
 
 import Header from "../components/Header"
 import Footer from "../components/Footer"
@@ -64,9 +65,9 @@ export default component$(() => {
       <div class="flex w-full">
         <div class="fixed inset-0 flex justify-center">
           <div class="flex w-full">
-            <div class="-z-30 w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20">
+            <div class="-z-30 w-full bg-white ring-1 ring-stone-100 dark:bg-stone-900 dark:ring-stone-300/20">
               <svg
-                class="absolute inset-0 -z-30 h-full w-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)] dark:stroke-white/10"
+                class="fixed inset-0 -z-30 h-full w-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)] dark:stroke-white/10"
                 aria-hidden="true"
               >
                 <defs>
@@ -99,7 +100,7 @@ export default component$(() => {
                 />
               </svg>
               <div
-                class="absolute left-[calc(50%-4rem)] top-10 -z-30 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
+                class="fixed left-[calc(50%-4rem)] top-10 -z-30 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
                 aria-hidden="true"
               >
                 <div
