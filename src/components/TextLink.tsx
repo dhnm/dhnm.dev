@@ -18,7 +18,7 @@ export default component$(
         ref={ref}
         href={href}
         class={clsx(
-          "text-congress-800 underline decoration-congress-800/20 transition-colors ease-in-out hover:text-congress-900 hover:decoration-congress-900 active:opacity-80 dark:text-congress-600 dark:decoration-congress-600/20 dark:hover:text-congress-500 dark:hover:decoration-congress-500",
+          "link link-primary underline decoration-primary/20 transition-colors ease-in-out",
           className,
         )}
         {...props}

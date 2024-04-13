@@ -7,6 +7,7 @@ import {
 import { RouterHead } from "./components/router-head/router-head"
 
 import "./global.css"
+import { useTurnstileProvider } from "./components/Turnstile"
 
 export default component$(() => {
   /**
@@ -15,6 +16,8 @@ export default component$(() => {
    *
    * Don't remove the `<head>` and `<body>` elements.
    */
+
+  useTurnstileProvider()
 
   return (
     <QwikCityProvider>

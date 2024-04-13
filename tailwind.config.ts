@@ -4,12 +4,23 @@ import defaultTheme from "tailwindcss/defaultTheme"
 import { type Config } from "tailwindcss"
 
 import typographyStyles from "./typography"
+import type { PluginUtils } from "tailwindcss/types/config"
 
 export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    typography: typographyStyles,
+    // typography: typographyStyles,
     extend: {
+      typography: ({ theme }: PluginUtils) => ({
+        DEFAULT: {
+          css: {
+            fontFamily: theme("fontFamily.serif").join(", "),
+            fontSize: theme("fontSize.lg")[0],
+            textAlign: "justify",
+            lineHeight: theme("lineHeight.8"), // 2rem
+          },
+        },
+      }),
       fontFamily: {
         serif: ['"Source Serif 4 Variable"', ...defaultTheme.fontFamily.serif],
         sans: ['"Inter Variable"', ...defaultTheme.fontFamily.sans],
@@ -33,10 +44,5 @@ export default {
       },
     },
   },
-  plugins: [
-    typographyPlugin({
-      className: "article",
-    }),
-    daisyUIPlugin,
-  ],
+  plugins: [typographyPlugin, daisyUIPlugin],
 } satisfies Config
