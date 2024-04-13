@@ -3,13 +3,11 @@ import daisyUIPlugin from "daisyui"
 import defaultTheme from "tailwindcss/defaultTheme"
 import { type Config } from "tailwindcss"
 
-import typographyStyles from "./typography"
 import type { PluginUtils } from "tailwindcss/types/config"
 
 export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    // typography: typographyStyles,
     extend: {
       typography: ({ theme }: PluginUtils) => ({
         DEFAULT: {

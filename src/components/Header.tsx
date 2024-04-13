@@ -110,12 +110,6 @@ function DesktopNavigation(props: PropsOf<"nav">) {
   );
 } */
 
-function clamp(number: number, a: number, b: number) {
-  const min = Math.min(a, b)
-  const max = Math.max(a, b)
-  return Math.min(Math.max(number, min), max)
-}
-
 function AvatarContainer({ class: className, ...props }: PropsOf<"div">) {
   return (
     <div
