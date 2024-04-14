@@ -79,7 +79,11 @@ const Turnstile = component$(
         return
       }
 
-      if (turnstileState.value !== "ready") return
+      if (
+        turnstileState.value === "unloaded" ||
+        turnstileState.value === "loading"
+      )
+        return
 
       const renderParameters: RenderParameters = {
         sitekey,
@@ -195,7 +199,7 @@ function createBoundTurnstileObject(widgetId: string): BoundTurnstileObject {
   }
 }
 
-type TurnstileState = "unloaded" | "loading" | "ready" | "error"
+type TurnstileState = "unloaded" | "loading" | "ready" | "verified" | "error"
 
 export const turnstileStateContext =
   createContextId<Signal<TurnstileState>>("TurnstileState")
