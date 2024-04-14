@@ -11,18 +11,18 @@ export default {
     themes: [
       {
         light: {
-          primary: "#0069D0",
+          primary: "#02786D",
           secondary: "#696979",
-          accent: "#D5A400",
+          accent: "#498FFF",
           neutral: "#24252E",
           "base-100": "#FFFFFF",
         },
       },
       {
         dark: {
-          primary: "#84AAFF",
+          primary: "#50BBAF",
           secondary: "#AAAAB9",
-          accent: "#866600",
+          accent: "#007AF0",
           neutral: "#F0F0F5",
           "base-100": "#24252E",
         },

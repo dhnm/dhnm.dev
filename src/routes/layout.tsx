@@ -66,7 +66,7 @@ export default component$(() => {
       <div class="flex w-full">
         <div class="fixed inset-0 flex justify-center">
           <div class="flex w-full">
-            <div class="-z-30 w-full ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20">
+            <div class="-z-30 w-full ring-1 ring-zinc-100 dark:ring-zinc-300/20">
               <svg
                 class="fixed inset-0 -z-30 h-full w-full stroke-zinc-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)] dark:stroke-white/10"
                 aria-hidden="true"
@@ -110,7 +110,7 @@ export default component$(() => {
                 ></div>
               </div>
               <div
-                class="fixed bottom-10 right-[calc(50%-4rem)] -z-30 transform-gpu blur-3xl sm:right-[calc(50%-18rem)] lg:bottom-[calc(50%-30rem)] lg:right-48 xl:right-[calc(50%-24rem)]"
+                class="fixed bottom-10 right-[calc(50%-4rem)] -z-30 -scale-100 transform-gpu blur-3xl sm:right-[calc(50%-18rem)] lg:bottom-[calc(50%-30rem)] lg:right-48 xl:right-[calc(50%-24rem)]"
                 aria-hidden="true"
               >
                 <div
