@@ -13,8 +13,8 @@ export default {
         light: {
           primary: "oklch(60% 0.15 165)",
           "primary-content": "oklch(95% 0.05 165)",
-          secondary: "oklch(96% 0.03 237)",
-          accent: "oklch(60% 0.15 150)",
+          secondary: "oklch(95% 0.01 165)",
+          accent: "oklch(90% 0.17 150)",
           neutral: "oklch(30% 0.06 240)",
           "base-100": "oklch(98% 0.01 240)",
         },
