@@ -11,21 +11,21 @@ export default {
     themes: [
       {
         light: {
-          primary: "#059669",
-          "primary-content": "#ccfbf1",
-          secondary: "#e0f2fe",
-          accent: "#6ee7b7",
-          neutral: "#082f49",
-          "base-100": "#f0f9ff",
+          primary: "oklch(60% 0.15 165)",
+          "primary-content": "oklch(95% 0.05 165)",
+          secondary: "oklch(96% 0.03 237)",
+          accent: "oklch(60% 0.15 150)",
+          neutral: "oklch(30% 0.06 240)",
+          "base-100": "oklch(98% 0.01 240)",
         },
       },
       {
         dark: {
-          primary: "#34d399",
-          secondary: "#0c4a6e",
-          accent: "#34d399",
-          neutral: "#f0f9ff",
-          "base-100": "#082f49",
+          primary: "oklch(75% 0.15 165)",
+          secondary: "oklch(80% 0.09 240)",
+          accent: "oklch(75% 0.15 165)",
+          neutral: "oklch(98% 0.01 240)",
+          "base-100": "oklch(30% 0.06 240)",
         },
       },
     ],
