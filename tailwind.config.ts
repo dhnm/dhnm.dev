@@ -22,7 +22,7 @@ export default {
       {
         dark: {
           primary: "oklch(75% 0.15 165)",
-          secondary: "oklch(80% 0.09 240)",
+          secondary: "oklch(29% 0.05 165)",
           accent: "oklch(75% 0.15 165)",
           neutral: "oklch(98% 0.01 240)",
           "base-100": "oklch(30% 0.06 240)",
