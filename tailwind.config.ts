@@ -11,20 +11,21 @@ export default {
     themes: [
       {
         light: {
-          primary: "oklch(51.47% 0.091 183.77)",
-          secondary: "oklch(95.66% 0.007 286.27)",
-          accent: "oklch(66.08% 0.181 259.45)",
-          neutral: "oklch(26.73% 0.017 280.2)",
-          "base-100": "oklch(100% 0 0)",
+          primary: "#059669",
+          "primary-content": "#ccfbf1",
+          secondary: "#e0f2fe",
+          accent: "#6ee7b7",
+          neutral: "#082f49",
+          "base-100": "#f0f9ff",
         },
       },
       {
         dark: {
-          primary: "oklch(72.65% 0.1 185.23)",
-          secondary: "oklch(35.37% 0.022 285.2)",
-          accent: "oklch(59.16% 0.199 255.62)",
-          neutral: "oklch(95.66% 0.007 286.27)",
-          "base-100": "oklch(26.73% 0.017 280.2)",
+          primary: "#34d399",
+          secondary: "#0c4a6e",
+          accent: "#34d399",
+          neutral: "#f0f9ff",
+          "base-100": "#082f49",
         },
       },
     ],
@@ -35,9 +36,9 @@ export default {
         DEFAULT: {
           css: {
             fontFamily: theme("fontFamily.serif").join(", "),
-            fontSize: theme("fontSize.lg")[0],
+            fontSize: "1.075rem",
             textAlign: "justify",
-            lineHeight: theme("lineHeight.8"), // 2rem
+            lineHeight: "1.6125rem",
           },
         },
       }),
