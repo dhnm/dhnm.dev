@@ -19,7 +19,7 @@ export const onRequest: RequestHandler = (event) => {
     `script-src 'self' 'unsafe-inline' https: 'nonce-${nonce}' 'strict-dynamic'`,
     "script-src-attr 'none'",
     "style-src 'self' https: 'unsafe-inline'",
-    `frame-src 'self' 'nonce-${nonce}'`,
+    `frame-src 'self' https: 'nonce-${nonce}' 'strict-dynamic'`,
     "object-src 'none'",
     "base-uri 'self'",
     "upgrade-insecure-requests",
