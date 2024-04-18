@@ -1,4 +1,4 @@
-import { component$ } from "@builder.io/qwik"
+import { component$, useServerData } from "@builder.io/qwik"
 import {
   QwikCityProvider,
   RouterOutlet,
@@ -16,6 +16,7 @@ export default component$(() => {
    *
    * Don't remove the `<head>` and `<body>` elements.
    */
+  const nonce = useServerData<string | undefined>("nonce")
 
   useTurnstileProvider()
 
@@ -25,7 +26,7 @@ export default component$(() => {
         <meta charSet="utf-8" />
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
-        <ServiceWorkerRegister />
+        <ServiceWorkerRegister nonce={nonce} />
       </head>
       <body lang="en">
         <RouterOutlet />

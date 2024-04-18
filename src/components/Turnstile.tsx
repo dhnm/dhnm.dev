@@ -11,6 +11,7 @@ import {
   useContext,
   useContextProvider,
   useOnWindow,
+  useServerData,
   useSignal,
   useStore,
   useVisibleTask$,
@@ -24,7 +25,7 @@ declare global {
   }
 }
 
-const TURNSTILE_LOAD_FUNCTION = "cf__qwikTurnstileOnLoad"
+const TURNSTILE_LOAD_FUNCTION = "cf__turnstileOnLoad"
 const TURNSTILE_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js"
 
 const Turnstile = component$(
@@ -212,6 +213,7 @@ export const useTurnstileProvider = () =>
 
 const useTurnstile = () => {
   const turnstileState = useContext(turnstileStateContext)
+  const nonce = useServerData<string | undefined>("nonce")
 
   useOnWindow(
     "load",
@@ -224,6 +226,7 @@ const useTurnstile = () => {
         }
         const url = `${TURNSTILE_SRC}?onload=${TURNSTILE_LOAD_FUNCTION}&render=explicit`
         const script = document.createElement("script")
+        if (nonce) script.setAttribute("nonce", nonce)
         script.src = url
         script.async = true
         script.addEventListener("error", (e) => {
