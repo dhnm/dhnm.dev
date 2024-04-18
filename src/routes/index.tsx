@@ -6,7 +6,7 @@ import { DocumentIcon, GitHubIcon, LinkedInIcon } from "~/components/icons"
 import TextLink from "~/components/TextLink"
 import ContactForm from "./ContactForm"
 
-export const verifyToken = server$(async function(
+export const verifyToken = server$(async function (
   token: string,
   kind: "invisible" | "managed" | "repeated",
 ) {
@@ -76,46 +76,69 @@ export const useSendEmail = routeAction$(
       return fail(520, { message: "Unknown Anti-bot validation error." })
     }
 
-    // Retrieve Mailgun credentials from environment
-    const apiKey = env.get("MAILGUN_API_KEY")
-    const domain = env.get("MAILGUN_DOMAIN")
-    if (!apiKey || !domain) {
-      console.error("Missing API key or domain:", apiKey, domain)
+    // Retrieve credentials from environment
+    const apiKey = env.get("EMAIL_API_KEY")
+    if (!apiKey) {
+      console.error("Missing Email API key.")
       return fail(500, { message: "Server configuration error." })
     }
 
     const my_email = env.get("MY_EMAIL")!
+    const sender_email = env.get("SENDER_EMAIL")!
+    const api_send_url = env.get("EMAIL_API_SEND_URL")!
+
+    const escapeHtml = (text) =>
+      text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;")
+
+    const safeMessage = escapeHtml(data.message).replace(/\n/g, "<br>")
+    const messageWithBreaks = safeMessage.replace(/\n/g, "<br />")
 
     // Prepare email
-    const formData = new FormData()
-    formData.append("to", my_email)
-    formData.append("from", `Mailgun <mailgun@${domain}>`)
-    formData.append("subject", "DHNM.DEV Contact Form Message")
-    formData.append(
-      "html",
-      `<p>Message from: ${data.email}</p><p>Message: ${data.message}</p>`,
-    )
-    formData.append(
-      "text",
-      `Message from: ${data.email}\nMessage: ${data.message}`,
-    )
-    formData.append("h:Reply-To", data.email.toString())
+    const payload = {
+      api_key: apiKey,
+      sender: `dhnmdev <${sender_email}>`,
+      to: [`Nhat Minh <${my_email}>`],
+      template_id: "3650622",
+      template_data: {
+        from: data.email,
+        message: messageWithBreaks,
+      },
+      custom_headers: [
+        {
+          header: "Reply-To",
+          value: data.email,
+        },
+      ],
+    }
 
     // Send email
     try {
-      const mailRes = await fetch(
-        `https://api.mailgun.net/v3/${domain}/messages`,
-        {
-          method: "POST",
-          headers: { Authorization: `Basic ${btoa(`api:${apiKey}`)}` },
-          body: formData,
+      const mailRes = await fetch(api_send_url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      )
+        body: JSON.stringify(payload),
+      })
 
       if (!mailRes.ok) {
-        console.error(`Mailgun error ${mailRes.status}:`, await mailRes.text())
+        console.error(`Provider Error ${mailRes.status}:`, await mailRes.text())
         return fail(mailRes.status, {
           message: `Provider Error ${mailRes.status}.`,
+        })
+      }
+
+      const mailResPayload = await mailRes.json()
+
+      if (!mailResPayload.data?.succeeded) {
+        console.error(mailResPayload.failures)
+        return fail(500, {
+          message: "Provider failed to send email.",
         })
       }
 
