@@ -200,7 +200,7 @@ function createBoundTurnstileObject(widgetId: string): BoundTurnstileObject {
   }
 }
 
-type TurnstileState = "unloaded" | "loading" | "ready" | "verified" | "error"
+type TurnstileState = "unloaded" | "loading" | "ready" | "error"
 
 export const turnstileStateContext =
   createContextId<Signal<TurnstileState>>("TurnstileState")
