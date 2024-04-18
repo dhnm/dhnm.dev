@@ -102,7 +102,7 @@ export const useSendEmail = routeAction$(
     const payload = {
       api_key: apiKey,
       sender: `dhnmdev <${sender_email}>`,
-      to: [`Nhat Minh <${my_email}>`],
+      to: [`Nhật Minh <${my_email}>`],
       template_id: "3650622",
       template_data: {
         from: data.email,
@@ -211,7 +211,9 @@ export default component$(() => {
           <div class="max-w-2xl">
             <OpenToWorkIndicator />
             <div class="mt-9 flex flex-wrap gap-2">
-              <FrontPageSecondaryButton href="/nhatminh-cv.pdf">
+              <FrontPageSecondaryButton
+                href={`/${encodeURIComponent("Nhật_Minh_CV.pdf")}`}
+              >
                 CV (Resume)
                 <DocumentIcon class="h-4 w-4 fill-current" />
               </FrontPageSecondaryButton>
