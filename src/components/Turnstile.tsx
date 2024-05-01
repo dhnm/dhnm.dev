@@ -247,10 +247,10 @@ export interface BoundTurnstileObject {
 
 function createBoundTurnstileObject(widgetId: string): BoundTurnstileObject {
   return {
-    execute: $((options) => window.turnstile.execute(widgetId, options)),
-    reset: $(() => window.turnstile.reset(widgetId)),
-    getResponse: $(() => window.turnstile.getResponse(widgetId)),
-    isExpired: $(() => window.turnstile.isExpired(widgetId)),
+    execute: $((options) => window.turnstile!.execute(widgetId, options)),
+    reset: $(() => window.turnstile!.reset(widgetId)),
+    getResponse: $(() => window.turnstile!.getResponse(widgetId)),
+    isExpired: $(() => window.turnstile!.isExpired(widgetId)),
   }
 }
 
