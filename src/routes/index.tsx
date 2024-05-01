@@ -40,9 +40,7 @@ export default component$(() => {
           <div class="max-w-2xl">
             <OpenToWorkIndicator />
             <div class="mt-9 flex flex-wrap gap-2">
-              <FrontPageSecondaryButton
-                href={`/${encodeURIComponent("Nhật_Minh_CV.pdf")}`}
-              >
+              <FrontPageSecondaryButton href="/Nhat_Minh_CV.pdf">
                 CV (Resume)
                 <DocumentIcon class="h-4 w-4 fill-current" />
               </FrontPageSecondaryButton>
