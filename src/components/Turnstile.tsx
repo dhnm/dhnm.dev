@@ -16,17 +16,69 @@ import {
   useStore,
   useVisibleTask$,
 } from "@builder.io/qwik"
+import { server$ } from "@builder.io/qwik-city"
 import clsx from "clsx"
 
 declare global {
   interface Window {
     [TURNSTILE_LOAD_FUNCTION]?: () => void
-    turnstile: TurnstileObject
+    turnstile?: TurnstileObject
   }
 }
 
 const TURNSTILE_LOAD_FUNCTION = "cf__turnstileOnLoad"
 const TURNSTILE_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js"
+
+export const verifyToken = server$(async function (
+  token: string,
+  kind: "invisible" | "managed" | "repeated",
+) {
+  // Validate the incoming token
+  if (!token) {
+    return { status: 400, message: "Missing token" }
+  }
+
+  // Generate or retrieve an idempotency key and secret based on the kind of request
+  let idempotencyKey: string
+  let secret: string | undefined
+
+  if (kind !== "repeated") {
+    idempotencyKey = crypto.randomUUID()
+    this.cookie.set("turnstilekey", idempotencyKey, { maxAge: 300 })
+    this.cookie.set("kind", kind, { maxAge: 300 })
+    secret =
+      kind === "invisible"
+        ? this.env.get("CF_INVISIBLE_SECRET")
+        : this.env.get("CF_MANAGED_SECRET")
+  } else {
+    idempotencyKey = this.cookie.get("turnstilekey")?.value || ""
+    secret =
+      this.cookie.get("kind")?.value === "invisible"
+        ? this.env.get("CF_INVISIBLE_SECRET")
+        : this.env.get("CF_MANAGED_SECRET")
+  }
+
+  // Prepare the data for the API request
+  const formData = new FormData()
+  formData.append("secret", secret || "")
+  formData.append("response", token)
+  formData.append("idempotency_key", idempotencyKey)
+  if (this.clientConn.ip) {
+    formData.append("remoteip", this.clientConn.ip)
+  }
+
+  // Perform the API call to verify the token
+  const url = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
+  const result = await fetch(url, { method: "POST", body: formData })
+
+  const outcome = await result.json()
+  if (outcome.success) {
+    return { status: 200, message: this.env.get("MY_EMAIL"), ok: true }
+  }
+
+  console.error(outcome)
+  return { status: 403, message: "Failed to verify token" }
+})
 
 const Turnstile = component$(
   ({
@@ -72,64 +124,66 @@ const Turnstile = component$(
     const unwrappedRef = ref ?? genRef
 
     // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(({ track, cleanup }) => {
-      track(() => turnstileState.value)
+    useVisibleTask$(
+      ({ track, cleanup }) => {
+        track(() => turnstileState.value)
 
-      if (turnstileState.value === "error") {
-        onError?.(new Error("Turnstile failed to load"))
-        return
-      }
+        if (turnstileState.value === "error") {
+          onError?.(new Error("Turnstile failed to load"))
+          return
+        }
 
-      if (
-        turnstileState.value === "unloaded" ||
-        turnstileState.value === "loading"
-      )
-        return
+        if (turnstileState.value !== "ready") return
 
-      const renderParameters: RenderParameters = {
-        sitekey,
-        action,
-        cData,
-        theme,
-        language,
-        tabindex: tabIndex,
-        "response-field": responseField,
-        "response-field-name": responseFieldName,
-        size,
-        retry,
-        "retry-interval": retryInterval,
-        "refresh-expired": refreshExpired,
-        appearance,
-        execution,
-        callback: (token: string) => onVerify?.(token, boundTurnstileObject),
-        "error-callback": (error?: any) =>
-          onError?.(error, boundTurnstileObject),
-        "expired-callback": onExpire && (() => onExpire!(boundTurnstileObject)),
-        "timeout-callback": () => onTimeout?.(boundTurnstileObject),
-        "after-interactive-callback": () =>
-          onAfterInteractive?.(boundTurnstileObject),
-        "before-interactive-callback": () =>
-          onBeforeInteractive?.(boundTurnstileObject),
-        "unsupported-callback": () => onUnsupported?.(boundTurnstileObject),
-      }
+        const renderParameters: RenderParameters = {
+          sitekey,
+          action,
+          cData,
+          theme,
+          language,
+          tabindex: tabIndex,
+          "response-field": responseField,
+          "response-field-name": responseFieldName,
+          size,
+          retry,
+          "retry-interval": retryInterval,
+          "refresh-expired": refreshExpired,
+          appearance,
+          execution,
+          callback: (token: string) => onVerify?.(token, boundTurnstileObject),
+          "error-callback": (error?: any) =>
+            onError?.(error, boundTurnstileObject),
+          "expired-callback":
+            onExpire && (() => onExpire!(boundTurnstileObject)),
+          "timeout-callback": () => onTimeout?.(boundTurnstileObject),
+          "after-interactive-callback": () =>
+            onAfterInteractive?.(boundTurnstileObject),
+          "before-interactive-callback": () =>
+            onBeforeInteractive?.(boundTurnstileObject),
+          "unsupported-callback": () => onUnsupported?.(boundTurnstileObject),
+        }
 
-      const widgetId = window.turnstile.render(
-        unwrappedRef.value as HTMLElement,
-        renderParameters,
-      )
+        const widgetId = window.turnstile!.render(
+          unwrappedRef.value as HTMLElement,
+          renderParameters,
+        )
 
-      const newBoundTurnstileObject = createBoundTurnstileObject(widgetId)
-      boundTurnstileObject.execute = newBoundTurnstileObject.execute
-      boundTurnstileObject.getResponse = newBoundTurnstileObject.getResponse
-      boundTurnstileObject.isExpired = newBoundTurnstileObject.isExpired
-      boundTurnstileObject.reset = newBoundTurnstileObject.reset
+        const newBoundTurnstileObject = createBoundTurnstileObject(widgetId)
+        boundTurnstileObject.execute = newBoundTurnstileObject.execute
+        boundTurnstileObject.getResponse = newBoundTurnstileObject.getResponse
+        boundTurnstileObject.isExpired = newBoundTurnstileObject.isExpired
+        boundTurnstileObject.reset = newBoundTurnstileObject.reset
 
-      onLoad?.(widgetId, boundTurnstileObject)
+        onLoad?.(widgetId, boundTurnstileObject)
 
-      cleanup(() => {
-        if (widgetId) window.turnstile.remove(widgetId)
-      })
-    })
+        cleanup(() => {
+          if (widgetId) window.turnstile!.remove(widgetId)
+        })
+      },
+      {
+        strategy: "document-idle",
+      },
+    )
 
     return (
       <div
@@ -229,11 +283,11 @@ const useTurnstile = () => {
         if (nonce) script.setAttribute("nonce", nonce)
         script.src = url
         script.async = true
-        script.addEventListener("error", (e) => {
-          console.error(e)
+        script.addEventListener("error", () => {
+          turnstileState.value = "error"
           delete window[TURNSTILE_LOAD_FUNCTION]
-        })
-        document.head.appendChild(script)
+        }),
+          document.head.appendChild(script)
       }
     }),
   )

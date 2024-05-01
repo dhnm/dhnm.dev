@@ -1,187 +1,19 @@
 import { Slot, component$, useSignal } from "@builder.io/qwik"
-import { routeAction$, zod$, z, server$ } from "@builder.io/qwik-city"
 
 import Container from "~/components/Container"
 import { DocumentIcon, GitHubIcon, LinkedInIcon } from "~/components/icons"
-import TextLink from "~/components/TextLink"
 import ContactForm from "./ContactForm"
 
-export const verifyToken = server$(async function (
-  token: string,
-  kind: "invisible" | "managed" | "repeated",
-) {
-  // Validate the incoming token
-  if (!token) {
-    return { status: 400, message: "Missing token" }
-  }
-
-  // Generate or retrieve an idempotency key and secret based on the kind of request
-  let idempotencyKey: string
-  let secret: string | undefined
-
-  if (kind !== "repeated") {
-    idempotencyKey = crypto.randomUUID()
-    this.cookie.set("turnstilekey", idempotencyKey, { maxAge: 300 })
-    this.cookie.set("kind", kind, { maxAge: 300 })
-    secret =
-      kind === "invisible"
-        ? this.env.get("CF_INVISIBLE_SECRET")
-        : this.env.get("CF_MANAGED_SECRET")
-  } else {
-    idempotencyKey = this.cookie.get("turnstilekey")?.value || ""
-    secret =
-      this.cookie.get("kind")?.value === "invisible"
-        ? this.env.get("CF_INVISIBLE_SECRET")
-        : this.env.get("CF_MANAGED_SECRET")
-  }
-
-  // Prepare the data for the API request
-  const formData = new FormData()
-  formData.append("secret", secret || "")
-  formData.append("response", token)
-  formData.append("idempotency_key", idempotencyKey)
-  if (this.clientConn.ip) {
-    formData.append("remoteip", this.clientConn.ip)
-  }
-
-  // Perform the API call to verify the token
-  const url = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
-  const result = await fetch(url, { method: "POST", body: formData })
-
-  const outcome = await result.json()
-  if (outcome.success) {
-    return { status: 200, message: this.env.get("MY_EMAIL"), ok: true }
-  }
-
-  console.error("here")
-  console.error(outcome)
-  return { status: 403, message: "Failed to verify token" }
-})
-
-export const useSendEmail = routeAction$(
-  async (data, { env, fail }) => {
-    // Verify the captcha token
-    try {
-      const verifyRes = await verifyToken(
-        data["cf-turnstile-response"],
-        "repeated",
-      )
-      if (verifyRes.status !== 200) {
-        return fail(verifyRes.status, {
-          message: `Anti-bot validation failed: ${verifyRes.message}.`,
-        })
-      }
-    } catch (e) {
-      console.error(e)
-      return fail(520, { message: "Unknown Anti-bot validation error." })
-    }
-
-    // Retrieve credentials from environment
-    const apiKey = env.get("EMAIL_API_KEY")
-    if (!apiKey) {
-      console.error("Missing Email API key.")
-      return fail(500, { message: "Server configuration error." })
-    }
-
-    const my_email = env.get("MY_EMAIL")!
-    const sender_email = env.get("SENDER_EMAIL")!
-    const api_send_url = env.get("EMAIL_API_SEND_URL")!
-
-    const escapeHtml = (text) =>
-      text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;")
-
-    const safeMessage = escapeHtml(data.message).replace(/\n/g, "<br>")
-    const messageWithBreaks = safeMessage.replace(/\n/g, "<br />")
-
-    // Prepare email
-    const payload = {
-      api_key: apiKey,
-      sender: `dhnmdev <${sender_email}>`,
-      to: [`Nhật Minh <${my_email}>`],
-      template_id: "3650622",
-      template_data: {
-        from: data.email,
-        message: messageWithBreaks,
-      },
-      custom_headers: [
-        {
-          header: "Reply-To",
-          value: data.email,
-        },
-      ],
-    }
-
-    // Send email
-    try {
-      const mailRes = await fetch(api_send_url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      })
-
-      if (!mailRes.ok) {
-        console.error(`Provider Error ${mailRes.status}:`, await mailRes.text())
-        return fail(mailRes.status, {
-          message: `Provider Error ${mailRes.status}.`,
-        })
-      }
-
-      const mailResPayload = await mailRes.json()
-
-      if (!mailResPayload.data?.succeeded) {
-        console.error(mailResPayload.failures)
-        return fail(500, {
-          message: "Provider failed to send email.",
-        })
-      }
-
-      return { failed: false }
-    } catch (e) {
-      console.error(e)
-      return fail(520, { message: "Unknown Provider Error 520." })
-    }
-  },
-  zod$({
-    email: z.string().email(),
-    message: z
-      .string()
-      .trim()
-      .min(15, { message: "Message is too short." })
-      .max(3000, { message: "Message is too long." }),
-    "cf-turnstile-response": z
-      .string({ required_error: "Anti-bot validation failed." })
-      .min(1, { message: "Anti-bot validation failed." }),
-  }),
+const OpenToWorkIndicator = () => (
+  <div class="mt-9 flex items-center gap-2">
+    {/* Diode - Green Circle */}
+    <span
+      class="h-3 w-3 rounded-full bg-[radial-gradient(circle,#00ff00_15%,#17a443_85%)] shadow-[0_0_2px_2px_#00ff0060,0_0_4px_4px_#00ff0020]"
+      aria-hidden="true"
+    ></span>
+    <span class="uppercase text-success">Open to work (UK or Remote)</span>
+  </div>
 )
-
-export const ObscureEmail = () => (
-  <span
-    class="skeleton mb-[-0.3em] inline-block h-[1.395em] w-[7.528em] bg-primary/5"
-    role="alert"
-    aria-label="Loading email address"
-    aria-busy="true"
-  ></span>
-)
-
-const OpenToWorkIndicator = () => {
-  return (
-    <div class="mt-9 flex items-center gap-2">
-      {/* Diode - Green Circle */}
-      <span
-        class="h-3 w-3 rounded-full bg-[radial-gradient(circle,#00ff00_15%,#17a443_85%)] shadow-[0_0_2px_2px_#00ff0060,0_0_4px_4px_#00ff0020]"
-        aria-hidden="true"
-      ></span>
-      <span class="uppercase text-success">Open to work (UK or Remote)</span>
-    </div>
-  )
-}
 
 export const FrontPageSecondaryButton = component$(
   ({ href }: { href: string }) => {
@@ -198,9 +30,6 @@ export const FrontPageSecondaryButton = component$(
 )
 
 export default component$(() => {
-  const action = useSendEmail()
-  const myEmail = useSignal<string | undefined>(undefined)
-
   return (
     <>
       <Container class="mt-9">
@@ -255,7 +84,7 @@ export default component$(() => {
             </div>
           </div>
           <div class="space-y-10 lg:pl-16 xl:pl-24">
-            <ContactForm action={action} myEmail={myEmail} />
+            <ContactForm />
           </div>
         </div>
       </Container>
@@ -265,16 +94,7 @@ export default component$(() => {
           <p class="mt-6">
             I'm working hard among other commitments to include a showcase of my
             works and thoughts here. In the meantime, feel free to reach out to
-            me via{" "}
-            {myEmail.value ? (
-              <TextLink href={`mailto:${myEmail.value}`}>
-                {myEmail.value}
-              </TextLink>
-            ) : (
-              <ObscureEmail />
-            )}{" "}
-            or <TextLink href="https://linkedin.com/in/dhnm">LinkedIn</TextLink>
-            .
+            me via the contact information above.
           </p>
         </section>
       </Container>
