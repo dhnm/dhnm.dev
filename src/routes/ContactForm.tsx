@@ -156,9 +156,7 @@ const ContactForm = component$(({ myEmail }: { myEmail: string }) => {
         <MailIcon class="h-5 w-5 flex-none" />
         <span class="ml-3 tracking-tight">Send me a message</span>
       </h2>
-      <p
-        class={clsx("mt-2 text-sm", failedVerifyAttempts.value > 2 && "hidden")}
-      >
+      <p class="mt-2 text-sm">
         Message me on <TextLink href={`mailto:${myEmail}`}>{myEmail}</TextLink>{" "}
         or use the following form:
       </p>
@@ -188,7 +186,7 @@ const ContactForm = component$(({ myEmail }: { myEmail: string }) => {
             <button
               type="submit"
               class={"btn btn-primary btn-md"}
-              disabled={action.isRunning}
+              disabled={action.isRunning || failedVerifyAttempts.value > 2}
             >
               {action.isRunning ? (
                 <span class="loading loading-spinner" />
@@ -205,15 +203,14 @@ const ContactForm = component$(({ myEmail }: { myEmail: string }) => {
                 onVerify={turnstileVerify}
               />
             )}
-            {failedVerifyAttempts.value > 0 &&
-              failedVerifyAttempts.value < 3 && (
-                <Turnstile
-                  sitekey={import.meta.env.PUBLIC_CF_MANAGED_SITEKEY}
-                  onError={handleVerifyError}
-                  onVerify={turnstileVerify}
-                  class="mt-3"
-                />
-              )}
+            {failedVerifyAttempts.value > 0 && (
+              <Turnstile
+                sitekey={import.meta.env.PUBLIC_CF_MANAGED_SITEKEY}
+                onError={handleVerifyError}
+                onVerify={turnstileVerify}
+                class="mt-3"
+              />
+            )}
           </div>
         </>
       )}
