@@ -3,6 +3,9 @@ import { Slot, component$ } from "@builder.io/qwik"
 import Container from "~/components/Container"
 import { DocumentIcon, GitHubIcon, LinkedInIcon } from "~/components/icons"
 import ContactForm from "./ContactForm"
+import { routeLoader$ } from "@builder.io/qwik-city"
+
+export const useMyEmail = routeLoader$(({ env }) => env.get("MY_EMAIL"))
 
 const OpenToWorkIndicator = () => (
   <div class="mt-9 flex items-center gap-2">
@@ -30,6 +33,8 @@ export const FrontPageSecondaryButton = component$(
 )
 
 export default component$(() => {
+  const myEmail = useMyEmail()
+
   return (
     <>
       <Container class="mt-9">
@@ -82,7 +87,7 @@ export default component$(() => {
             </div>
           </div>
           <div class="space-y-10 lg:pl-16 xl:pl-24">
-            <ContactForm />
+            <ContactForm myEmail={myEmail.value || ""} />
           </div>
         </div>
       </Container>

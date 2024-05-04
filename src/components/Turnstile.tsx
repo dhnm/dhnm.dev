@@ -151,7 +151,7 @@ const Turnstile = component$(
           appearance,
           execution,
           callback: (token: string) => onVerify?.(token, boundTurnstileObject),
-          "error-callback": (error?: any) =>
+          "error-callback": (error?: Error | unknown) =>
             onError?.(error, boundTurnstileObject),
           "expired-callback":
             onExpire && (() => onExpire!(boundTurnstileObject)),
@@ -229,7 +229,7 @@ export interface TurnstileCallbacks {
   onVerify?: QRL<(token: string, boundTurnstile: BoundTurnstileObject) => void>
   onLoad?: QRL<(widgetId: string, boundTurnstile: BoundTurnstileObject) => void>
   onError?: QRL<
-    (error?: Error | any, boundTurnstile?: BoundTurnstileObject) => void
+    (error?: Error | unknown, boundTurnstile?: BoundTurnstileObject) => void
   >
   onExpire?: QRL<(boundTurnstile: BoundTurnstileObject) => void>
   onTimeout?: QRL<(boundTurnstile: BoundTurnstileObject) => void>

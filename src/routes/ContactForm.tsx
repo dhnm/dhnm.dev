@@ -7,15 +7,6 @@ import { ErrorIcon, MailIcon, SuccessIcon } from "~/components/icons"
 import TextLink from "~/components/TextLink"
 import Turnstile, { verifyToken } from "~/components/Turnstile"
 
-const ObscureEmail = () => (
-  <span
-    class="skeleton mb-[-0.3em] inline-block h-[1.395em] w-[7.528em] bg-primary/5"
-    role="alert"
-    aria-label="Loading email address"
-    aria-busy="true"
-  ></span>
-)
-
 export const useSendEmail = globalAction$(
   async (data, { env, fail }) => {
     // Verify the captcha token
@@ -119,14 +110,9 @@ export const useSendEmail = globalAction$(
   }),
 )
 
-const ContactForm = component$(() => {
+const ContactForm = component$(({ myEmail }: { myEmail: string }) => {
   const failedVerifyAttempts = useSignal(0)
-  const myEmail = useSignal<string | null>(null)
   const action = useSendEmail()
-
-  const handleVerifySuccess = $((email: string) => {
-    myEmail.value = email
-  })
 
   const handleVerifyError = $(() => {
     if (!window.turnstile) {
@@ -150,7 +136,7 @@ const ContactForm = component$(() => {
       )
 
       if (response.status == 200 && response.message) {
-        handleVerifySuccess(response.message)
+        // success
         return
       }
       console.error(response.status)
@@ -173,12 +159,7 @@ const ContactForm = component$(() => {
       <p
         class={clsx("mt-2 text-sm", failedVerifyAttempts.value > 2 && "hidden")}
       >
-        Message me on{" "}
-        {myEmail.value ? (
-          <TextLink href={`mailto:${myEmail.value}`}>{myEmail.value}</TextLink>
-        ) : (
-          <ObscureEmail />
-        )}{" "}
+        Message me on <TextLink href={`mailto:${myEmail}`}>{myEmail}</TextLink>{" "}
         or use the following form:
       </p>
       {action.value?.failed !== false && (
