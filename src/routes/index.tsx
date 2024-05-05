@@ -3,9 +3,6 @@ import { Slot, component$ } from "@builder.io/qwik"
 import Container from "~/components/Container"
 import { DocumentIcon, GitHubIcon, LinkedInIcon } from "~/components/icons"
 import ContactForm from "./ContactForm"
-import { routeLoader$ } from "@builder.io/qwik-city"
-
-export const useMyEmail = routeLoader$(({ env }) => env.get("MY_EMAIL"))
 
 const OpenToWorkIndicator = () => (
   <div class="mt-9 flex items-center gap-2">
@@ -32,91 +29,87 @@ export const FrontPageSecondaryButton = component$(
   },
 )
 
-export default component$(() => {
-  const myEmail = useMyEmail()
-
-  return (
-    <>
-      <Container class="mt-9">
-        <h1 class="text-4xl sm:text-5xl">
-          Building Cool Stuff & Exploring What’s&nbsp;Next
-        </h1>
-        <div class="mx-auto grid max-w-xl grid-cols-1 items-center gap-y-10 lg:max-w-none lg:grid-cols-2">
-          <div class="max-w-2xl">
-            <OpenToWorkIndicator />
-            <div class="mt-9 flex flex-wrap gap-2">
-              <FrontPageSecondaryButton href="/Nhat_Minh_CV.pdf">
-                CV (Resume)
-                <DocumentIcon class="h-4 w-4 fill-current" />
-              </FrontPageSecondaryButton>
-              <FrontPageSecondaryButton href="https://github.com/dhnm">
-                GitHub
-                <GitHubIcon class="h-4 w-4 fill-current" />
-              </FrontPageSecondaryButton>
-              <FrontPageSecondaryButton href="https://linkedin.com/in/dhnm">
-                LinkedIn
-                <LinkedInIcon class="h-4 w-4 fill-current" />
-              </FrontPageSecondaryButton>
-            </div>
-            <div class="prose mt-9 text-base-content">
-              <p>
-                Hey there! I'm all about{" "}
-                <span class="font-extrabold">
-                  turning code into something amazing
-                </span>{" "}
-                and{" "}
-                <span class="font-extrabold">
-                  getting machines to learn new tricks
-                </span>
-                .
-              </p>
-              <p>
-                You might also catch me at a{" "}
-                <span class="font-extrabold">film festival</span>, geeking out
-                over something like the mysteries of{" "}
-                <span class="font-extrabold">quantum physics</span>, or plotting
-                to win at <span class="font-extrabold">pickleball</span>.
-              </p>
-              <p>
-                Do you have an interesting{" "}
-                <span class="font-extrabold">challenge</span> or want to talk{" "}
-                <span class="font-extrabold">tech</span>,{" "}
-                <span class="font-extrabold">design</span>, or anything under
-                the sun? <span class="font-extrabold">Let's chat!</span>
-              </p>
-            </div>
+export default component$(() => (
+  <>
+    <Container class="mt-9">
+      <h1 class="text-4xl sm:text-5xl">
+        Building Cool Stuff & Exploring What’s&nbsp;Next
+      </h1>
+      <div class="mx-auto grid max-w-xl grid-cols-1 items-center gap-y-10 lg:max-w-none lg:grid-cols-2">
+        <div class="max-w-2xl">
+          <OpenToWorkIndicator />
+          <div class="mt-9 flex flex-wrap gap-2">
+            <FrontPageSecondaryButton href="/Nhat_Minh_CV.pdf">
+              CV (Resume)
+              <DocumentIcon class="h-4 w-4 fill-current" />
+            </FrontPageSecondaryButton>
+            <FrontPageSecondaryButton href="https://github.com/dhnm">
+              GitHub
+              <GitHubIcon class="h-4 w-4 fill-current" />
+            </FrontPageSecondaryButton>
+            <FrontPageSecondaryButton href="https://linkedin.com/in/dhnm">
+              LinkedIn
+              <LinkedInIcon class="h-4 w-4 fill-current" />
+            </FrontPageSecondaryButton>
           </div>
-          <div class="space-y-10 lg:pl-16 xl:pl-24">
-            <ContactForm myEmail={myEmail.value || ""} />
+          <div class="prose mt-9 text-base-content">
+            <p>
+              Hey there! I'm all about{" "}
+              <span class="font-extrabold">
+                turning code into something amazing
+              </span>{" "}
+              and{" "}
+              <span class="font-extrabold">
+                getting machines to learn new tricks
+              </span>
+              .
+            </p>
+            <p>
+              You might also catch me at a{" "}
+              <span class="font-extrabold">film festival</span>, geeking out
+              over something like the mysteries of{" "}
+              <span class="font-extrabold">quantum physics</span>, or plotting
+              to win at <span class="font-extrabold">pickleball</span>.
+            </p>
+            <p>
+              Do you have an interesting{" "}
+              <span class="font-extrabold">challenge</span> or want to talk{" "}
+              <span class="font-extrabold">tech</span>,{" "}
+              <span class="font-extrabold">design</span>, or anything under the
+              sun? <span class="font-extrabold">Let's chat!</span>
+            </p>
           </div>
         </div>
-      </Container>
-      <Container class="mt-16 sm:mt-24">
-        <section>
-          <h2>🚧&nbsp;Website Under Construction&nbsp;🚧</h2>
-          <p class="mt-6">
-            I'm working hard among other commitments to include a showcase of my
-            works and thoughts here. In the meantime, feel free to reach out to
-            me via the contact information above.
-          </p>
+        <div class="space-y-10 lg:pl-16 xl:pl-24">
+          <ContactForm />
+        </div>
+      </div>
+    </Container>
+    <Container class="mt-16 sm:mt-24">
+      <section>
+        <h2>🚧&nbsp;Website Under Construction&nbsp;🚧</h2>
+        <p class="mt-6">
+          I'm working hard among other commitments to include a showcase of my
+          works and thoughts here. In the meantime, feel free to reach out to me
+          via the contact information above.
+        </p>
+      </section>
+    </Container>
+    {false && (
+      <Container class="mt-16 sm:mt-20">
+        <section id="projects">
+          <h2>Projects</h2>
+          <div class="mt-6">
+            <img
+              src="https://unsplash.it/270/270?grayscale"
+              alt="Placeholder"
+              width="270"
+              height="270"
+              class="rounded-3xl"
+            />
+          </div>
         </section>
       </Container>
-      {false && (
-        <Container class="mt-16 sm:mt-20">
-          <section id="projects">
-            <h2>Projects</h2>
-            <div class="mt-6">
-              <img
-                src="https://unsplash.it/270/270?grayscale"
-                alt="Placeholder"
-                width="270"
-                height="270"
-                class="rounded-3xl"
-              />
-            </div>
-          </section>
-        </Container>
-      )}
-    </>
-  )
-})
+    )}
+  </>
+))

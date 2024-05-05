@@ -124,60 +124,66 @@ const Turnstile = component$(
     const unwrappedRef = ref ?? genRef
 
     // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(({ track, cleanup }) => {
-      track(() => turnstileState.value)
+    useVisibleTask$(
+      ({ track, cleanup }) => {
+        track(() => turnstileState.value)
 
-      if (turnstileState.value === "error") {
-        onError?.(new Error("Turnstile failed to load"))
-        return
-      }
+        if (turnstileState.value === "error") {
+          onError?.(new Error("Turnstile failed to load"))
+          return
+        }
 
-      if (turnstileState.value !== "ready") return
+        if (turnstileState.value !== "ready") return
 
-      const renderParameters: RenderParameters = {
-        sitekey,
-        action,
-        cData,
-        theme,
-        language,
-        tabindex: tabIndex,
-        "response-field": responseField,
-        "response-field-name": responseFieldName,
-        size,
-        retry,
-        "retry-interval": retryInterval,
-        "refresh-expired": refreshExpired,
-        appearance,
-        execution,
-        callback: (token: string) => onVerify?.(token, boundTurnstileObject),
-        "error-callback": (error?: Error | unknown) =>
-          onError?.(error, boundTurnstileObject),
-        "expired-callback": onExpire && (() => onExpire!(boundTurnstileObject)),
-        "timeout-callback": () => onTimeout?.(boundTurnstileObject),
-        "after-interactive-callback": () =>
-          onAfterInteractive?.(boundTurnstileObject),
-        "before-interactive-callback": () =>
-          onBeforeInteractive?.(boundTurnstileObject),
-        "unsupported-callback": () => onUnsupported?.(boundTurnstileObject),
-      }
+        const renderParameters: RenderParameters = {
+          sitekey,
+          action,
+          cData,
+          theme,
+          language,
+          tabindex: tabIndex,
+          "response-field": responseField,
+          "response-field-name": responseFieldName,
+          size,
+          retry,
+          "retry-interval": retryInterval,
+          "refresh-expired": refreshExpired,
+          appearance,
+          execution,
+          callback: (token: string) => onVerify?.(token, boundTurnstileObject),
+          "error-callback": (error?: Error | unknown) =>
+            onError?.(error, boundTurnstileObject),
+          "expired-callback":
+            onExpire && (() => onExpire!(boundTurnstileObject)),
+          "timeout-callback": () => onTimeout?.(boundTurnstileObject),
+          "after-interactive-callback": () =>
+            onAfterInteractive?.(boundTurnstileObject),
+          "before-interactive-callback": () =>
+            onBeforeInteractive?.(boundTurnstileObject),
+          "unsupported-callback": () => onUnsupported?.(boundTurnstileObject),
+        }
 
-      const widgetId = window.turnstile!.render(
-        unwrappedRef.value as HTMLElement,
-        renderParameters,
-      )
+        const widgetId = window.turnstile!.render(
+          unwrappedRef.value as HTMLElement,
+          renderParameters,
+        )
 
-      const newBoundTurnstileObject = createBoundTurnstileObject(widgetId)
-      boundTurnstileObject.execute = newBoundTurnstileObject.execute
-      boundTurnstileObject.getResponse = newBoundTurnstileObject.getResponse
-      boundTurnstileObject.isExpired = newBoundTurnstileObject.isExpired
-      boundTurnstileObject.reset = newBoundTurnstileObject.reset
+        const newBoundTurnstileObject = createBoundTurnstileObject(widgetId)
+        boundTurnstileObject.execute = newBoundTurnstileObject.execute
+        boundTurnstileObject.getResponse = newBoundTurnstileObject.getResponse
+        boundTurnstileObject.isExpired = newBoundTurnstileObject.isExpired
+        boundTurnstileObject.reset = newBoundTurnstileObject.reset
 
-      onLoad?.(widgetId, boundTurnstileObject)
+        onLoad?.(widgetId, boundTurnstileObject)
 
-      cleanup(() => {
-        if (widgetId) window.turnstile!.remove(widgetId)
-      })
-    })
+        cleanup(() => {
+          if (widgetId) window.turnstile!.remove(widgetId)
+        })
+      },
+      {
+        strategy: "document-idle",
+      },
+    )
 
     return (
       <div

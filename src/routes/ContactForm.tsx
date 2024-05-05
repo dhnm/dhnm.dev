@@ -110,9 +110,23 @@ export const useSendEmail = globalAction$(
   }),
 )
 
-const ContactForm = component$(({ myEmail }: { myEmail: string }) => {
+const ObscureEmail = () => (
+  <span
+    class="skeleton mb-[-0.3em] inline-block h-[1.395em] w-[7.528em] bg-primary/5"
+    role="alert"
+    aria-label="Loading email address"
+    aria-busy="true"
+  ></span>
+)
+
+const ContactForm = component$(() => {
   const failedVerifyAttempts = useSignal(0)
+  const myEmail = useSignal<string | null>(null)
   const action = useSendEmail()
+
+  const handleVerifySuccess = $((email: string) => {
+    myEmail.value = email
+  })
 
   const handleVerifyError = $(() => {
     if (!window.turnstile) {
@@ -136,7 +150,7 @@ const ContactForm = component$(({ myEmail }: { myEmail: string }) => {
       )
 
       if (response.status == 200 && response.message) {
-        // success
+        handleVerifySuccess(response.message)
         return
       }
       console.error(response.status)
@@ -156,8 +170,15 @@ const ContactForm = component$(({ myEmail }: { myEmail: string }) => {
         <MailIcon class="h-5 w-5 flex-none" />
         <span class="ml-3 tracking-tight">Send me a message</span>
       </h2>
-      <p class="mt-2 text-sm">
-        Message me on <TextLink href={`mailto:${myEmail}`}>{myEmail}</TextLink>{" "}
+      <p
+        class={clsx("mt-2 text-sm", failedVerifyAttempts.value > 2 && "hidden")}
+      >
+        Message me on{" "}
+        {myEmail.value ? (
+          <TextLink href={`mailto:${myEmail.value}`}>{myEmail.value}</TextLink>
+        ) : (
+          <ObscureEmail />
+        )}{" "}
         or use the following form:
       </p>
       {action.value?.failed !== false && (
