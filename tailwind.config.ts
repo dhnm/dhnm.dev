@@ -45,7 +45,7 @@ export default {
       fontFamily: {
         serif: ['"Source Serif 4 Variable"', ...defaultTheme.fontFamily.serif],
         sans: ['"Inter Variable"', ...defaultTheme.fontFamily.sans],
-        heading: ['"Source Sans 3 Variable"', ...defaultTheme.fontFamily.sans],
+        heading: ['"Fira Sans"', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         science: {

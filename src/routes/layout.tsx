@@ -5,10 +5,6 @@ import type {
   RequestHandler,
 } from "@builder.io/qwik-city"
 
-//import "@fontsource-variable/inter"
-//import "@fontsource-variable/source-serif-4"
-//import "@fontsource-variable/source-sans-3"
-
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 
