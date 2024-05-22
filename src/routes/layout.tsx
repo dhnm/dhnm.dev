@@ -5,8 +5,6 @@ import type {
   RequestHandler,
 } from "@builder.io/qwik-city"
 
-import "@fontsource/fira-sans/600.css"
-import "@fontsource/fira-sans/700.css"
 import "@fontsource-variable/inter"
 import "@fontsource-variable/source-serif-4"
 import "@fontsource-variable/source-sans-3"
