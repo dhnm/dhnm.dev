@@ -29,6 +29,100 @@ export const FrontPageSecondaryButton = component$(
   },
 )
 
+type ProjectTags =
+  | "TypeScript"
+  | "React"
+  | "Node.js"
+  | "GraphQL"
+  | "Deno"
+  | "Rust"
+  | "Python"
+  | "Machine Learning"
+  | "Data Science"
+  | "Web Development"
+  | "UI/UX Design"
+  | "Product Management"
+  | "iOS"
+  | "Swift"
+  | "Next.js"
+  | "Express"
+
+type Project = {
+  name: string
+  tags: ProjectTags[]
+  description: string
+  source?: string
+  demo?: string
+}
+
+const projects: Project[] = [
+  {
+    name: "Sitko",
+    tags: ["React", "GraphQL"],
+    description: "A project to sit and code",
+    source: "github.com",
+  },
+  {
+    name: "PORGMUN",
+    tags: ["iOS", "Swift"],
+    description:
+      "An iOS app for a Model United Nations conference.\nAn iOS app for a Model United Nations conference.",
+    source: "github.com",
+  },
+  {
+    name: "vain.zone",
+    tags: ["React", "Next.js", "Node.js", "Express"],
+    description: "Game analytics for Vainglory",
+    source: "github.com",
+  },
+]
+
+const Projects = component$(() => (
+  <Container class="mt-16 sm:mt-20">
+    <section id="projects">
+      <h2>Key Projects</h2>
+      <div class="mt-6 grid grid-cols-1 gap-4 xl:grid-cols-2">
+        {projects.map((p) => (
+          <div
+            key={p.name}
+            class="flex flex-col rounded-2xl bg-base-300 shadow-xl"
+          >
+            <div class="flex flex-col gap-2 p-6">
+              <div class="grid grid-cols-[33%_67%] gap-4">
+                <img
+                  width="720"
+                  height="480"
+                  src="https://unsplash.it/720/480"
+                  alt="Placeholder"
+                  class="w-full rounded-2xl"
+                />
+                <div class="flex flex-auto flex-col gap-2">
+                  <h2 class="card-title">{p.name}</h2>
+                  <div class="-ml-1 mb-1 flex gap-1">
+                    {p.tags.map((tag) => (
+                      <div class="badge" key={tag}>
+                        {tag}
+                      </div>
+                    ))}
+                  </div>
+                  <p>{p.description}</p>
+                </div>
+              </div>
+              <div class="card-actions justify-end">
+                {p.source && (
+                  <button class="btn btn-outline btn-sm">
+                    <GitHubIcon class="h-4 w-4 fill-current" /> Code
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </Container>
+))
+
 export default component$(() => (
   <>
     <Container class="mt-9">
@@ -85,31 +179,6 @@ export default component$(() => (
         </div>
       </div>
     </Container>
-    <Container class="mt-16 sm:mt-24">
-      <section>
-        <h2>🚧&nbsp;Website Under Construction&nbsp;🚧</h2>
-        <p class="mt-6">
-          I'm working hard among other commitments to include a showcase of my
-          works and thoughts here. In the meantime, feel free to reach out to me
-          via the contact information above.
-        </p>
-      </section>
-    </Container>
-    {false && (
-      <Container class="mt-16 sm:mt-20">
-        <section id="projects">
-          <h2>Projects</h2>
-          <div class="mt-6">
-            <img
-              src="https://unsplash.it/270/270?grayscale"
-              alt="Placeholder"
-              width="270"
-              height="270"
-              class="rounded-3xl"
-            />
-          </div>
-        </section>
-      </Container>
-    )}
+    <Projects />
   </>
 ))
