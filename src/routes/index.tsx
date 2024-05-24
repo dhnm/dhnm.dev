@@ -5,7 +5,7 @@ import { DocumentIcon, GitHubIcon, LinkedInIcon } from "~/components/icons"
 import ContactForm from "./ContactForm"
 
 const OpenToWorkIndicator = () => (
-  <div class="mt-9 flex items-center gap-2">
+  <div class="flex items-center gap-2">
     {/* Diode - Green Circle */}
     <span
       class="h-3 w-3 rounded-full bg-[radial-gradient(circle,#00ff00_15%,#17a443_85%)] shadow-[0_0_2px_2px_#00ff0060,0_0_4px_4px_#00ff0020]"
@@ -78,7 +78,7 @@ const projects: Project[] = [
 ]
 
 const Projects = component$(() => (
-  <Container class="mt-16 sm:mt-20">
+  <Container class="mt-16 sm:mt-36">
     <section id="projects">
       <h2>Key Projects</h2>
       <div class="mt-6 grid grid-cols-1 gap-4 xl:grid-cols-2">
@@ -126,8 +126,8 @@ const Projects = component$(() => (
 export default component$(() => (
   <>
     <Container class="mt-9">
-      <h1 class="text-4xl sm:text-5xl">
-        Building Cool Stuff & Exploring What’s&nbsp;Next
+      <h1 class="mb-9 max-w-lg text-4xl !leading-normal md:my-36 md:max-w-3xl md:text-5xl lg:text-5xl xl:text-6xl">
+        I Love Building Cool Stuff & Exploring What’s&nbsp;Next in Tech
       </h1>
       <div class="mx-auto grid max-w-xl grid-cols-1 items-center gap-y-10 lg:max-w-none lg:grid-cols-2">
         <div class="max-w-2xl">
@@ -174,7 +174,7 @@ export default component$(() => (
             </p>
           </div>
         </div>
-        <div class="space-y-10 lg:pl-16 xl:pl-24">
+        <div class="space-y-10 lg:pl-16 lg:pt-8 xl:pl-24">
           <ContactForm />
         </div>
       </div>
