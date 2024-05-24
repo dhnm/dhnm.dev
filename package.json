@@ -34,6 +34,7 @@
     "@dotenvx/dotenvx": "^0.44.0",
     "@types/eslint": "^8.56.10",
     "@types/node": "^20.12.12",
+    "@types/three": "^0.164.1",
     "@typescript-eslint/eslint-plugin": "^7.10.0",
     "@typescript-eslint/parser": "^7.10.0",
     "autoprefixer": "^10.4.19",
@@ -56,6 +57,7 @@
     "@fontsource-variable/source-sans-3": "^5.0.21",
     "@fontsource-variable/source-serif-4": "^5.0.19",
     "@fontsource/fira-sans": "^5.0.20",
-    "@tailwindcss/typography": "^0.5.13"
+    "@tailwindcss/typography": "^0.5.13",
+    "three": "^0.164.1"
   }
 }

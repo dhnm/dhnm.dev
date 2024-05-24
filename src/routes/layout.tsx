@@ -1,9 +1,11 @@
-import { component$, Slot } from "@builder.io/qwik"
+import { $, component$, Slot, useOnWindow, useSignal } from "@builder.io/qwik"
 import type {
   DocumentHead,
   DocumentMeta,
   RequestHandler,
 } from "@builder.io/qwik-city"
+
+import * as THREE from "three"
 
 import Header from "../components/Header"
 import Footer from "../components/Footer"
@@ -53,65 +55,146 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
 }
 
 export default component$(() => {
+  const canvas = useSignal<HTMLCanvasElement>()
+
+  useOnWindow(
+    "load",
+    $(() => {
+      const renderer = new THREE.WebGLRenderer({
+        canvas: canvas.value,
+        antialias: true,
+      })
+      const scene = new THREE.Scene()
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000,
+      )
+      const mouse = new THREE.Vector2()
+
+      renderer.setSize(window.innerWidth, window.innerHeight)
+      camera.position.z = 1
+
+      const geometry = new THREE.PlaneGeometry(2, 2)
+      const material = new THREE.ShaderMaterial({
+        uniforms: {
+          u_time: { value: 1.0 },
+          u_mouse: { value: new THREE.Vector2() },
+          u_resolution: {
+            value: new THREE.Vector2(window.innerWidth, window.innerHeight),
+          },
+        },
+        vertexShader: `
+            varying vec2 v_uv;
+            void main() {
+                v_uv = uv;
+                gl_Position = vec4(position, 1.0);
+            }
+        `,
+        fragmentShader: `
+            uniform vec2 u_resolution;
+            uniform vec2 u_mouse;
+            uniform float u_time;
+            varying vec2 v_uv;
+
+            // 2D Simplex Noise
+            vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+            vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+            vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
+            float snoise(vec2 v)
+            {
+              const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+              vec2 i = floor(v + dot(v, C.yy) );
+              vec2 x0 = v - i + dot(i, C.xx);
+              vec2 i1;
+              i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+              vec4 x12 = x0.xyxy + C.xxzz;
+              x12.xy -= i1;
+              i = mod289(i);
+              vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 )) + i.x + vec3(0.0, i1.x, 1.0 ));
+              vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+              m = m * m;
+              m = m * m;
+              vec3 x = 2.0 * fract(p * C.www) - 1.0;
+              vec3 h = abs(x) - 0.5;
+              vec3 ox = floor(x + 0.5);
+              vec3 a0 = x - ox;
+              m *= 1.79284291400159 - 0.85373472095314 * ( a0 * a0 + h * h );
+              vec3 g;
+              g.x = a0.x  * x0.x  + h.x  * x0.y;
+              g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+              return 130.0 * dot(m, g);
+            }
+
+            void main() {
+                vec2 uv = gl_FragCoord.xy / u_resolution;
+                vec2 pos = uv + u_mouse * 0.05;
+                float n = snoise(pos + u_time * 0.1);
+                vec3 deepWater = vec3(0.0, 0.15, 0.35); // Adjusted darker blue-green
+                vec3 shallowWater = vec3(0.1, 0.55, 0.65); // Adjusted lighter blue-green
+                float depthFactor = smoothstep(0.0, 1.0, uv.y);
+
+                // Adjust lightEffect to range from 0.8 to 1.1, avoiding any negative multiplication
+                float lightEffect = 0.8 + 0.3 * sin(u_time * 0.5 + uv.y * 5.0);
+
+                vec3 color = mix(deepWater, shallowWater, depthFactor * (n * 0.5 + 0.5)) * lightEffect;
+                gl_FragColor = vec4(color, 1.0);
+            }
+
+            void main_lightmode() {
+                vec2 uv = gl_FragCoord.xy / u_resolution;
+                vec2 pos = uv + u_mouse * 0.05;
+                float n = snoise(pos + u_time * 0.1);
+
+                // Colors
+                // vec3 deepWater = vec3(0.0, 0.2, 0.4);
+                vec3 deepWater = vec3(0.96, 0.98, 1.0);
+                vec3 shallowWater = vec3(0.4, 0.8, 1.0);
+
+                float depthFactor = smoothstep(1.6, 0.0, uv.y);
+
+                // Subtle light changes
+                float lightEffect = 1.0 + 0.3 * (0.5 + 0.5 * sin(u_time * 0.5 + uv.y * 5.0));
+
+                vec3 color = mix(deepWater, shallowWater, depthFactor * (n * 0.5 + 0.5)) * lightEffect;
+                gl_FragColor = vec4(color, 1.0);
+            }
+        `,
+      })
+
+      const plane = new THREE.Mesh(geometry, material)
+      scene.add(plane)
+
+      function animate() {
+        material.uniforms.u_time.value += 0.02
+        renderer.render(scene, camera)
+        requestAnimationFrame(animate)
+      }
+
+      window.addEventListener("mousemove", (event) => {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
+        material.uniforms.u_mouse.value = mouse
+      })
+
+      window.addEventListener("resize", () => {
+        renderer.setSize(window.innerWidth, window.innerHeight)
+        material.uniforms.u_resolution.value.set(
+          window.innerWidth,
+          window.innerHeight,
+        )
+      })
+
+      animate()
+    }),
+  )
+
   return (
     <>
       <div class="flex w-full">
         <div class="fixed inset-0 flex justify-center">
-          <div class="flex w-full">
-            <div class="-z-30 w-full ring-1 ring-zinc-100 dark:ring-zinc-300/20">
-              <svg
-                class="fixed inset-0 -z-30 h-full w-full stroke-zinc-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)] dark:stroke-white/10"
-                aria-hidden="true"
-              >
-                <defs>
-                  <pattern
-                    id="983e3e4c-de6d-4c3f-8d64-b9761d1534cc"
-                    width="200"
-                    height="200"
-                    x="50%"
-                    y="-1"
-                    patternUnits="userSpaceOnUse"
-                  >
-                    <path d="M.5 200V.5H200" fill="none" />
-                  </pattern>
-                </defs>
-                <svg
-                  x="50%"
-                  y="-1"
-                  class="overflow-visible fill-none dark:fill-zinc-800/20"
-                >
-                  <path
-                    d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
-                    stroke-width="0"
-                  />
-                </svg>
-                <rect
-                  width="100%"
-                  height="100%"
-                  stroke-width="0"
-                  fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)"
-                />
-              </svg>
-              <div
-                class="fixed left-[calc(50%-4rem)] top-10 -z-30 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
-                aria-hidden="true"
-              >
-                <div
-                  class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-accent/20 to-accent opacity-10"
-                  style="clip-path: polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)"
-                ></div>
-              </div>
-              <div
-                class="fixed bottom-10 right-[calc(50%-4rem)] -z-30 -scale-100 transform-gpu blur-3xl sm:right-[calc(50%-18rem)] lg:bottom-[calc(50%-30rem)] lg:right-48 xl:right-[calc(50%-24rem)]"
-                aria-hidden="true"
-              >
-                <div
-                  class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-accent/20 to-accent opacity-10"
-                  style="clip-path: polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)"
-                ></div>
-              </div>
-            </div>
-          </div>
+          <canvas ref={canvas}></canvas>
         </div>
         <div class="relative flex w-full flex-col">
           <Header />
