@@ -1,7 +1,12 @@
 import { Slot, component$ } from "@builder.io/qwik"
 
 import Container from "~/components/Container"
-import { DocumentIcon, GitHubIcon, LinkedInIcon } from "~/components/icons"
+import {
+  DocumentIcon,
+  GitHubIcon,
+  LinkedInIcon,
+  PlayIcon,
+} from "~/components/icons"
 import ContactForm from "./ContactForm"
 
 const OpenToWorkIndicator = () => (
@@ -133,7 +138,11 @@ const Projects = component$(() => (
             </div>
             <p class="mt-2">{p.description}</p>
             <div class="card-actions mt-3 justify-end">
-              {p.demo && <button class="btn btn-ghost btn-sm">Demo</button>}
+              {p.demo && (
+                <button class="btn btn-ghost btn-sm">
+                  <PlayIcon class="h-4 w-4 fill-current" /> Demo
+                </button>
+              )}
               {p.source && (
                 <button class="btn btn-ghost btn-sm">
                   <GitHubIcon class="h-4 w-4 fill-current" /> Code
