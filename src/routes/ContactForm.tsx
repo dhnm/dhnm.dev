@@ -206,7 +206,7 @@ const ContactForm = component$(() => {
             />
             <button
               type="submit"
-              class={"btn btn-primary btn-md"}
+              class={"btn btn-outline btn-primary btn-md"}
               disabled={action.isRunning || failedVerifyAttempts.value > 2}
             >
               {action.isRunning ? (
