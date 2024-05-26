@@ -143,8 +143,8 @@ const Background = component$(
                 ${
                   theme === "light"
                     ? `
-                vec3 deepWater = vec3(0.96, 0.98, 1.0);
-                vec3 shallowWater = vec3(0.6, 1.0, 0.95);
+                vec3 deepWater = vec3(0.95, 0.95, 1.0);
+                vec3 shallowWater = vec3(0.7, 1.0, 0.95);
 
                 float depthFactor = smoothstep(0.0, 0.0, uv.y);
 
