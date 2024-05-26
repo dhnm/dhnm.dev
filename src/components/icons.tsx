@@ -146,9 +146,25 @@ export function PlayIcon(props: PropsOf<"svg">) {
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
       <path
         d="M18.51 11.14L6.51 4.13998C5.84 3.74998 5 4.22998 5 4.99998V19C5 19.77 5.84 20.25 6.5 19.86L18.5 12.86C19.17 12.48 19.17 11.52 18.51 11.14Z"
-        mask="url(#mask_100_101)"
+        mask="url(#mask_playicon)"
       ></path>
-      <mask id="mask_100_101">
+      <mask id="mask_playicon">
+        <rect width="100%" height="100%" fill="white"></rect>
+      </mask>
+    </svg>
+  )
+}
+
+export function ChevronRightIcon(props: PropsOf<"svg">) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M7.29289 3.29289C7.68342 2.90237 8.31658 2.90237 8.70711 3.29289L16.7071 11.2929C17.0976 11.6834 17.0976 12.3166 16.7071 12.7071L8.70711 20.7071C8.31658 21.0976 7.68342 21.0976 7.29289 20.7071C6.90237 20.3166 6.90237 19.6834 7.29289 19.2929L14.5858 12L7.29289 4.70711C6.90237 4.31658 6.90237 3.68342 7.29289 3.29289Z"
+        mask="url(#mask_chevronrighticon)"
+      ></path>
+      <mask id="mask_chevronrighticon">
         <rect width="100%" height="100%" fill="white"></rect>
       </mask>
     </svg>

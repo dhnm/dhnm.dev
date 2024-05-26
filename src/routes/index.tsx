@@ -2,6 +2,7 @@ import { Slot, component$ } from "@builder.io/qwik"
 
 import Container from "~/components/Container"
 import {
+  ChevronRightIcon,
   DocumentIcon,
   GitHubIcon,
   LinkedInIcon,
@@ -62,7 +63,7 @@ type Project = {
   name: string
   tags: ProjectTags[]
   description: string
-  slug?: string
+  article?: string
   source?: string
   demo?: string
 }
@@ -83,7 +84,7 @@ const projects: Project[] = [
     ],
     description:
       "Developed a comprehensive analytical website, integrating complex database structures & aggregations, chatbots, third-party extensions, real-time collaboration features, and caching and performance optimization strategies to align with resource constraints.",
-    slug: "vainzone",
+    article: "/blog/vainzone",
     demo: "#",
     source: "#",
   },
@@ -92,7 +93,7 @@ const projects: Project[] = [
     tags: ["iOS", "Swift", "UIKit", "Meta Graph API", "Core Location"],
     description:
       "Created an iOS app to facilitate Model United Nations conferences, featuring real-time and location-based updates and interactive tools for participants. Maintained and evolved the app for the successive conference editions.",
-    slug: "porgmun",
+    article: "/blog/porgmun",
     demo: "#",
     source: "#",
   },
@@ -101,7 +102,7 @@ const projects: Project[] = [
     tags: ["React", "SSG", "GraphQL", "FTP"],
     description:
       "Designed and developed a responsive website for a university drama festival, featuring brand-aligned animations and optimized image serving for various screen types. Managed the site from inception to post-festival, reflecting changing requirements at each stage.",
-    slug: "sitko",
+    article: "/blog/sitko",
     demo: "#",
     source: "#",
   },
@@ -111,9 +112,12 @@ const Projects = component$(() => (
   <Container class="mt-16 sm:mt-36">
     <section id="projects" class="relative">
       <h1 class="relative mb-10 md:mb-16">Projects</h1>
-      <ul class="flex flex-wrap gap-12 md:gap-20">
+      <ul class="grid grid-cols-1 gap-10 lg:grid-cols-4 lg:gap-14 xl:gap-20">
         {projects.map((p) => (
-          <li key={p.name} class="m-auto box-border md:max-w-[45%]">
+          <li
+            key={p.name}
+            class="lg:col-span-2 lg:last:odd:col-start-2 lg:last:odd:col-end-4"
+          >
             <img
               width="1200"
               height="800"
@@ -121,8 +125,8 @@ const Projects = component$(() => (
               alt="Placeholder"
               class="w-11/12 rounded-2xl border border-base-200 shadow-xl"
             />
-            <div class="card -mt-[22%] ml-auto w-10/12 border-base-200 bg-base-100 shadow-xl">
-              <div class="card-body">
+            <div class="card -mt-[22%] ml-auto w-11/12 border-base-200 bg-base-100 shadow-xl">
+              <div class="card-body p-4 lg:p-6 xl:p-8">
                 <h2 class="card-title mb-2 text-lg sm:text-xl">{p.name}</h2>
                 <ul class="flex flex-wrap gap-1">
                   {p.tags.map((tag) => (
@@ -137,18 +141,19 @@ const Projects = component$(() => (
                 <p class="mt-2">{p.description}</p>
                 <div class="card-actions mt-3 justify-end">
                   {p.demo && (
-                    <a href={p.demo} class="btn btn-ghost btn-sm">
+                    <a href={p.demo} class="btn btn-ghost btn-sm bg-sky-900">
                       <PlayIcon class="h-4 w-4 fill-current" /> Demo
                     </a>
                   )}
                   {p.source && (
-                    <a href={p.source} class="btn btn-ghost btn-sm">
+                    <a href={p.source} class="btn btn-ghost btn-sm bg-sky-900">
                       <GitHubIcon class="h-4 w-4 fill-current" /> Code
                     </a>
                   )}
-                  {p.slug && (
-                    <a href={p.slug} class="btn btn-outline btn-sm">
-                      Read More
+                  {p.article && (
+                    <a href={p.article} class="btn btn-outline btn-sm">
+                      Read More{" "}
+                      <ChevronRightIcon class="-mx-1 h-4 w-4 fill-current" />
                     </a>
                   )}
                 </div>
