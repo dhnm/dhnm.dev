@@ -143,16 +143,16 @@ const Background = component$(
                 ${
                   theme === "light"
                     ? `
-                vec3 deepWater = vec3(0.95, 0.95, 1.0);
-                vec3 shallowWater = vec3(0.7, 1.0, 0.95);
+                vec3 deepWater = vec3(0.942, 0.976, 0.999); // sky-50
+                vec3 shallowWater = vec3(0.6, 0.965, 0.894); // teal-100
 
                 float depthFactor = smoothstep(0.0, 0.0, uv.y);
 
                 float lightEffect = 1.0 + 0.3 * (0.5 + 0.5 * sin(u_time * 0.5 + uv.y * 5.0));
                 `
                     : `
-                vec3 deepWater = vec3(0.086, 0.188, 0.278);
-                vec3 shallowWater = vec3(0.1, 0.55, 0.65);
+                vec3 deepWater = vec3(0.032, 0.184, 0.286); // sky-950
+                vec3 shallowWater = vec3(0.047, 0.580, 0.533); // teal-600
                 float depthFactor = smoothstep(0.0, 1.0, uv.y);
 
                 float lightEffect = 0.8 + 0.3 * sin(u_time * 0.5 + uv.y * 5.0);
@@ -169,7 +169,7 @@ const Background = component$(
         scene.add(plane)
 
         function animate() {
-          material.uniforms.u_time.value += 0.02
+          material.uniforms.u_time.value += 0.01
           renderer.render(scene, camera)
           requestAnimationFrame(animate)
         }

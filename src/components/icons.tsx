@@ -25,15 +25,13 @@ export const DocumentIcon = component$((props: PropsOf<"svg">) => {
 
 export function CloseIcon(props: PropsOf<"svg">) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" {...props}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <path
-        fill="none"
         d="M22.7071 1.29289C23.0976 1.68342 23.0976 2.31658 22.7071 2.70711L2.70711 22.7071C2.31658 23.0976 1.68342 23.0976 1.29289 22.7071C0.902369 22.3166 0.902369 21.6834 1.29289 21.2929L21.2929 1.29289C21.6834 0.902369 22.3166 0.902369 22.7071 1.29289Z"
         clip-rule="evenodd"
         fill-rule="evenodd"
       />
       <path
-        fill="none"
         d="M1.29289 1.29289C1.68342 0.902369 2.31658 0.902369 2.70711 1.29289L22.7071 21.2929C23.0976 21.6834 23.0976 22.3166 22.7071 22.7071C22.3166 23.0976 21.6834 23.0976 21.2929 22.7071L1.29289 2.70711C0.902369 2.31658 0.902369 1.68342 1.29289 1.29289Z"
         clip-rule="evenodd"
         fill-rule="evenodd"
@@ -44,9 +42,8 @@ export function CloseIcon(props: PropsOf<"svg">) {
 
 export function ChevronDownIcon(props: PropsOf<"svg">) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" {...props}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <path
-        fill="none"
         d="M3.29289 7.29289C3.68342 6.90237 4.31658 6.90237 4.70711 7.29289L12 14.5858L19.2929 7.29289C19.6834 6.90237 20.3166 6.90237 20.7071 7.29289C21.0976 7.68342 21.0976 8.31658 20.7071 8.70711L12.7071 16.7071C12.3166 17.0976 11.6834 17.0976 11.2929 16.7071L3.29289 8.70711C2.90237 8.31658 2.90237 7.68342 3.29289 7.29289Z"
         clip-rule="evenodd"
         fill-rule="evenodd"
@@ -95,21 +92,19 @@ export function GitHubIcon(props: PropsOf<"svg">) {
 
 export function MailIcon(props: PropsOf<"svg">) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" {...props}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <path
         stroke-linejoin="round"
         stroke-linecap="round"
         stroke-miterlimit="10"
         stroke-width="1.5"
         d="M20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20Z"
-        class=" stroke-base-content/70"
       ></path>
       <path
         stroke-linecap="round"
         stroke-miterlimit="10"
         stroke-width="1.5"
         d="M20 4H4C2.9 4 2 4.9 2 6L12 13L22 6C22 4.9 21.1 4 20 4Z"
-        class="stroke-base-content/70"
       ></path>
     </svg>
   )
@@ -117,7 +112,7 @@ export function MailIcon(props: PropsOf<"svg">) {
 
 export function ErrorIcon(props: PropsOf<"svg">) {
   return (
-    <svg fill="none" viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <path
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -130,7 +125,7 @@ export function ErrorIcon(props: PropsOf<"svg">) {
 
 export function SuccessIcon(props: PropsOf<"svg">) {
   return (
-    <svg fill="none" viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <path
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -143,7 +138,7 @@ export function SuccessIcon(props: PropsOf<"svg">) {
 
 export function PlayIcon(props: PropsOf<"svg">) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <path
         d="M18.51 11.14L6.51 4.13998C5.84 3.74998 5 4.22998 5 4.99998V19C5 19.77 5.84 20.25 6.5 19.86L18.5 12.86C19.17 12.48 19.17 11.52 18.51 11.14Z"
         mask="url(#mask_playicon)"
@@ -157,7 +152,7 @@ export function PlayIcon(props: PropsOf<"svg">) {
 
 export function ChevronRightIcon(props: PropsOf<"svg">) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
       <path
         fill-rule="evenodd"
         clip-rule="evenodd"

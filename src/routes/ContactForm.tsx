@@ -119,7 +119,7 @@ const ObscureEmail = () => (
   ></span>
 )
 
-const ContactForm = component$(() => {
+export default component$(() => {
   const failedVerifyAttempts = useSignal(0)
   const myEmail = useSignal<string | null>(null)
   const action = useSendEmail()
@@ -167,7 +167,7 @@ const ContactForm = component$(() => {
       class="rounded-2xl border border-base-content/10 bg-base-100 p-3 sm:p-6"
     >
       <h2 class="flex text-sm font-semibold">
-        <MailIcon class="h-5 w-5 flex-none" />
+        <MailIcon class="h-5 w-5 fill-none stroke-current" />
         <span class="ml-3 tracking-tight">Send me a message</span>
       </h2>
       <p
@@ -286,5 +286,3 @@ const ContactForm = component$(() => {
     </Form>
   )
 })
-
-export default ContactForm
