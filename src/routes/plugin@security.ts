@@ -15,7 +15,7 @@ export const onRequest: RequestHandler = (event) => {
     "font-src 'self' https: data:",
     "form-action 'self'",
     "frame-ancestors 'self'",
-    "img-src 'self' 'unsafe-inline' data:",
+    "img-src 'self' 'unsafe-inline' data: https://cdn.hashnode.com",
     `script-src 'self' 'unsafe-inline' https: 'nonce-${nonce}' 'strict-dynamic'`,
     "script-src-attr 'none'",
     "style-src 'self' https: 'unsafe-inline'",
