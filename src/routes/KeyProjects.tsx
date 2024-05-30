@@ -2,7 +2,7 @@ import { Slot, component$ } from "@builder.io/qwik"
 import clsx from "clsx"
 
 import Container from "~/components/Container"
-import { PlayIcon, GitHubIcon, ChevronRightIcon } from "~/components/icons"
+import { ChevronRightIcon, GitHubIcon, PlayIcon } from "~/components/icons"
 
 export const SecondaryCardLink = component$(({ href }: { href: string }) => (
   <a
@@ -124,7 +124,7 @@ export default component$(() => (
                 <div
                   class={clsx(
                     (p.demo || p.source || p.article) &&
-                      "card-actions mt-3 justify-end",
+                    "card-actions mt-3 justify-end",
                   )}
                 >
                   {p.demo && (

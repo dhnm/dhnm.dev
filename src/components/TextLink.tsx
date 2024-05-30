@@ -1,5 +1,5 @@
-import type { PropsOf, Signal, ClassList } from "@builder.io/qwik"
-import { component$, Slot } from "@builder.io/qwik"
+import type { ClassList, PropsOf, Signal } from "@builder.io/qwik"
+import { Slot, component$ } from "@builder.io/qwik"
 import { Link } from "@builder.io/qwik-city"
 import clsx from "clsx"
 

@@ -1,11 +1,10 @@
 import { $, component$, useSignal } from "@builder.io/qwik"
-import { Form } from "@builder.io/qwik-city"
-import { globalAction$, zod$, z } from "@builder.io/qwik-city"
+import { Form, globalAction$, z, zod$ } from "@builder.io/qwik-city"
 import clsx from "clsx"
 
-import { ErrorIcon, MailIcon, SuccessIcon } from "~/components/icons"
 import TextLink from "~/components/TextLink"
 import Turnstile, { verifyToken } from "~/components/Turnstile"
+import { ErrorIcon, MailIcon, SuccessIcon } from "~/components/icons"
 
 export const useSendEmail = globalAction$(
   async (data, { env, fail }) => {

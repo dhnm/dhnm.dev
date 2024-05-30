@@ -1,14 +1,14 @@
+/** eslint-disable qwik/no-use-visible-task */
 import type { Signal } from "@builder.io/qwik"
-
 import {
   $,
   Slot,
   component$,
   createContextId,
-  useOnWindow,
-  useSignal,
   useContext,
   useContextProvider,
+  useOnWindow,
+  useSignal,
   useStore,
   useTask$,
   useVisibleTask$,

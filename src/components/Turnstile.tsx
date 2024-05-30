@@ -1,8 +1,3 @@
-import type {
-  TurnstileObject,
-  RenderParameters,
-  SupportedLanguages,
-} from "./turnstile-types"
 import type { CSSProperties, ClassList, QRL, Signal } from "@builder.io/qwik"
 import {
   $,
@@ -18,6 +13,11 @@ import {
 } from "@builder.io/qwik"
 import { server$ } from "@builder.io/qwik-city"
 import clsx from "clsx"
+import type {
+  RenderParameters,
+  SupportedLanguages,
+  TurnstileObject,
+} from "./turnstile-types"
 
 declare global {
   interface Window {
@@ -29,7 +29,7 @@ declare global {
 const TURNSTILE_LOAD_FUNCTION = "cf__turnstileOnLoad"
 const TURNSTILE_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js"
 
-export const verifyToken = server$(async function (
+export const verifyToken = server$(async function(
   token: string,
   kind: "invisible" | "managed" | "repeated",
 ) {
@@ -114,8 +114,8 @@ const Turnstile = component$(
     const turnstileState = useContext(turnstileStateContext)
 
     const boundTurnstileObject = useStore<BoundTurnstileObject>({
-      execute: $(() => {}),
-      reset: $(() => {}),
+      execute: $(() => { }),
+      reset: $(() => { }),
       getResponse: $(() => ""),
       isExpired: $(() => false),
     })
@@ -192,7 +192,7 @@ const Turnstile = component$(
         class={clsx(
           className,
           fixedSize &&
-            (size === "compact" ? "h-[120px] w-[130px]" : "h-[65px] w-[300px]"),
+          (size === "compact" ? "h-[120px] w-[130px]" : "h-[65px] w-[300px]"),
         )}
         style={style}
       />

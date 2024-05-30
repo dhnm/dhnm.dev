@@ -1,4 +1,4 @@
-import { component$, Slot } from "@builder.io/qwik"
+import { Slot, component$ } from "@builder.io/qwik"
 import Container from "~/components/Container"
 
 import { DocumentIcon, GitHubIcon, LinkedInIcon } from "~/components/icons"

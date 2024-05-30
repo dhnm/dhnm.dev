@@ -4,14 +4,14 @@ import clsx from "clsx"
 import Container from "~/components/Container"
 import { Masonry, MasonryItem } from "~/components/Masonry"
 import {
-  PlayIcon,
-  GitHubIcon,
-  ChevronRightIcon,
   ChevronDownIcon,
+  ChevronRightIcon,
+  GitHubIcon,
+  PlayIcon,
 } from "~/components/icons"
 
-import { SecondaryCardLink, projects } from "./KeyProjects"
 import type { Project } from "./KeyProjects"
+import { SecondaryCardLink, projects } from "./KeyProjects"
 
 const ProjectGrid = component$(({ projects }: { projects: Project[] }) => (
   <Masonry class="-mx-1 md:-mx-2">
@@ -38,7 +38,7 @@ const ProjectGrid = component$(({ projects }: { projects: Project[] }) => (
             <div
               class={clsx(
                 (p.demo || p.source || p.article) &&
-                  "card-actions mt-3 justify-end",
+                "card-actions mt-3 justify-end",
               )}
             >
               {p.demo && (

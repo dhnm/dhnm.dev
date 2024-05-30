@@ -6,8 +6,8 @@ import {
 } from "@builder.io/qwik-city"
 import { RouterHead } from "./components/router-head/router-head"
 
-import "./global.css"
 import { useTurnstileProvider } from "./components/Turnstile"
+import "./global.css"
 
 export default component$(() => {
   /**

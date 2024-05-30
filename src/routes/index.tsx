@@ -1,9 +1,9 @@
 import { component$ } from "@builder.io/qwik"
 import Container from "~/components/Container"
 
+import Explorations from "./Explorations"
 import Hero from "./Hero"
 import KeyProjects from "./KeyProjects"
-import Explorations from "./Explorations"
 import Thoughts from "./Thoughts"
 
 export default component$(() => (

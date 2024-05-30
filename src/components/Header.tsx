@@ -1,9 +1,9 @@
 import { Link, useLocation } from "@builder.io/qwik-city"
 import clsx from "clsx"
 
-import Container from "./Container"
 import type { CSSProperties } from "@builder.io/qwik"
-import { component$, type PropsOf, useComputed$ } from "@builder.io/qwik"
+import { type PropsOf, component$, useComputed$ } from "@builder.io/qwik"
+import Container from "./Container"
 
 import AvatarImage from "../media/avatar.jpg?jsx"
 //import { ChevronDownIcon, CloseIcon } from "./icons";
