@@ -19,6 +19,9 @@ import type {
   TurnstileObject,
 } from "./turnstile-types"
 
+const TURNSTILE_LOAD_FUNCTION = "cf__turnstileOnLoad"
+const TURNSTILE_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js"
+
 declare global {
   interface Window {
     [TURNSTILE_LOAD_FUNCTION]?: () => void
@@ -26,10 +29,7 @@ declare global {
   }
 }
 
-const TURNSTILE_LOAD_FUNCTION = "cf__turnstileOnLoad"
-const TURNSTILE_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js"
-
-export const verifyToken = server$(async function(
+export const verifyToken = server$(async function (
   token: string,
   kind: "invisible" | "managed" | "repeated",
 ) {
@@ -114,8 +114,8 @@ const Turnstile = component$(
     const turnstileState = useContext(turnstileStateContext)
 
     const boundTurnstileObject = useStore<BoundTurnstileObject>({
-      execute: $(() => { }),
-      reset: $(() => { }),
+      execute: $(() => {}),
+      reset: $(() => {}),
       getResponse: $(() => ""),
       isExpired: $(() => false),
     })
@@ -192,7 +192,7 @@ const Turnstile = component$(
         class={clsx(
           className,
           fixedSize &&
-          (size === "compact" ? "h-[120px] w-[130px]" : "h-[65px] w-[300px]"),
+            (size === "compact" ? "h-[120px] w-[130px]" : "h-[65px] w-[300px]"),
         )}
         style={style}
       />
@@ -274,20 +274,23 @@ const useTurnstile = () => {
     $(() => {
       if (turnstileState.value === "unloaded") {
         turnstileState.value = "loading"
-        window[TURNSTILE_LOAD_FUNCTION] = () => {
+        window[TURNSTILE_LOAD_FUNCTION] = $(() => {
           turnstileState.value = "ready"
           delete window[TURNSTILE_LOAD_FUNCTION]
-        }
+        })
         const url = `${TURNSTILE_SRC}?onload=${TURNSTILE_LOAD_FUNCTION}&render=explicit`
         const script = document.createElement("script")
         if (nonce) script.setAttribute("nonce", nonce)
         script.src = url
         script.async = true
-        script.addEventListener("error", () => {
-          turnstileState.value = "error"
-          delete window[TURNSTILE_LOAD_FUNCTION]
-        }),
-          document.head.appendChild(script)
+        script.addEventListener(
+          "error",
+          $(() => {
+            turnstileState.value = "error"
+            delete window[TURNSTILE_LOAD_FUNCTION]
+          }),
+        )
+        document.head.appendChild(script)
       }
     }),
   )

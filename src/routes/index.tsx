@@ -11,7 +11,7 @@ export default component$(() => (
     <Hero />
     <KeyProjects />
     <Explorations />
-    {/*<Thoughts />*/}
+    {false && <Thoughts />}
     <Container class="mt-16 sm:mt-36" />
   </>
 ))
