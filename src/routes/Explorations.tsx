@@ -6,12 +6,37 @@ import { Masonry, MasonryItem } from "~/components/Masonry"
 import {
   ChevronDownIcon,
   ChevronRightIcon,
-  GitHubIcon,
+  CodeIcon,
   PlayIcon,
 } from "~/components/icons"
 
 import type { Project } from "./KeyProjects"
-import { SecondaryCardLink, projects } from "./KeyProjects"
+import { SecondaryCardLink } from "./KeyProjects"
+
+const projects: Project[] = [
+  {
+    name: "dhnm.dev",
+    tags: ["TypeScript", "Qwik", "TailwindCSS", "ThreeJS", "Cloudflare"],
+    description: "Exploring the concept of resumability over hydration.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=1",
+    source: "https://github.com/dhnm/dhnm.dev",
+  },
+  {
+    name: "ComposableIO",
+    tags: ["Java", "CLI"],
+    description: "Utility classes for composing command-line input flows.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=2",
+    source: "https://gitlab.com/dhnm/composableio",
+  },
+  {
+    name: "Dave the Robot",
+    tags: ["Python", "WebSockets", "REST API"],
+    description:
+      "A Discord chatbot with server management and entertainment features for Computer Science students.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=3",
+    source: "https://gitlab.com/gwo0d/dave-the-robot",
+  },
+]
 
 const ProjectGrid = component$(({ projects }: { projects: Project[] }) => (
   <Masonry class="-mx-1 md:-mx-2">
@@ -38,7 +63,7 @@ const ProjectGrid = component$(({ projects }: { projects: Project[] }) => (
             <div
               class={clsx(
                 (p.demo || p.source || p.article) &&
-                "card-actions mt-3 justify-end",
+                  "card-actions mt-3 justify-start",
               )}
             >
               {p.demo && (
@@ -48,7 +73,7 @@ const ProjectGrid = component$(({ projects }: { projects: Project[] }) => (
               )}
               {p.source && (
                 <SecondaryCardLink href={p.source}>
-                  <GitHubIcon class="h-4 w-4 fill-current" /> Code
+                  <CodeIcon class="h-4 w-4 fill-current" /> Code
                 </SecondaryCardLink>
               )}
               {p.article && (

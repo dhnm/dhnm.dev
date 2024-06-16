@@ -2,7 +2,7 @@ import { Slot, component$ } from "@builder.io/qwik"
 import clsx from "clsx"
 
 import Container from "~/components/Container"
-import { ChevronRightIcon, GitHubIcon, PlayIcon } from "~/components/icons"
+import { ChevronRightIcon, CodeIcon, PlayIcon } from "~/components/icons"
 
 export const SecondaryCardLink = component$(({ href }: { href: string }) => (
   <a
@@ -33,12 +33,17 @@ type ProjectTags =
   | "MongoDB"
   | "REST API"
   | "WebSockets"
-  | "CI/CD"
   | "UIKit"
   | "Meta Graph API"
   | "Core Location"
   | "SSG"
   | "FTP"
+  | "Qwik"
+  | "TailwindCSS"
+  | "ThreeJS"
+  | "Cloudflare"
+  | "Java"
+  | "CLI"
 
 export type Project = {
   name: string
@@ -50,7 +55,7 @@ export type Project = {
   demo?: string
 }
 
-export const projects: Project[] = [
+const projects: Project[] = [
   {
     name: "Suite of Analytical Apps and Tools for vain.zone",
     tags: [
@@ -62,12 +67,12 @@ export const projects: Project[] = [
       "MongoDB",
       "REST API",
       "WebSockets",
-      "CI/CD",
     ],
     description:
       "Developed a comprehensive analytical website, integrating complex database structures & aggregations, chatbots, third-party extensions, real-time collaboration features, and caching and performance optimization strategies to align with resource constraints.",
     coverUrl:
       "https://cdn.hashnode.com/res/hashnode/image/upload/v1716822104269/721e2cfb-20b8-4095-b25a-52c33030ca3c.webp?auto=compress,format&format=webp",
+    source: "https://github.com/dhnm/vain.zone",
   },
   {
     name: "Native Mobile App for PORGMUN Conference",
@@ -76,6 +81,7 @@ export const projects: Project[] = [
       "Created an iOS app to facilitate Model United Nations conferences, featuring real-time and location-based updates and interactive tools for participants. Maintained and evolved the app for the successive conference editions.",
     coverUrl:
       "https://cdn.hashnode.com/res/hashnode/image/upload/v1716822452915/befb1775-7e46-4f63-a422-172636257feb.webp?auto=compress,format&format=webp",
+    source: "https://gitlab.com/dhnm/porgmun",
   },
   {
     name: "Website for Sítko Festival",
@@ -84,6 +90,7 @@ export const projects: Project[] = [
       "Designed and developed a responsive website for a university drama festival, featuring brand-aligned animations and optimized image serving for various screen types. Managed the site from inception to post-festival, reflecting changing requirements at each stage.",
     coverUrl:
       "https://cdn.hashnode.com/res/hashnode/image/upload/v1716822756825/5ec4a48c-8268-4ba9-b6b8-59276db34fb5.webp?auto=compress,format&format=webp",
+    source: "https://gitlab.com/dhnm/sitko2018",
   },
 ]
 
@@ -124,7 +131,7 @@ export default component$(() => (
                 <div
                   class={clsx(
                     (p.demo || p.source || p.article) &&
-                    "card-actions mt-3 justify-end",
+                      "card-actions mt-3 justify-start",
                   )}
                 >
                   {p.demo && (
@@ -134,7 +141,7 @@ export default component$(() => (
                   )}
                   {p.source && (
                     <SecondaryCardLink href={p.source}>
-                      <GitHubIcon class="h-4 w-4 fill-current" /> Code
+                      <CodeIcon class="h-4 w-4 fill-current" /> Code
                     </SecondaryCardLink>
                   )}
                   {p.article && (
