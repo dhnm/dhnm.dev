@@ -139,8 +139,9 @@ const Background = component$(
                 vec2 pos = uv + u_mouse * 0.1;
                 float n = snoise(pos + u_time * 0.1);
 
-                ${theme === "light"
-              ? `
+                ${
+                  theme === "light"
+                    ? `
                 vec3 deepWater = vec3(0.942, 0.976, 0.999); // sky-50
                 vec3 shallowWater = vec3(0.6, 0.965, 0.894); // teal-100
 
@@ -148,14 +149,14 @@ const Background = component$(
 
                 float lightEffect = 1.0 + 0.3 * (0.5 + 0.5 * sin(u_time * 0.5 + uv.y * 5.0));
                 `
-              : `
+                    : `
                 vec3 deepWater = vec3(0.032, 0.184, 0.286); // sky-950
                 vec3 shallowWater = vec3(0.047, 0.580, 0.533); // teal-600
                 float depthFactor = smoothstep(0.0, 1.0, uv.y);
 
                 float lightEffect = 0.8 + 0.3 * sin(u_time * 0.5 + uv.y * 5.0);
                 `
-            }
+                }
 
                 vec3 color = mix(deepWater, shallowWater, depthFactor * (n * 0.5 + 0.5)) * lightEffect;
                 gl_FragColor = vec4(color, 1.0);
