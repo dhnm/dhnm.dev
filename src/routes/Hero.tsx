@@ -24,8 +24,8 @@ export const HeroButton = component$(({ href }: { href: string }) => {
 })
 
 export default component$(() => (
-  <Container class="mt-9">
-    <h1 class="mb-9 max-w-lg text-4xl !leading-normal md:my-36 md:max-w-3xl md:text-5xl lg:text-5xl xl:text-6xl">
+  <Container>
+    <h1 class="my-9 max-w-lg text-3xl !leading-normal md:my-36 md:max-w-3xl md:text-4xl xl:text-5xl">
       I Love Building Cool Stuff & Exploring What’s&nbsp;Next in Tech
     </h1>
     <div class="mx-auto flex max-w-xl flex-col items-center gap-y-10 lg:max-w-none lg:flex-row">

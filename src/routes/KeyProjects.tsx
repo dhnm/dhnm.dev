@@ -7,6 +7,7 @@ import { ChevronRightIcon, CodeIcon, PlayIcon } from "~/components/icons"
 export const SecondaryCardLink = component$(({ href }: { href: string }) => (
   <a
     href={href}
+    target="_blank"
     class="btn btn-ghost btn-sm bg-sky-200 hover:bg-sky-300 dark:bg-sky-900 dark:hover:bg-sky-800"
   >
     <Slot />
@@ -44,6 +45,19 @@ type ProjectTags =
   | "Cloudflare"
   | "Java"
   | "CLI"
+  | "DX"
+  | "mapbox API"
+  | "Geolocation API"
+  | "Kivy"
+  | "Godot Engine"
+  | "GDScript"
+  | "Unity Engine"
+  | "C#"
+  | "3D"
+  | "JavaScript"
+  | "jQuery"
+  | "CSS"
+  | "Sass"
 
 export type Project = {
   name: string

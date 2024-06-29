@@ -72,9 +72,7 @@ export const Masonry = component$(
     useContextProvider(masonryRefsContext, masonryRefs)
 
     // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(() => buildMasonryLayout(masonryRefs), {
-      strategy: "document-idle",
-    })
+    useVisibleTask$(() => buildMasonryLayout(masonryRefs))
 
     useOnWindow(
       "resize",

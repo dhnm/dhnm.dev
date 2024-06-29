@@ -17,13 +17,14 @@ const projects: Project[] = [
   {
     name: "dhnm.dev",
     tags: ["TypeScript", "Qwik", "TailwindCSS", "ThreeJS", "Cloudflare"],
-    description: "Exploring the concept of resumability over hydration.",
+    description:
+      "Personal website with my projects. Exploring the concept of resumability with Qwik over hydration.",
     coverUrl: "https://unsplash.it/300/200.webp?random=1",
     source: "https://github.com/dhnm/dhnm.dev",
   },
   {
     name: "ComposableIO",
-    tags: ["Java", "CLI"],
+    tags: ["Java", "CLI", "DX"],
     description: "Utility classes for composing command-line input flows.",
     coverUrl: "https://unsplash.it/300/200.webp?random=2",
     source: "https://gitlab.com/dhnm/composableio",
@@ -32,16 +33,109 @@ const projects: Project[] = [
     name: "Dave the Robot",
     tags: ["Python", "WebSockets", "REST API"],
     description:
-      "A Discord chatbot with server management and entertainment features for Computer Science students.",
+      "Discord chatbot with server management and entertainment features for Computer Science students.",
     coverUrl: "https://unsplash.it/300/200.webp?random=3",
     source: "https://gitlab.com/gwo0d/dave-the-robot",
+  },
+  {
+    name: "McKinsey Points of Interest",
+    tags: ["React", "Next.js", "Geolocation API", "mapbox API"],
+    description:
+      "App showing closest points of interest relevant to McKinsey & Company.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=4",
+  },
+  {
+    name: "Game of Life",
+    tags: ["Python", "Kivy"],
+    description: "Interactive simulation based on Conway's Game of Life rules.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=5",
+  },
+  {
+    name: "TypeSpeed",
+    tags: ["Python", "Kivy"],
+    description: "Speed typing game to improve typing speed and accuracy.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=6",
+  },
+  {
+    name: "The Vaccinator",
+    tags: ["3D", "GDScript", "Godot Engine"],
+    description:
+      "3D game with the player character shooting at randomly generated waves of enemies that follow the player.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=7",
+  },
+  {
+    name: "VG Tribute",
+    tags: ["C#", "Unity Engine"],
+    description:
+      "Fun platformer with the player character jumping over obstacles, collecting coins, and shooting enemies.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=8",
+  },
+  {
+    name: "Tic-tac-toe",
+    tags: ["JavaScript", "jQuery"],
+    description: "Classic Tic-tac-toe game with a strong computer opponent.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=9",
+    source: "https://codepen.io/dhnm/pen/XKjZWo",
+  },
+  {
+    name: "Markdown Editor",
+    tags: ["React", "JavaScript", "Sass"],
+    description: "Markdown editor with real-time preview.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=10",
+    source: "https://codepen.io/dhnm/pen/rLeLmG",
+  },
+  {
+    name: "Simon Says",
+    tags: ["JavaScript", "Sass"],
+    description: "Memory skill game using sound and visual cues.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=11",
+    source: "https://codepen.io/dhnm/pen/zBrZvb",
+  },
+  {
+    name: "Pomodoro Timer",
+    tags: ["JavaScript", "CSS", "jQuery"],
+    description:
+      "Timer app using the Pomodoro Technique with focus and break times.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=12",
+    source: "https://codepen.io/dhnm/pen/JKYLpV",
+  },
+  {
+    name: "Pretty Calculator",
+    tags: ["JavaScript", "CSS"],
+    description: "Stylish calculator app.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=13",
+    source: "https://codepen.io/dhnm/pen/qNONye",
+  },
+  {
+    name: "Twitch Streamers List",
+    tags: ["JavaScript", "jQuery", "REST API"],
+    description:
+      "App that displays a list of Twitch streamers with their status using Twitch's API.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=14",
+    source: "https://codepen.io/dhnm/pen/aZzevN",
+  },
+  {
+    name: "Weather App",
+    tags: ["JavaScript", "jQuery", "REST API", "Geolocation API"],
+    description:
+      "Weather app using third party API to show forecast based on user location.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=15",
+    source: "https://codepen.io/dhnm/pen/RRNaWm",
+  },
+  {
+    name: "Quotes App",
+    tags: ["JavaScript", "jQuery"],
+    description:
+      "App that fetches a third party API and displays random quotes.",
+    coverUrl: "https://unsplash.it/300/200.webp?random=16",
+    source: "https://codepen.io/dhnm/pen/aZzOgx",
   },
 ]
 
 const ProjectGrid = component$(({ projects }: { projects: Project[] }) => (
   <Masonry class="-mx-1 md:-mx-2">
     {projects.map((p) => (
-      <MasonryItem key={p.name} class="border-4 md:w-1/2 md:border-8 xl:w-1/3">
+      <MasonryItem key={p.name} class="box-border p-1 md:w-1/2 md:p-2 xl:w-1/3">
         <div class="card border-base-200 bg-base-100 shadow-xl">
           <div class="card-body inline p-2 sm:p-3 md:p-4">
             <img
@@ -128,10 +222,8 @@ export default component$(() => {
     <Container class="mt-16 sm:mt-36">
       <section id="explorations">
         <h1 class="mb-6 md:mb-16">Personal Projects</h1>
-        <ProjectGrid projects={projects} />
-        <MoreProjects
-          projects={projects.map((p) => ({ ...p, name: p.name + "2" }))}
-        />
+        <ProjectGrid projects={projects.slice(0, 6)} />
+        <MoreProjects projects={projects.slice(6)} />
       </section>
     </Container>
   )
