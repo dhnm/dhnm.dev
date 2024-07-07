@@ -1,7 +1,7 @@
 import { Slot, component$ } from "@builder.io/qwik"
 import Container from "~/components/Container"
 
-import { DocumentIcon, GitHubIcon, LinkedInIcon } from "~/components/icons"
+import { GitHubIcon, LinkedInIcon } from "~/components/icons"
 import ContactForm from "./ContactForm"
 
 const OpenToWorkIndicator = () => (
@@ -32,10 +32,6 @@ export default component$(() => (
       <div class="max-w-2xl">
         <OpenToWorkIndicator />
         <div class="mt-9 flex flex-wrap gap-2">
-          <HeroButton href="/Nhat_Minh_CV.pdf">
-            CV (Resume)
-            <DocumentIcon class="h-4 w-4 fill-current" />
-          </HeroButton>
           <HeroButton href="https://github.com/dhnm">
             GitHub
             <GitHubIcon class="h-4 w-4 fill-current" />

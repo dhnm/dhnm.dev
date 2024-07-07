@@ -1,16 +1,14 @@
 import { component$ } from "@builder.io/qwik"
 import Container from "~/components/Container"
 
-import Explorations from "./Explorations"
 import Hero from "./Hero"
-import KeyProjects from "./KeyProjects"
+import Projects from "./Projects"
 import Thoughts from "./Thoughts"
 
 export default component$(() => (
   <>
     <Hero />
-    <KeyProjects />
-    <Explorations />
+    <Projects />
     {false && <Thoughts />}
     <Container class="mt-16 sm:mt-36" />
   </>

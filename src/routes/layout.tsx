@@ -1,11 +1,9 @@
-import { $, Slot, component$, useOnWindow, useSignal } from "@builder.io/qwik"
+import { Slot, component$ } from "@builder.io/qwik"
 import type {
   DocumentHead,
   DocumentMeta,
   RequestHandler,
 } from "@builder.io/qwik-city"
-import clsx from "clsx"
-import * as THREE from "three"
 
 import Footer from "../components/Footer"
 import Header from "../components/Header"
