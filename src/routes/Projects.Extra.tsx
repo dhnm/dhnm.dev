@@ -20,9 +20,9 @@ const ProjectGrid = component$(({ projects }: { projects: Project[] }) => (
     {projects.map((p) => (
       <MasonryItem
         key={p.name}
-        class="box-border w-full p-1 md:w-1/2 md:p-2 xl:w-1/3"
+        class="box-border w-full p-1 md:w-1/2 md:p-2 xl:w-[33.3333%]"
       >
-        <div class="card border-base-200 bg-base-100 shadow-xl">
+        <div class="card border border-base-content/10 bg-base-100/85 shadow-xl backdrop-blur-xl">
           <div class="card-body inline p-2 sm:p-3 md:p-4">
             <figure class="!inline">
               {"cover" in p &&
@@ -89,20 +89,13 @@ const MoreProjects = component$(({ projects }: { projects: Project[] }) => {
       </div>
       <div
         class={clsx(
-          "transition-gpu transition-all duration-300",
-          !visible.value ? "max-h-0 overflow-hidden" : "max-h-full",
+          "transition-gpu mt-3 transition-all duration-300",
+          !visible.value
+            ? "max-h-0 translate-y-16 overflow-hidden opacity-0"
+            : "max-h-full",
         )}
       >
-        <div
-          class={clsx(
-            "transition-gpu mt-3 transition-all duration-300",
-            !visible.value
-              ? "translate-y-16 opacity-0"
-              : "opacity-1 translate-y-0",
-          )}
-        >
-          <ProjectGrid projects={projects} />
-        </div>
+        <ProjectGrid projects={projects} />
       </div>
     </>
   )
@@ -113,8 +106,9 @@ export default component$(() => {
     <Container class="mt-16 sm:mt-36">
       <section id="explorations">
         <h1 class="mb-6 md:mb-16">Personal Projects</h1>
-        <ProjectGrid projects={explorations.slice(0, 6)} />
-        <MoreProjects projects={explorations.slice(6)} />
+        <ProjectGrid projects={explorations} />
+        {/*<ProjectGrid projects={explorations.slice(0, 6)} />
+          <MoreProjects projects={explorations.slice(6)} />*/}
       </section>
     </Container>
   )

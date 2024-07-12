@@ -5,7 +5,7 @@ import type { CSSProperties } from "@builder.io/qwik"
 import { type PropsOf, component$, useComputed$ } from "@builder.io/qwik"
 import Container from "./Container"
 
-import AvatarImage from "../media/avatar.jpg?jsx"
+import AvatarImage from "../media/avatar.webp?jsx"
 //import { ChevronDownIcon, CloseIcon } from "./icons";
 
 /* const MobileNavItem = component$(({ href }: { href: string }) => {

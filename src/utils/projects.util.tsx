@@ -4,12 +4,30 @@ import CoverVainzone from "../media/projects/vainzone.webp?jsx"
 import CoverPorgmun from "../media/projects/porgmun.webp?jsx"
 import CoverSitko from "../media/projects/sitko.webp?jsx"
 import CoverTypeSpeed from "../media/projects/typespeed.webp?jsx"
+import CoverGameOfLife from "../media/projects/gameoflife.webp?jsx"
+import CoverPewPew from "../media/projects/pewpew.webp?jsx"
+import CoverVGJump from "../media/projects/vgjump.webp?jsx"
+import CoverTicTacToe from "../media/projects/tictactoe.webp?jsx"
+import CoverMarkdownEditor from "../media/projects/markdowneditor.webp?jsx"
+import CoverSimonSays from "../media/projects/simonsays.webp?jsx"
+import CoverPomodoroTimer from "../media/projects/pomodorotimer.webp?jsx"
+import CoverCalculator from "../media/projects/calculator.webp?jsx"
+import CoverWeatherApp from "../media/projects/weatherapp.webp?jsx"
 
 export enum ProjectCover {
   Vainzone,
   Porgmun,
   Sitko,
   TypeSpeed,
+  GameOfLife,
+  PewPew,
+  VGJump,
+  TicTacToe,
+  MarkdownEditor,
+  SimonSays,
+  PomodoroTimer,
+  Calculator,
+  WeatherApp,
 }
 
 export const projectCovers: {
@@ -19,6 +37,15 @@ export const projectCovers: {
   [ProjectCover.Porgmun]: CoverPorgmun,
   [ProjectCover.Sitko]: CoverSitko,
   [ProjectCover.TypeSpeed]: CoverTypeSpeed,
+  [ProjectCover.GameOfLife]: CoverGameOfLife,
+  [ProjectCover.PewPew]: CoverPewPew,
+  [ProjectCover.VGJump]: CoverVGJump,
+  [ProjectCover.TicTacToe]: CoverTicTacToe,
+  [ProjectCover.MarkdownEditor]: CoverMarkdownEditor,
+  [ProjectCover.SimonSays]: CoverSimonSays,
+  [ProjectCover.PomodoroTimer]: CoverPomodoroTimer,
+  [ProjectCover.Calculator]: CoverCalculator,
+  [ProjectCover.WeatherApp]: CoverWeatherApp,
 }
 
 type ProjectTags =
@@ -129,14 +156,20 @@ export const explorations: Project[] = [
     tags: ["TypeScript", "Qwik", "TailwindCSS", "ThreeJS", "Cloudflare"],
     description:
       "Personal website with my projects. Exploring the concept of resumability with Qwik over hydration.",
-    cover: ProjectCover.TypeSpeed,
     source: "https://github.com/dhnm/dhnm.dev",
   },
   {
-    name: "ComposableIO",
-    tags: ["Java", "CLI", "DX"],
-    description: "Utility classes for composing command-line input flows.",
-    source: "https://gitlab.com/dhnm/composableio",
+    name: "McKinsey Points of Interest",
+    tags: ["React", "Next.js", "Geolocation API", "mapbox API"],
+    description:
+      "App showing closest points of interest relevant to McKinsey & Company.",
+  },
+  {
+    name: "Pew Pew",
+    tags: ["3D", "GDScript", "Godot Engine"],
+    description:
+      "3D game with the player character shooting at procedurally generated waves of enemies that follow the player.",
+    cover: ProjectCover.PewPew,
   },
   {
     name: "Dave the Robot",
@@ -146,16 +179,11 @@ export const explorations: Project[] = [
     source: "https://gitlab.com/gwo0d/dave-the-robot",
   },
   {
-    name: "McKinsey Points of Interest",
-    tags: ["React", "Next.js", "Geolocation API", "mapbox API"],
+    name: "VG Jump",
+    tags: ["C#", "Unity Engine"],
     description:
-      "App showing closest points of interest relevant to McKinsey & Company.",
-  },
-  {
-    name: "Game of Life",
-    tags: ["Python", "Kivy"],
-    description: "Interactive simulation based on Conway's Game of Life rules.",
-    cover: ProjectCover.TypeSpeed,
+      "Fun platformer with the player character jumping over obstacles, collecting coins, and shooting enemies.",
+    cover: ProjectCover.VGJump,
   },
   {
     name: "TypeSpeed",
@@ -164,38 +192,16 @@ export const explorations: Project[] = [
     cover: ProjectCover.TypeSpeed,
   },
   {
-    name: "The Vaccinator",
-    tags: ["3D", "GDScript", "Godot Engine"],
-    description:
-      "3D game with the player character shooting at randomly generated waves of enemies that follow the player.",
-    cover: ProjectCover.TypeSpeed,
-  },
-  {
-    name: "VG Tribute",
-    tags: ["C#", "Unity Engine"],
-    description:
-      "Fun platformer with the player character jumping over obstacles, collecting coins, and shooting enemies.",
-    cover: ProjectCover.TypeSpeed,
-  },
-  {
-    name: "Tic-tac-toe",
-    tags: ["JavaScript", "jQuery"],
-    description: "Classic Tic-Tac-Toe game with a strong computer opponent.",
-    cover: ProjectCover.TypeSpeed,
-    source: "https://codepen.io/dhnm/pen/XKjZWo",
-  },
-  {
-    name: "Markdown Editor",
-    tags: ["React", "JavaScript", "Sass"],
-    description: "Markdown editor with real-time preview.",
-    cover: ProjectCover.TypeSpeed,
-    source: "https://codepen.io/dhnm/pen/rLeLmG",
+    name: "Game of Life",
+    tags: ["Python", "Kivy"],
+    description: "Interactive simulation based on Conway's Game of Life rules.",
+    cover: ProjectCover.GameOfLife,
   },
   {
     name: "Simon Says",
     tags: ["JavaScript", "Sass"],
     description: "Memory skill game using sound and visual cues.",
-    cover: ProjectCover.TypeSpeed,
+    cover: ProjectCover.SimonSays,
     source: "https://codepen.io/dhnm/pen/zBrZvb",
   },
   {
@@ -203,38 +209,53 @@ export const explorations: Project[] = [
     tags: ["JavaScript", "CSS", "jQuery"],
     description:
       "Timer app using the Pomodoro Technique with focus and break times.",
-    cover: ProjectCover.TypeSpeed,
+    cover: ProjectCover.PomodoroTimer,
     source: "https://codepen.io/dhnm/pen/JKYLpV",
+  },
+  {
+    name: "ComposableIO",
+    tags: ["Java", "CLI", "DX"],
+    description: "Utility classes for composing command-line input flows.",
+    source: "https://gitlab.com/dhnm/composableio",
   },
   {
     name: "JS Calculator",
     tags: ["JavaScript", "CSS"],
     description: "Stylish calculator app.",
-    cover: ProjectCover.TypeSpeed,
+    cover: ProjectCover.Calculator,
     source: "https://codepen.io/dhnm/pen/qNONye",
   },
   {
-    name: "Twitch Streamers List",
-    tags: ["JavaScript", "jQuery", "REST API"],
-    description:
-      "App that displays a list of Twitch streamers with their status using Twitch's API.",
-    cover: ProjectCover.TypeSpeed,
-    source: "https://codepen.io/dhnm/pen/aZzevN",
+    name: "Tic-Tac-Toe",
+    tags: ["JavaScript", "jQuery"],
+    description: "Classic Tic-Tac-Toe game with a strong computer opponent.",
+    cover: ProjectCover.TicTacToe,
+    source: "https://codepen.io/dhnm/pen/XKjZWo",
+  },
+  {
+    name: "Markdown Editor",
+    tags: ["React", "JavaScript", "Sass"],
+    description: "Markdown editor with real-time preview.",
+    cover: ProjectCover.MarkdownEditor,
+    source: "https://codepen.io/dhnm/pen/rLeLmG",
   },
   {
     name: "Weather App",
     tags: ["JavaScript", "jQuery", "REST API", "Geolocation API"],
     description:
       "Weather app using third party API to show forecast based on user location.",
-    cover: ProjectCover.TypeSpeed,
-    source: "https://codepen.io/dhnm/pen/RRNaWm",
+    cover: ProjectCover.WeatherApp,
+  },
+  {
+    name: "Twitch Streamers List",
+    tags: ["JavaScript", "jQuery", "REST API"],
+    description:
+      "App that displays a list of Twitch streamers with their status using Twitch's API.",
   },
   {
     name: "Quotes App",
     tags: ["JavaScript", "jQuery"],
     description:
       "App that fetches a third party API and displays random quotes.",
-    cover: ProjectCover.TypeSpeed,
-    source: "https://codepen.io/dhnm/pen/aZzOgx",
   },
 ]

@@ -28,19 +28,19 @@
     "qwik": "qwik"
   },
   "devDependencies": {
-    "@builder.io/qwik": "1.5.7",
-    "@builder.io/qwik-city": "1.5.7",
-    "@csstools/postcss-oklab-function": "^3.0.18",
-    "@dotenvx/dotenvx": "^1.5.0",
+    "@builder.io/qwik": "^1.7.1",
+    "@builder.io/qwik-city": "^1.7.1",
+    "@csstools/postcss-oklab-function": "^3.0.19",
+    "@dotenvx/dotenvx": "^1.6.2",
     "@types/eslint": "^8.56.10",
     "@types/node": "^20.14.10",
     "@types/three": "^0.166.0",
-    "@typescript-eslint/eslint-plugin": "^7.15.0",
-    "@typescript-eslint/parser": "^7.15.0",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
     "autoprefixer": "^10.4.19",
     "daisyui": "^4.12.10",
     "eslint": "^8.57.0",
-    "eslint-plugin-qwik": "^1.6.0",
+    "eslint-plugin-qwik": "^1.7.1",
     "postcss": "^8.4.39",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
@@ -48,7 +48,7 @@
     "typescript": "^5.5.3",
     "vite": "^5.3.3",
     "vite-tsconfig-paths": "^4.3.2",
-    "wrangler": "^3.63.1"
+    "wrangler": "^3.64.0"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.0.19",

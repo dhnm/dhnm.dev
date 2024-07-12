@@ -163,7 +163,7 @@ export default component$(() => {
   return (
     <Form
       action={action}
-      class="rounded-2xl border border-base-content/10 bg-base-100 p-3 sm:p-6"
+      class="rounded-2xl border border-base-content/10 bg-base-100/85 p-3 backdrop-blur-xl sm:p-6"
     >
       <h2 class="flex text-sm font-semibold">
         <MailIcon class="h-5 w-5 fill-none stroke-current" />

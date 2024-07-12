@@ -32,7 +32,7 @@ export default component$(() => (
                 )
               })()}
             </figure>
-            <div class="card -mt-[20%] ml-auto w-11/12 border-base-200 bg-base-100 shadow-xl">
+            <div class="card -mt-[20%] ml-auto w-11/12 border border-base-content/10 bg-base-100/85 shadow-xl backdrop-blur-xl">
               <div class="card-body p-4 lg:p-6 xl:p-8">
                 <h2 class="card-title mb-2 text-lg sm:text-xl">{p.name}</h2>
                 <ul class="flex flex-wrap gap-1">
