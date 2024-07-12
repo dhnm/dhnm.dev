@@ -77,6 +77,8 @@ const ProjectGrid = component$(({ projects }: { projects: Project[] }) => (
 const MoreProjects = component$(({ projects }: { projects: Project[] }) => {
   const visible = useSignal(false)
 
+  if (projects.length === 0) return null
+
   return (
     <>
       <div class="mt-6 flex justify-center">
@@ -107,8 +109,7 @@ export default component$(() => {
       <section id="explorations">
         <h1 class="mb-6 md:mb-16">Personal Projects</h1>
         <ProjectGrid projects={explorations} />
-        {/*<ProjectGrid projects={explorations.slice(0, 6)} />
-          <MoreProjects projects={explorations.slice(6)} />*/}
+        <MoreProjects projects={[]} />
       </section>
     </Container>
   )
