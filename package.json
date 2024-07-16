@@ -28,8 +28,8 @@
     "qwik": "qwik"
   },
   "devDependencies": {
-    "@builder.io/qwik": "1.5.7",
-    "@builder.io/qwik-city": "1.5.7",
+    "@builder.io/qwik": "https://pkg.pr.new/@builder.io/qwik@18b004d",
+    "@builder.io/qwik-city": "https://pkg.pr.new/@builder.io/qwik-city@18b004d",
     "@csstools/postcss-oklab-function": "^3.0.19",
     "@dotenvx/dotenvx": "^1.6.2",
     "@types/eslint": "^8.56.10",

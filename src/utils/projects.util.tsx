@@ -159,12 +159,6 @@ export const explorations: Project[] = [
     source: "https://github.com/dhnm/dhnm.dev",
   },
   {
-    name: "McKinsey Points of Interest",
-    tags: ["React", "Next.js", "Geolocation API", "mapbox API"],
-    description:
-      "App showing closest points of interest relevant to McKinsey & Company.",
-  },
-  {
     name: "Pew Pew",
     tags: ["3D", "GDScript", "Godot Engine"],
     description:
@@ -172,11 +166,10 @@ export const explorations: Project[] = [
     cover: ProjectCover.PewPew,
   },
   {
-    name: "Dave the Robot",
-    tags: ["Python", "WebSockets", "REST API"],
+    name: "McKinsey Points of Interest",
+    tags: ["React", "Next.js", "Geolocation API", "mapbox API"],
     description:
-      "Discord chatbot with server management and entertainment features for Computer Science students.",
-    source: "https://gitlab.com/gwo0d/dave-the-robot",
+      "App showing closest points of interest relevant to McKinsey & Company.",
   },
   {
     name: "VG Jump",
@@ -198,11 +191,11 @@ export const explorations: Project[] = [
     cover: ProjectCover.GameOfLife,
   },
   {
-    name: "Simon Says",
-    tags: ["JavaScript", "Sass"],
-    description: "Memory skill game using sound and visual cues.",
-    cover: ProjectCover.SimonSays,
-    source: "https://codepen.io/dhnm/pen/zBrZvb",
+    name: "Dave the Robot",
+    tags: ["Python", "WebSockets", "REST API"],
+    description:
+      "Discord chatbot with server management and entertainment features for Computer Science students.",
+    source: "https://gitlab.com/gwo0d/dave-the-robot",
   },
   {
     name: "Pomodoro Timer",
@@ -224,6 +217,13 @@ export const explorations: Project[] = [
     description: "Stylish calculator app.",
     cover: ProjectCover.Calculator,
     source: "https://codepen.io/dhnm/pen/qNONye",
+  },
+  {
+    name: "Simon Says",
+    tags: ["JavaScript", "Sass"],
+    description: "Memory skill game using sound and visual cues.",
+    cover: ProjectCover.SimonSays,
+    source: "https://codepen.io/dhnm/pen/zBrZvb",
   },
   {
     name: "Tic-Tac-Toe",
