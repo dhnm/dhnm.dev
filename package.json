@@ -2,7 +2,7 @@
   "name": "dhnm.dev",
   "description": "Nhật Minh - Software & People",
   "engines": {
-    "node": ">=15.0.0"
+    "node": "22.5.1"
   },
   "private": true,
   "trustedDependencies": [
@@ -31,24 +31,24 @@
     "@builder.io/qwik": "https://pkg.pr.new/@builder.io/qwik@18b004d",
     "@builder.io/qwik-city": "https://pkg.pr.new/@builder.io/qwik-city@18b004d",
     "@csstools/postcss-oklab-function": "^3.0.19",
-    "@dotenvx/dotenvx": "^1.6.2",
+    "@dotenvx/dotenvx": "^1.6.4",
     "@types/eslint": "^8.56.10",
-    "@types/node": "^20.14.10",
+    "@types/node": "^20.14.11",
     "@types/three": "^0.166.0",
-    "@typescript-eslint/eslint-plugin": "^7.16.0",
-    "@typescript-eslint/parser": "^7.16.0",
+    "@typescript-eslint/eslint-plugin": "^7.16.1",
+    "@typescript-eslint/parser": "^7.16.1",
     "autoprefixer": "^10.4.19",
     "daisyui": "^4.12.10",
     "eslint": "^8.57.0",
     "eslint-plugin-qwik": "^1.7.1",
     "postcss": "^8.4.39",
-    "prettier": "^3.3.2",
+    "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
-    "tailwindcss": "^3.4.4",
+    "tailwindcss": "^3.4.6",
     "typescript": "^5.5.3",
-    "vite": "^5.3.3",
+    "vite": "^5.3.4",
     "vite-tsconfig-paths": "^4.3.2",
-    "wrangler": "^3.64.0"
+    "wrangler": "^3.65.1"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.0.19",
