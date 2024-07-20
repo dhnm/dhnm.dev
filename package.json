@@ -2,7 +2,7 @@
   "name": "dhnm.dev",
   "description": "Nhật Minh - Software & People",
   "engines": {
-    "node": "22.5.1"
+    "node": ">=20.0.0"
   },
   "private": true,
   "trustedDependencies": [
