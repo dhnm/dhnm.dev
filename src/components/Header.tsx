@@ -21,16 +21,13 @@ const menuItems = [
   { href: "#key-projects", title: "Projects" },
 ]
 
-const MobileNavItem = component$(({ href, ...props }: PropsOf<"a">) => {
-  const nav = useNavigate()
-  return (
-    <li>
-      <Link class="block py-2" href={href} {...props}>
-        <Slot />
-      </Link>
-    </li>
-  )
-})
+const MobileNavItem = component$(({ href, ...props }: PropsOf<"a">) => (
+  <li>
+    <Link class="block py-2" href={href} {...props}>
+      <Slot />
+    </Link>
+  </li>
+))
 
 const MobileNavigation = component$((props: PropsOf<"div">) => {
   const menuRef = useSignal<HTMLDialogElement | undefined>()
@@ -44,7 +41,7 @@ const MobileNavigation = component$((props: PropsOf<"div">) => {
     <>
       <div {...props}>
         <button
-          class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20"
+          class="group flex items-center rounded-full bg-base-100/60 px-4 py-2 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-md dark:ring-white/10 dark:hover:ring-white/20"
           onClick$={openMenu}
         >
           Menu
@@ -52,15 +49,15 @@ const MobileNavigation = component$((props: PropsOf<"div">) => {
         </button>
         <dialog ref={menuRef} class="modal modal-top">
           <form method="dialog" class="modal-backdrop">
-            <button class="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80">
+            <button class="fixed inset-0 z-50 bg-base-300/40 backdrop-blur-sm dark:bg-base-300/80">
               close
             </button>
           </form>
-          <div class="modal-box fixed inset-x-4 top-8 z-50 w-auto origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800">
+          <div class="modal-box fixed inset-x-4 top-8 z-50 w-auto origin-top rounded-3xl bg-base-100 p-8 ring-1 ring-base-100/5">
             <div class="flex flex-row-reverse items-center justify-between">
               <form method="dialog">
                 <button aria-label="Close menu" class="-m-1 p-1">
-                  <CloseIcon class="h-6 w-6 text-zinc-500 dark:text-zinc-400" />
+                  <CloseIcon class="h-6 w-6 fill-zinc-500 dark:fill-zinc-400" />
                 </button>
               </form>
               <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-400">
@@ -104,7 +101,7 @@ const NavItem = component$(({ href }: { href: string }) => {
 function DesktopNavigation(props: PropsOf<"nav">) {
   return (
     <nav {...props}>
-      <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+      <ul class="flex rounded-full bg-base-100/70 px-3 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-lg dark:ring-white/10">
         {menuItems.map((item) => (
           <NavItem href={item.href} key={item.title}>
             {item.title}
