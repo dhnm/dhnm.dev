@@ -5,7 +5,7 @@ import {
   useOnWindow,
   useOnDocument,
 } from "@builder.io/qwik"
-import { Link, useLocation } from "@builder.io/qwik-city"
+import { Link, useLocation, useNavigate } from "@builder.io/qwik-city"
 import clsx from "clsx"
 
 import type { CSSProperties } from "@builder.io/qwik"
@@ -16,15 +16,16 @@ import AvatarImage from "../media/avatar.webp?jsx"
 import { ChevronDownIcon, CloseIcon } from "./icons"
 
 const menuItems = [
-  { href: "/", title: "Home" },
+  { href: "", title: "Home" },
   { href: "#about", title: "About" },
   { href: "#key-projects", title: "Projects" },
 ]
 
-const MobileNavItem = component$(({ href }: { href: string }) => {
+const MobileNavItem = component$(({ href, ...props }: PropsOf<"a">) => {
+  const nav = useNavigate()
   return (
     <li>
-      <Link href={href} class="block py-2">
+      <Link class="block py-2" href={href} {...props}>
         <Slot />
       </Link>
     </li>
@@ -36,6 +37,7 @@ const MobileNavigation = component$((props: PropsOf<"div">) => {
 
   const openMenu = $(() => {
     menuRef.value?.showModal()
+    menuRef.value?.show
   })
 
   return (
@@ -68,7 +70,11 @@ const MobileNavigation = component$((props: PropsOf<"div">) => {
             <nav class="mt-6">
               <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
                 {menuItems.map((item) => (
-                  <MobileNavItem href={item.href} key={item.title}>
+                  <MobileNavItem
+                    href={item.href}
+                    key={item.title}
+                    onClick$={() => menuRef.value?.close()}
+                  >
                     {item.title}
                   </MobileNavItem>
                 ))}
@@ -82,23 +88,14 @@ const MobileNavigation = component$((props: PropsOf<"div">) => {
 })
 
 const NavItem = component$(({ href }: { href: string }) => {
-  const isActive = useLocation().url.pathname === href
-
   return (
     <li>
       <Link
         href={href}
-        class={clsx(
-          "relative block px-3 py-2 transition",
-          isActive
-            ? "text-science-500 dark:text-science-400"
-            : "hover:text-science-500 dark:hover:text-science-400",
-        )}
+        class="group relative block px-3 py-2 transition hover:text-primary"
       >
         <Slot />
-        {isActive && (
-          <span class="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-science-500/0 via-science-500/40 to-science-500/0 dark:from-science-400/0 dark:via-science-400/40 dark:to-science-400/0" />
-        )}
+        <span class="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-primary/0 via-primary/40 to-primary/0 opacity-0 group-hover:opacity-100" />
       </Link>
     </li>
   )
