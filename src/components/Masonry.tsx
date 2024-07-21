@@ -7,6 +7,7 @@ import {
   createContextId,
   useContext,
   useContextProvider,
+  useOnDocument,
   useOnWindow,
   useSignal,
   useStore,
@@ -71,10 +72,10 @@ export const Masonry = component$(
 
     useContextProvider(masonryRefsContext, masonryRefs)
 
-    // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(() => buildMasonryLayout(masonryRefs), {
-      strategy: "document-idle",
-    })
+    useOnDocument(
+      "load",
+      $(() => buildMasonryLayout(masonryRefs)),
+    )
 
     useOnWindow(
       "resize",

@@ -8,8 +8,8 @@ import { ChevronRightIcon, CodeIcon, PlayIcon } from "~/components/icons"
 import { keyProjects, projectCovers } from "~/utils/projects.util"
 
 export default component$(() => (
-  <Container class="mt-16 sm:mt-36">
-    <section id="key-projects">
+  <section id="key-projects">
+    <Container class="mt-16 sm:mt-36">
       <h1 class="mb-10 md:mb-16">Projects</h1>
       <ul class="grid grid-cols-1 gap-10 lg:grid-cols-4 xl:gap-14">
         {keyProjects.map((p, i) => (
@@ -71,6 +71,6 @@ export default component$(() => (
           </li>
         ))}
       </ul>
-    </section>
-  </Container>
+    </Container>
+  </section>
 ))

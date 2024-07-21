@@ -1,29 +1,42 @@
+import {
+  Slot,
+  useSignal,
+  $,
+  useOnWindow,
+  useOnDocument,
+} from "@builder.io/qwik"
 import { Link, useLocation } from "@builder.io/qwik-city"
 import clsx from "clsx"
 
 import type { CSSProperties } from "@builder.io/qwik"
-import { type PropsOf, component$, useComputed$ } from "@builder.io/qwik"
+import { type PropsOf, component$ } from "@builder.io/qwik"
 import Container from "./Container"
 
 import AvatarImage from "../media/avatar.webp?jsx"
-//import { ChevronDownIcon, CloseIcon } from "./icons";
+import { ChevronDownIcon, CloseIcon } from "./icons"
 
-/* const MobileNavItem = component$(({ href }: { href: string }) => {
+const menuItems = [
+  { href: "/", title: "Home" },
+  { href: "#about", title: "About" },
+  { href: "#key-projects", title: "Projects" },
+]
+
+const MobileNavItem = component$(({ href }: { href: string }) => {
   return (
     <li>
       <Link href={href} class="block py-2">
         <Slot />
       </Link>
     </li>
-  );
-});
+  )
+})
 
 const MobileNavigation = component$((props: PropsOf<"div">) => {
-  const menuRef = useSignal<HTMLDialogElement | undefined>();
+  const menuRef = useSignal<HTMLDialogElement | undefined>()
 
   const openMenu = $(() => {
-    menuRef.value?.showModal();
-  });
+    menuRef.value?.showModal()
+  })
 
   return (
     <>
@@ -48,32 +61,28 @@ const MobileNavigation = component$((props: PropsOf<"div">) => {
                   <CloseIcon class="h-6 w-6 text-zinc-500 dark:text-zinc-400" />
                 </button>
               </form>
-              <h2
-                class="text-sm font-medium text-zinc-600 dark:text-zinc-400"
-                id="here"
-              >
+              <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-400">
                 Menu
               </h2>
             </div>
             <nav class="mt-6">
               <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
-                <MobileNavItem href="/">Home</MobileNavItem>
-                <MobileNavItem href="/about">About</MobileNavItem>
-                <MobileNavItem href="/articles">Articles</MobileNavItem>
-                <MobileNavItem href="/projects">Projects</MobileNavItem>
-                <MobileNavItem href="/speaking">Speaking</MobileNavItem>
-                <MobileNavItem href="/uses">Uses</MobileNavItem>
+                {menuItems.map((item) => (
+                  <MobileNavItem href={item.href} key={item.title}>
+                    {item.title}
+                  </MobileNavItem>
+                ))}
               </ul>
             </nav>
           </div>
         </dialog>
       </div>
     </>
-  );
-});
+  )
+})
 
 const NavItem = component$(({ href }: { href: string }) => {
-  const isActive = useLocation().url.pathname === href;
+  const isActive = useLocation().url.pathname === href
 
   return (
     <li>
@@ -82,33 +91,32 @@ const NavItem = component$(({ href }: { href: string }) => {
         class={clsx(
           "relative block px-3 py-2 transition",
           isActive
-            ? "text-congress-500 dark:text-congress-400"
-            : "hover:text-congress-500 dark:hover:text-congress-400",
+            ? "text-science-500 dark:text-science-400"
+            : "hover:text-science-500 dark:hover:text-science-400",
         )}
       >
         <Slot />
         {isActive && (
-          <span class="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-congress-500/0 via-congress-500/40 to-congress-500/0 dark:from-congress-400/0 dark:via-congress-400/40 dark:to-congress-400/0" />
+          <span class="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-science-500/0 via-science-500/40 to-science-500/0 dark:from-science-400/0 dark:via-science-400/40 dark:to-science-400/0" />
         )}
       </Link>
     </li>
-  );
-});
+  )
+})
 
 function DesktopNavigation(props: PropsOf<"nav">) {
   return (
     <nav {...props}>
       <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-        <NavItem href="/">Home</NavItem>
-        <NavItem href="/about">About</NavItem>
-        <NavItem href="/articles">Articles</NavItem>
-        <NavItem href="/projects">Projects</NavItem>
-        <NavItem href="/speaking">Speaking</NavItem>
-        <NavItem href="/uses">Uses</NavItem>
+        {menuItems.map((item) => (
+          <NavItem href={item.href} key={item.title}>
+            {item.title}
+          </NavItem>
+        ))}
       </ul>
     </nav>
-  );
-} */
+  )
+}
 
 function AvatarContainer({ class: className, ...props }: PropsOf<"div">) {
   return (
@@ -142,18 +150,107 @@ function Avatar({
           "rounded-full bg-base-100 object-cover",
           large ? "h-16 w-16" : "h-9 w-9",
         )}
-        style={{
-          width: large ? "4rem" : "2.25rem",
-          height: large ? "4rem" : "2.25rem",
-        }}
       />
     </Link>
   )
 }
 
+const clamp = (value: number, a: number, b: number) => {
+  const min = Math.min(a, b)
+  const max = Math.max(a, b)
+  return Math.min(Math.max(value, min), max)
+}
+
+const setProperty = (property: string, value: string) => {
+  document.documentElement.style.setProperty(property, value)
+}
+const removeProperty = (property: string) => {
+  document.documentElement.style.removeProperty(property)
+}
+
 export default component$(() => {
-  const location = useLocation()
-  const isHomePage = useComputed$(() => location.url.pathname === "/")
+  const avatarRef = useSignal<HTMLDivElement>()
+  const headerRef = useSignal<HTMLDivElement>()
+  const isInitial = useSignal(true)
+
+  const upDelay = 64
+
+  const updateStyles = $(() => {
+    if (!headerRef.value || !avatarRef.value) return
+    const downDelay = avatarRef.value.offsetTop
+
+    // Update Header Styles
+
+    const { top, height } = headerRef.value.getBoundingClientRect()
+
+    let scrollY = clamp(
+      window.scrollY,
+      0,
+      document.body.scrollHeight - window.innerHeight,
+    )
+
+    setProperty("--content-offset", `${downDelay}px`)
+
+    if (isInitial.value || scrollY < downDelay) {
+      isInitial.value = false
+      setProperty("--header-height", `${downDelay + height}px`)
+      setProperty("--header-mb", `${-downDelay}px`)
+    } else if (top + height < -upDelay) {
+      const offset = Math.max(height, scrollY - upDelay)
+      setProperty("--header-height", `${offset}px`)
+      setProperty("--header-mb", `${height - offset}px`)
+    } else if (top === 0) {
+      setProperty("--header-height", `${scrollY + height}px`)
+      setProperty("--header-mb", `${-scrollY}px`)
+    }
+
+    if (top === 0 && scrollY > 0 && scrollY >= downDelay) {
+      setProperty("--header-inner-position", "fixed")
+      removeProperty("--header-top")
+      removeProperty("--avatar-top")
+    } else {
+      removeProperty("--header-inner-position")
+      setProperty("--header-top", "0")
+      setProperty("--avatar-top", "0")
+    }
+
+    // Update Avatar Styles
+    const fromScale = 1
+    const toScale = 36 / 64
+    const fromX = 0
+    const toX = 2 / 16
+
+    scrollY = downDelay - window.scrollY
+
+    const scale = clamp(
+      (scrollY * (fromScale - toScale)) / downDelay + toScale,
+      fromScale,
+      toScale,
+    )
+    const x = clamp((scrollY * (fromX - toX)) / downDelay + toX, fromX, toX)
+
+    setProperty(
+      "--avatar-image-transform",
+      `translate3d(${x}rem,0,0) scale(${scale})`,
+    )
+
+    const borderScale = 1 / (toScale / scale)
+    const borderX = (-toX + x) * borderScale
+    const borderTransform = `translate3d(${borderX}rem,0,0) scale(${borderScale})`
+
+    setProperty("--avatar-border-transform", borderTransform)
+    setProperty("--avatar-border-opacity", scale === toScale ? "1" : "0")
+  })
+
+  useOnDocument(
+    "load",
+    $(() => {
+      updateStyles()
+    }),
+  )
+
+  useOnWindow("scroll", updateStyles)
+  useOnWindow("resize", updateStyles)
 
   return (
     <>
@@ -164,46 +261,35 @@ export default component$(() => {
           marginBottom: "var(--header-mb)",
         }}
       >
-        {isHomePage.value && (
-          <>
-            <div class="order-last mt-[calc(theme(spacing.16)-theme(spacing.3))]" />
-            <Container
-              class="top-0 order-last -mb-3 pt-3"
-              style={{
-                position: "var(--header-position)" as CSSProperties["position"],
-              }}
-            >
-              <div
-                class="top-[var(--avatar-top,theme(spacing.3))] w-full"
-                style={{
-                  position:
-                    "var(--header-inner-position)" as CSSProperties["position"],
-                }}
-              >
-                <div class="relative">
-                  <AvatarContainer
-                    class="absolute left-0 top-3 origin-left transition-opacity"
-                    style={{
-                      opacity: "var(--avatar-border-opacity, 0)",
-                      transform: "var(--avatar-border-transform)",
-                    }}
-                  />
-                  <Avatar
-                    large
-                    class="block h-16 w-16 origin-left"
-                    style={{ transform: "var(--avatar-image-transform)" }}
-                  />
-                </div>
-              </div>
-            </Container>
-          </>
-        )}
         <div
-          class="top-0 z-10 h-16 pt-6"
-          style={{
-            position: "var(--header-position)" as CSSProperties["position"],
-          }}
-        >
+          ref={avatarRef}
+          class="order-last mt-[calc(theme(spacing.16)-theme(spacing.3))]"
+        />
+        <Container class="sticky top-0 order-last -mb-3 pt-3">
+          <div
+            class="top-[var(--avatar-top,theme(spacing.3))] w-full"
+            style={{
+              position:
+                "var(--header-inner-position)" as CSSProperties["position"],
+            }}
+          >
+            <div class="relative">
+              <AvatarContainer
+                class="absolute left-0 top-3 origin-left transition-opacity"
+                style={{
+                  opacity: "var(--avatar-border-opacity, 0)",
+                  transform: "var(--avatar-border-transform)",
+                }}
+              />
+              <Avatar
+                large
+                class="block h-16 w-16 origin-left"
+                style={{ transform: "var(--avatar-image-transform)" }}
+              />
+            </div>
+          </div>
+        </Container>
+        <div ref={headerRef} class="sticky top-0 z-10 h-16 pt-6">
           <Container
             class="top-[var(--header-top,theme(spacing.6))] w-full"
             style={{
@@ -211,26 +297,14 @@ export default component$(() => {
                 "var(--header-inner-position)" as CSSProperties["position"],
             }}
           >
-            <div class="relative flex gap-4">
-              <div class="flex flex-1">
-                {!isHomePage.value && (
-                  <AvatarContainer>
-                    <Avatar />
-                  </AvatarContainer>
-                )}
-              </div>
-              <div class="flex flex-1 justify-end md:justify-center">
-                {/* <MobileNavigation class="pointer-events-auto md:hidden" />
-                <DesktopNavigation class="pointer-events-auto hidden md:block" /> */}
-              </div>
-              <div class="flex justify-end md:flex-1"></div>
+            <div class="relative flex justify-end md:justify-center">
+              <MobileNavigation class="pointer-events-auto md:hidden" />
+              <DesktopNavigation class="pointer-events-auto hidden md:block" />
             </div>
           </Container>
         </div>
       </header>
-      {isHomePage.value && (
-        <div class="flex-none" style={{ height: "var(--content-offset)" }} />
-      )}
+      <div class="flex-none" style={{ height: "var(--content-offset)" }} />
     </>
   )
 })

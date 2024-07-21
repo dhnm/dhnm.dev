@@ -28,7 +28,7 @@ export default component$(() => {
         <RouterHead />
         <ServiceWorkerRegister nonce={nonce} />
       </head>
-      <body lang="en">
+      <body>
         <RouterOutlet />
       </body>
     </QwikCityProvider>

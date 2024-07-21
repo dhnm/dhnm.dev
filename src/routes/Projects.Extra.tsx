@@ -105,12 +105,12 @@ const MoreProjects = component$(({ projects }: { projects: Project[] }) => {
 
 export default component$(() => {
   return (
-    <Container class="mt-16 sm:mt-36">
-      <section id="explorations">
+    <section id="explorations">
+      <Container class="mt-16 sm:mt-36">
         <h1 class="mb-6 md:mb-16">Personal Projects</h1>
         <ProjectGrid projects={explorations} />
         <MoreProjects projects={[]} />
-      </section>
-    </Container>
+      </Container>
+    </section>
   )
 })
