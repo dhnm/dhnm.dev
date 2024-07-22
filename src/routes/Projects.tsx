@@ -14,8 +14,8 @@ export const SecondaryCardLink = component$(({ href }: { href: string }) => (
 ))
 
 export default component$(() => (
-  <>
+  <section id="projects">
     <KeyProjects />
     <Explorations />
-  </>
+  </section>
 ))

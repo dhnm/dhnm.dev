@@ -7,12 +7,10 @@ import {
   createContextId,
   useContext,
   useContextProvider,
-  useOnDocument,
   useOnWindow,
   useSignal,
   useStore,
   useTask$,
-  useVisibleTask$,
 } from "@builder.io/qwik"
 import clsx from "clsx"
 
@@ -72,7 +70,7 @@ export const Masonry = component$(
 
     useContextProvider(masonryRefsContext, masonryRefs)
 
-    useOnDocument(
+    useOnWindow(
       "load",
       $(() => buildMasonryLayout(masonryRefs)),
     )

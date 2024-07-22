@@ -31,20 +31,20 @@ const ProjectGrid = component$(({ projects }: { projects: Project[] }) => (
                   return (
                     <Image
                       alt={`Screenshot of the project: ${p.name}`}
-                      class="relative float-left mb-3 mr-3 w-5/12 rounded-xl sm:w-4/12 md:w-5/12"
+                      class="relative float-left mb-3 mr-3 w-5/12 rounded-box sm:w-4/12 md:w-5/12"
                     />
                   )
                 })()}
             </figure>
-            <h3 class="text-md card-title sm:text-lg">{p.name}</h3>
-            <ul class="my-1.5 inline">
+            <h3 class="text-md card-title mb-1 sm:text-lg">{p.name}</h3>
+            <ul class="inline">
               {p.tags.map((tag) => (
                 <li class="badge badge-info badge-outline mr-1" key={tag}>
                   {tag}
                 </li>
               ))}
             </ul>
-            <p>{p.description}</p>
+            <p class="mt-2">{p.description}</p>
             <div
               class={clsx(
                 (p.demo || p.source || p.article) &&

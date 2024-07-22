@@ -1,11 +1,5 @@
-import {
-  Slot,
-  useSignal,
-  $,
-  useOnWindow,
-  useOnDocument,
-} from "@builder.io/qwik"
-import { Link, useLocation, useNavigate } from "@builder.io/qwik-city"
+import { Slot, useSignal, $, useOnWindow } from "@builder.io/qwik"
+import { Link } from "@builder.io/qwik-city"
 import clsx from "clsx"
 
 import type { CSSProperties } from "@builder.io/qwik"
@@ -16,18 +10,25 @@ import AvatarImage from "../media/avatar.webp?jsx"
 import { ChevronDownIcon, CloseIcon } from "./icons"
 
 const menuItems = [
-  { href: "", title: "Home" },
-  { href: "#about", title: "About" },
-  { href: "#key-projects", title: "Projects" },
+  { selector: "#top", title: "Home" },
+  { selector: "#about", title: "About" },
+  { selector: "#projects", title: "Projects" },
 ]
 
-const MobileNavItem = component$(({ href, ...props }: PropsOf<"a">) => (
+const MobileNavItem = component$((props: PropsOf<"button">) => (
   <li>
-    <Link class="block py-2" href={href} {...props}>
+    <button class="block py-2" {...props}>
       <Slot />
-    </Link>
+    </button>
   </li>
 ))
+
+const scrollToSelector = (selector: string) => {
+  const element = document.querySelector(selector) as HTMLElement
+  const yOffset = -30
+  const elPos = element.getBoundingClientRect().top + window.scrollY + yOffset
+  window.scrollTo({ top: elPos, behavior: "smooth" })
+}
 
 const MobileNavigation = component$((props: PropsOf<"div">) => {
   const menuRef = useSignal<HTMLDialogElement | undefined>()
@@ -45,7 +46,7 @@ const MobileNavigation = component$((props: PropsOf<"div">) => {
           onClick$={openMenu}
         >
           Menu
-          <ChevronDownIcon class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400" />
+          <ChevronDownIcon class="ml-3 h-auto w-2 fill-zinc-500 stroke-zinc-500 group-hover:fill-zinc-700 group-hover:stroke-zinc-700 dark:group-hover:fill-zinc-400 dark:group-hover:stroke-zinc-400" />
         </button>
         <dialog ref={menuRef} class="modal modal-top">
           <form method="dialog" class="modal-backdrop">
@@ -68,9 +69,11 @@ const MobileNavigation = component$((props: PropsOf<"div">) => {
               <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
                 {menuItems.map((item) => (
                   <MobileNavItem
-                    href={item.href}
                     key={item.title}
-                    onClick$={() => menuRef.value?.close()}
+                    onClick$={() => {
+                      scrollToSelector(item.selector)
+                      menuRef.value?.close()
+                    }}
                   >
                     {item.title}
                   </MobileNavItem>
@@ -84,16 +87,16 @@ const MobileNavigation = component$((props: PropsOf<"div">) => {
   )
 })
 
-const NavItem = component$(({ href }: { href: string }) => {
+const NavItem = component$((props: PropsOf<"button">) => {
   return (
     <li>
-      <Link
-        href={href}
+      <button
         class="group relative block px-3 py-2 transition hover:text-primary"
+        {...props}
       >
         <Slot />
         <span class="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-primary/0 via-primary/40 to-primary/0 opacity-0 group-hover:opacity-100" />
-      </Link>
+      </button>
     </li>
   )
 })
@@ -101,9 +104,13 @@ const NavItem = component$(({ href }: { href: string }) => {
 function DesktopNavigation(props: PropsOf<"nav">) {
   return (
     <nav {...props}>
-      <ul class="flex rounded-full bg-base-100/70 px-3 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-lg dark:ring-white/10">
+      <ul class="flex rounded-box bg-base-100/70 px-3 text-sm font-medium shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur-lg dark:ring-white/10">
         {menuItems.map((item) => (
-          <NavItem href={item.href} key={item.title}>
+          <NavItem
+            key={item.title}
+            data-key={item.title}
+            onClick$={() => scrollToSelector(item.selector)}
+          >
             {item.title}
           </NavItem>
         ))}
@@ -234,9 +241,28 @@ export default component$(() => {
 
     setProperty("--avatar-border-transform", borderTransform)
     setProperty("--avatar-border-opacity", scale === toScale ? "1" : "0")
+
+    // Update Active Menu Item
+    menuItems.forEach((item) => {
+      const section = document.querySelector(item.selector) as HTMLElement
+      const button = document.querySelector(
+        `button[data-key="${item.title}"]`,
+      ) as HTMLElement
+      const buttonSpan = button.querySelector("span") as HTMLElement
+      const top = section.offsetTop - 80
+      const height = section.clientHeight + 40
+      const bottom = top + height
+      if (window.scrollY >= top && window.scrollY < bottom) {
+        button.classList.add("!text-primary")
+        buttonSpan.classList.add("!opacity-100")
+      } else {
+        button.classList.remove("!text-primary")
+        buttonSpan.classList.remove("!opacity-100")
+      }
+    })
   })
 
-  useOnDocument(
+  useOnWindow(
     "load",
     $(() => {
       updateStyles()
@@ -248,7 +274,9 @@ export default component$(() => {
 
   return (
     <>
+      <span id="top" class="absolute h-96 w-full" />
       <header
+        id="header"
         class="pointer-events-none relative z-50 flex flex-none flex-col"
         style={{
           height: "var(--header-height)",

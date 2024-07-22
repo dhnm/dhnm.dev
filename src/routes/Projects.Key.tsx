@@ -27,7 +27,7 @@ export default component$(() => (
                 return (
                   <Image
                     alt={`Screenshot of the project: ${p.name}`}
-                    class="w-11/12 rounded-2xl border border-base-200 shadow-xl"
+                    class="w-11/12 rounded-box border border-base-200 shadow-xl"
                   />
                 )
               })()}

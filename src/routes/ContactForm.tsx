@@ -163,12 +163,12 @@ export default component$(() => {
   return (
     <Form
       action={action}
-      class="rounded-2xl border border-base-content/10 bg-base-100/85 p-3 backdrop-blur-xl sm:p-6"
+      class="rounded-box border border-base-content/10 bg-base-100/85 p-3 backdrop-blur-xl sm:p-6"
     >
-      <h2 class="flex text-sm font-semibold">
+      <div class="-mt-0.5 flex text-sm font-semibold">
         <MailIcon class="h-5 w-5 fill-none stroke-current" />
-        <span class="ml-3 tracking-tight">Send me a message</span>
-      </h2>
+        <span class="ml-2.5 tracking-tight">Send me a message</span>
+      </div>
       <p
         class={clsx("mt-2 text-sm", failedVerifyAttempts.value > 2 && "hidden")}
       >
