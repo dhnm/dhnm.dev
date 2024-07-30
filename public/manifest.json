@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/web-manifest-combined.json",
   "name": "dhnm",
-  "short_name": "Nhật Minh - Software & People",
+  "short_name": "Nhật Minh - Software Projects & Learning",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#f4f9fe",

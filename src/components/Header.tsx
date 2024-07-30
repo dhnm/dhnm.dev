@@ -61,9 +61,9 @@ const MobileNavigation = component$((props: PropsOf<"div">) => {
                   <CloseIcon class="h-6 w-6 fill-zinc-500 dark:fill-zinc-400" />
                 </button>
               </form>
-              <h2 class="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+              <div class="text-sm font-medium text-zinc-600 dark:text-zinc-400">
                 Menu
-              </h2>
+              </div>
             </div>
             <nav class="mt-6">
               <ul class="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">

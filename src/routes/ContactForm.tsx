@@ -167,18 +167,18 @@ export default component$(() => {
     >
       <div class="-mt-0.5 flex text-sm font-semibold">
         <MailIcon class="h-5 w-5 fill-none stroke-current" />
-        <span class="ml-2.5 tracking-tight">Send me a message</span>
+        <span class="ml-2.5 tracking-tight">Shoot me a message</span>
       </div>
       <p
         class={clsx("mt-2 text-sm", failedVerifyAttempts.value > 2 && "hidden")}
       >
-        Message me on{" "}
+        Reach me on{" "}
         {myEmail.value ? (
           <TextLink href={`mailto:${myEmail.value}`}>{myEmail.value}</TextLink>
         ) : (
           <ObscureEmail />
         )}{" "}
-        or use the following form:
+        or use the form:
       </p>
       {action.value?.failed !== false && (
         <>

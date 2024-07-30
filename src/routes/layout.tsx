@@ -11,7 +11,7 @@ import Header from "../components/Header"
 export const head: DocumentHead = ({ head }) => {
   const title = head.title
     ? head.title + " - Nhật Minh"
-    : "Nhật Minh - Software & People"
+    : "Nhật Minh - Software Projects & Learning"
   const defaultMeta: Array<DocumentMeta> = [
     {
       name: "description",
