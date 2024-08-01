@@ -51,9 +51,9 @@ export default component$(() => (
           </div>
           <div class="prose mt-9 text-base-content">
             <p>
-              <b>I compete in learning.</b> In other words, I specialize in{" "}
-              <b>rapid knowledge and skill acquisition</b>. I have a track
-              record of internalizing massive amounts of learning material and{" "}
+              I specialize in <b>rapid knowledge and skill acquisition</b>. In
+              fact, <b>I compete in learning</b>. I have a track record of
+              internalizing massive amounts of learning material and{" "}
               <b>successfully applying</b> it under high-pressure settings and{" "}
               <b>tight deadlines</b>.
             </p>
