@@ -49,10 +49,10 @@
     "typescript": "^5.5.4",
     "vite": "^5.3.5",
     "vite-tsconfig-paths": "^4.3.2",
-    "wrangler": "^3.67.1"
+    "wrangler": "^3.68.0"
   },
   "dependencies": {
-    "@fontsource-variable/inter": "^5.0.19",
+    "@fontsource-variable/inter": "^5.0.20",
     "@fontsource-variable/source-sans-3": "^5.0.21",
     "@fontsource-variable/source-serif-4": "^5.0.19",
     "@fontsource/fira-sans": "^5.0.20",

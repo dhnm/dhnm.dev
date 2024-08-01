@@ -44,7 +44,9 @@ const ProjectGrid = component$(({ projects }: { projects: Project[] }) => (
                 </li>
               ))}
             </ul>
-            <p class="mt-2">{p.description}</p>
+            <ul class="prose mt-2 text-left text-[1rem] text-base-content">
+              {p.descriptionArr?.map((d) => <li key={d}>{d}</li>)}
+            </ul>
             <div
               class={clsx(
                 (p.demo || p.source || p.article) &&
@@ -104,12 +106,21 @@ const MoreProjects = component$(({ projects }: { projects: Project[] }) => {
 })
 
 export default component$(() => {
+  // split the projects into two groups - first 6, and the rest
+  const [visible, more] = explorations.reduce(
+    (acc, p, i) => {
+      if (i < 6) acc[0].push(p)
+      else acc[1].push(p)
+      return acc
+    },
+    [[], []] as [Project[], Project[]],
+  )
   return (
     <section id="explorations">
       <Container class="mt-16 sm:mt-36">
         <h1 class="mb-6 md:mb-16">Personal Projects</h1>
-        <ProjectGrid projects={explorations} />
-        <MoreProjects projects={[]} />
+        <ProjectGrid projects={visible} />
+        <MoreProjects projects={more} />
       </Container>
     </section>
   )

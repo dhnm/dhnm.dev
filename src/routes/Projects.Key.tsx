@@ -42,11 +42,17 @@ export default component$(() => (
                     </li>
                   ))}
                 </ul>
-                <p class="mt-2">{p.description}</p>
+                <div class="prose text-left text-base-content">
+                  <ul>
+                    {p.descriptionArr.map((d) => (
+                      <li key={d}>{d}</li>
+                    ))}
+                  </ul>
+                </div>
                 <div
                   class={clsx(
                     (p.demo || p.source || p.article) &&
-                      "card-actions mt-3 justify-start",
+                      "card-actions mt-1 justify-start",
                   )}
                 >
                   {p.demo && (

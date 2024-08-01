@@ -92,6 +92,7 @@ type ProjectTags =
   | "jQuery"
   | "CSS"
   | "Sass"
+  | "Sketch"
 
 export type ViteImageProps = Omit<
   QwikIntrinsicElements["img"],
@@ -102,7 +103,8 @@ export type ViteImageComponent = FunctionComponent<ViteImageProps>
 export type SimpleProject = {
   name: string
   tags: ProjectTags[]
-  description: string
+  description?: string
+  descriptionArr?: string[]
   article?: string
   source?: string
   demo?: string
@@ -126,25 +128,42 @@ export const keyProjects: DecoratedProject[] = [
       "MongoDB",
       "REST API",
       "WebSockets",
+      "Meta Graph API",
     ],
-    description:
-      "Developed a comprehensive analytical website, integrating complex database structures & aggregations, chatbots, third-party extensions, real-time collaboration features, and caching and performance optimization strategies to align with resource constraints.",
+    descriptionArr: [
+      "Developed a platform for processing raw telemetry data and presenting it so users can analyze their performances and improve their outcomes.",
+      "Enhanced user interactions with real-time collaborative systems, rich chatbots, and third-party services.",
+      "Implemented caching and database optimizations to manage efficient resource usage, low response times, and instantaneous, comprehensive analysis of tens of thousands inter-related database items.",
+    ],
     cover: ProjectCover.Vainzone,
     source: "https://github.com/dhnm/vain.zone",
   },
   {
     name: "Native Mobile App for PORGMUN Conference",
-    tags: ["iOS", "Swift", "UIKit", "Meta Graph API", "Core Location"],
-    description:
-      "Created an iOS app to facilitate Model United Nations conferences, featuring real-time and location-based updates and interactive tools for participants. Maintained and evolved the app for the successive conference editions.",
+    tags: [
+      "iOS",
+      "Swift",
+      "UIKit",
+      "Meta Graph API",
+      "Core Location",
+      "Sketch",
+    ],
+    descriptionArr: [
+      "Designed and developed an iOS app for hundreds of participants at Model United Nations conferences.",
+      "Utilized location-based services to assist attendees in navigating the event.",
+      "Adapted and refined the app across successive conferences to improve functionality and user satisfaction, achieving user rating of ⭐️4.7/5.",
+    ],
     cover: ProjectCover.Porgmun,
     source: "https://gitlab.com/dhnm/porgmun",
   },
   {
     name: "Website for Sítko Festival",
-    tags: ["React", "SSG", "GraphQL", "FTP"],
-    description:
-      "Designed and developed a responsive website for a university drama festival, featuring brand-aligned animations and optimized image serving for various screen types. Managed the site from inception to post-festival, reflecting changing requirements at each stage.",
+    tags: ["React", "SSG", "GraphQL", "FTP", "Sketch"],
+    descriptionArr: [
+      "Designed and developed a responsive website for a university drama festival.",
+      "Deployed a beneficial strategy of image serving optimization that enhanced performance as well as alignment with the brand aesthetics.",
+      "Flexibly managed site updates and content modifications throughout the festival lifecycle to respond to ongoing needs.",
+    ],
     cover: ProjectCover.Sitko,
     source: "https://gitlab.com/dhnm/sitko2018",
   },
@@ -154,47 +173,63 @@ export const explorations: Project[] = [
   {
     name: "dhnm.dev",
     tags: ["TypeScript", "Qwik", "TailwindCSS", "ThreeJS", "Cloudflare"],
-    description:
-      "Personal website with my projects. Exploring the concept of resumability with Qwik over hydration.",
+    descriptionArr: [
+      "Personal website showcasing my projects.",
+      "Employed resumability to achieve faster load times over more traditional hydration.",
+    ],
     source: "https://github.com/dhnm/dhnm.dev",
   },
   {
     name: "Pew Pew",
     tags: ["3D", "GDScript", "Godot Engine"],
-    description:
-      "3D game with the player character shooting at procedurally generated waves of enemies that follow the player.",
+    descriptionArr: [
+      "3D shooter game with custom-made assets.",
+      "Added progressive difficulty with enemies following the player movements and scoring for increased retention.",
+    ],
     cover: ProjectCover.PewPew,
   },
   {
     name: "McKinsey Points of Interest",
     tags: ["React", "Next.js", "Geolocation API", "mapbox API"],
-    description:
-      "App showing closest points of interest relevant to McKinsey & Company.",
+    descriptionArr: [
+      "App showing the company's points of interests nearby.",
+      "Responsible for the software; presented the solution as team with diverse responsibilities.",
+    ],
   },
   {
     name: "VG Jump",
     tags: ["C#", "Unity Engine"],
-    description:
-      "Fun platformer with the player character jumping over obstacles, collecting coins, and shooting enemies.",
+    descriptionArr: [
+      "Fun platformer with the player avoiding obstacles, collecting coins, and shooting enemies.",
+      "Collaborated with an artist to brainstorm gameplay and requirements for the assets.",
+    ],
     cover: ProjectCover.VGJump,
   },
   {
     name: "TypeSpeed",
     tags: ["Python", "Kivy"],
-    description: "Speed typing game to improve typing speed and accuracy.",
+    descriptionArr: [
+      "Speed typing game to improve typing speed and accuracy.",
+      "Provided practical and entertainment value with challenges and score system.",
+    ],
     cover: ProjectCover.TypeSpeed,
   },
   {
     name: "Game of Life",
     tags: ["Python", "Kivy"],
-    description: "Interactive simulation based on Conway's Game of Life rules.",
+    descriptionArr: [
+      "Interactive simulation based on Conway's Game of Life rules.",
+      "Enabled educational insights into cellular automata and experimentation with customizable scenarios.",
+    ],
     cover: ProjectCover.GameOfLife,
   },
   {
     name: "Dave the Robot",
     tags: ["Python", "WebSockets", "REST API"],
-    description:
-      "Discord chatbot with server management and entertainment features for Computer Science students.",
+    descriptionArr: [
+      "Established student communication platform by automating server administration tasks.",
+      "Included entertainment features to support community engagement.",
+    ],
     source: "https://gitlab.com/gwo0d/dave-the-robot",
   },
   {
@@ -202,60 +237,78 @@ export const explorations: Project[] = [
     tags: ["JavaScript", "CSS", "jQuery"],
     description:
       "Timer app using the Pomodoro Technique with focus and break times.",
+    descriptionArr: [
+      "Timer app using the Pomodoro Technique with customizable timings to adapt to personalized user needs.",
+      "A simple and intuitive interface supports users to manage their time effectively, boosting productivity and preventing burnout.",
+    ],
     cover: ProjectCover.PomodoroTimer,
     source: "https://codepen.io/dhnm/pen/JKYLpV",
   },
   {
     name: "ComposableIO",
     tags: ["Java", "CLI", "DX"],
-    description: "Utility classes for composing command-line input flows.",
+    descriptionArr: [
+      "Utility classes for composing command-line input flows to reduce complexity and improve readability.",
+      "Extracted from a larger project to serve as a versatile importable module.",
+    ],
     source: "https://gitlab.com/dhnm/composableio",
   },
   {
     name: "JS Calculator",
     tags: ["JavaScript", "CSS"],
-    description: "Stylish calculator app.",
+    descriptionArr: ["Stylish calculator app."],
     cover: ProjectCover.Calculator,
     source: "https://codepen.io/dhnm/pen/qNONye",
   },
   {
     name: "Simon Says",
     tags: ["JavaScript", "Sass"],
-    description: "Memory skill game using sound and visual cues.",
+    descriptionArr: [
+      "Memory skill game using sound and visual cues.",
+      "Programmed increasing difficulty and randomized levels to facilitate an entertaining way to test and improve cognitive abilities.",
+    ],
     cover: ProjectCover.SimonSays,
     source: "https://codepen.io/dhnm/pen/zBrZvb",
   },
   {
     name: "Tic-Tac-Toe",
     tags: ["JavaScript", "jQuery"],
-    description: "Classic Tic-Tac-Toe game with a strong computer opponent.",
+    descriptionArr: [
+      "Classic Tic-Tac-Toe game.",
+      "Implemented an algorithm to provide a challenging opponent to the player.",
+    ],
     cover: ProjectCover.TicTacToe,
     source: "https://codepen.io/dhnm/pen/XKjZWo",
   },
   {
     name: "Markdown Editor",
     tags: ["React", "JavaScript", "Sass"],
-    description: "Markdown editor with real-time preview.",
+    descriptionArr: [
+      "Markdown text editor with instant visual preview of edits.",
+    ],
     cover: ProjectCover.MarkdownEditor,
     source: "https://codepen.io/dhnm/pen/rLeLmG",
   },
   {
     name: "Weather App",
     tags: ["JavaScript", "jQuery", "REST API", "Geolocation API"],
-    description:
-      "Weather app using third party API to show forecast based on user location.",
+    descriptionArr: [
+      "Weather app using third party API to show latest forecast based on user location.",
+    ],
     cover: ProjectCover.WeatherApp,
   },
   {
     name: "Twitch Streamers List",
     tags: ["JavaScript", "jQuery", "REST API"],
-    description:
-      "App that displays a list of Twitch streamers with their status using Twitch's API.",
+    descriptionArr: [
+      "Informational app displaying a live list of Twitch streamers and their current streaming status using Twitch's API.",
+    ],
   },
   {
     name: "Quotes App",
     tags: ["JavaScript", "jQuery"],
-    description:
-      "App that fetches a third party API and displays random quotes.",
+    descriptionArr: [
+      "App that fetches and displays random quotes from a third-party API, helping with improving mood and motivation.",
+    ],
   },
 ]

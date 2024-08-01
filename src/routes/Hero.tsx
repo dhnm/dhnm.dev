@@ -30,9 +30,9 @@ export default component$(() => (
         <span class="text-xl md:text-2xl xl:text-3xl">
           Hey there! My name is <span class="font-bold">Nhật&nbsp;Minh</span>.
         </span>
-        <br />I am an <span class="font-bold">expert learner</span> and
+        <br />I am an <span class="font-bold">adaptable&nbsp;learner</span> and
         <br />
-        deliver <span class="font-bold">software solutions</span>.
+        deliver <span class="font-bold">software&nbsp;solutions</span>.
       </h1>
     </Container>
     <Container id="about">
@@ -51,26 +51,26 @@ export default component$(() => (
           </div>
           <div class="prose mt-9 text-base-content">
             <p>
-              I specialize in <b>rapid knowledge and skill acquisition</b>. I
-              have a track record of internalizing large amounts of learning
-              material and <b>successful application</b> in high-pressure{" "}
-              <b>competitive</b> settings <b>within tight deadlines</b>.
+              <b>I compete in learning.</b> In other words, I specialize in{" "}
+              <b>rapid knowledge and skill acquisition</b>. I have a track
+              record of internalizing massive amounts of learning material and{" "}
+              <b>successfully applying</b> it under high-pressure settings and{" "}
+              <b>tight deadlines</b>.
             </p>
             <p>
               I find it particularly rewarding to use <b>code</b> in creating
               solutions that have tangible, <b>real-world impact</b>.
             </p>
             <p>
-              My approach is driven by immersing in stakeholder{" "}
-              <b>domains and needs</b> to tailor the solutions{" "}
-              <b>across the technology stack</b>. I keep up with developments
-              from <b>neural networks</b> to <b>quantum algorithms</b> to
+              My approach is driven by immersing in stakeholder <b>needs</b> to
+              tailor the solutions{" "}
+              <b>across domains and the technology stack</b>. I keep up with
+              developments from neural networks to quantum algorithms to
               understand the evolving technological possibilities.
             </p>
             <p>
-              Do you have an interesting{" "}
-              <span class="font-extrabold">challenge</span> or want to talk{" "}
-              <span class="font-extrabold">tech</span>,{" "}
+              Have an interesting <span class="font-extrabold">challenge</span>{" "}
+              or want to talk <span class="font-extrabold">tech</span>,{" "}
               <span class="font-extrabold">knowledge management</span>, or
               anything under the sun?{" "}
               <span class="font-extrabold">Let's chat!</span>
