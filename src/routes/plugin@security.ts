@@ -28,9 +28,9 @@ export const onRequest: RequestHandler = (event) => {
 
   event.headers.set("X-Robots-Tag", "noindex, nofollow")
 
+  event.headers.set("Cross-Origin-Resource-Policy", "same-origin")
   event.headers.set("Cross-Origin-Embedder-Policy", "require-corp")
   event.headers.set("Cross-Origin-Opener-Policy", "same-origin")
-  event.headers.set("Cross-Origin-Resource-Policy", "same-origin")
   event.headers.set("Origin-Agent-Cluster", "?1")
   event.headers.set("Referrer-Policy", "no-referrer")
   event.headers.set(
