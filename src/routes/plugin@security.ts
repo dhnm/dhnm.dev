@@ -16,7 +16,7 @@ export const onRequest: RequestHandler = (event) => {
     "frame-ancestors 'self'",
     `script-src 'unsafe-inline' https://challenges.cloudflare.com 'nonce-${nonce}' 'strict-dynamic'`,
     "script-src-attr 'none'",
-    "style-src-attr 'unsafe-inline'",
+    "style-src 'unsafe-inline'",
     `frame-src 'unsafe-inline' https://challenges.cloudflare.com 'nonce-${nonce}' 'strict-dynamic'`,
     "object-src 'none'",
     "base-uri 'self'",
