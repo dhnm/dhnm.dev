@@ -2,6 +2,8 @@ import type { RequestHandler } from "@builder.io/qwik-city"
 import { isDev } from "@builder.io/qwik/build"
 
 export const onRequest: RequestHandler = (event) => {
+  if (isDev) return
+
   const nonce = Array.from(crypto.getRandomValues(new Uint8Array(16)), (byte) =>
     ("0" + (byte & 0xff).toString(16)).slice(-2),
   ).join("")
@@ -15,17 +17,12 @@ export const onRequest: RequestHandler = (event) => {
     `script-src 'unsafe-inline' https://challenges.cloudflare.com 'nonce-${nonce}' 'strict-dynamic'`,
     "script-src-attr 'none'",
     "style-src-attr 'unsafe-inline'",
-    `frame-src 'unsafe-inline' 'nonce-${nonce}' 'strict-dynamic'`,
+    `frame-src 'unsafe-inline' https://challenges.cloudflare.com 'nonce-${nonce}' 'strict-dynamic'`,
     "object-src 'none'",
     "base-uri 'self'",
     "require-trusted-types-for 'script'",
     "upgrade-insecure-requests",
   ].join("; ")
-
-  if (isDev) {
-    console.log(csp)
-    return
-  }
 
   event.headers.set("Content-Security-Policy", csp)
 

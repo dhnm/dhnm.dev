@@ -234,54 +234,59 @@ export default component$(() => {
           </div>
         </>
       )}
-      {action.value?.failed === false && (
-        <div
-          role="alert"
-          class="alert mt-3 border-success/10 bg-success/5 text-sm"
-        >
-          <SuccessIcon class="h-6 w-6 shrink-0 stroke-success" />
-          <span>Message sent! I'll get back to you as soon as I can.</span>
-        </div>
-      )}
+
+      <div
+        role="alert"
+        class={clsx(
+          "alert mt-3 border-success/10 bg-success/5 text-sm",
+          action.value?.failed === false || "hidden",
+        )}
+      >
+        <SuccessIcon class="h-6 w-6 shrink-0 stroke-success" />
+        <span>Message sent! I'll get back to you as soon as I can.</span>
+      </div>
 
       <div
         role="alert"
         class={clsx(
           "alert mt-3 border-error/10 bg-error/5 text-sm",
-          action.value?.failed || "hidden",
+          failedVerifyAttempts.value > 2 || "hidden",
         )}
       >
-        <ErrorIcon class="h-6 w-6 shrink-0 stroke-error" />
-        <span>
-          {action.value?.failed && (
-            <>
-              <p class="text-sm font-semibold">Failed to send message.</p>
-              {!!action.value.fieldErrors || (
-                <p class="text-sm">Please send me an e-mail instead.</p>
-              )}
-              {[
-                action.value.fieldErrors?.message,
-                action.value.fieldErrors?.email,
-                action.value.fieldErrors?.["cf-turnstile-response"],
-              ]
-                .filter((e) => e)
-                .map((fieldError) => (
-                  <p class="mt-1 text-sm" key={fieldError![0]}>
-                    {fieldError![0]}
-                  </p>
-                ))}
-              {action.value.formErrors?.map((error) => (
-                <p class="mt-1 text-sm" key={error}>
-                  {error}
+        <ErrorIcon class="h-6 w-6 shrink-0 fill-none stroke-error" />
+        <span>Human/Robot verification failed.</span>
+      </div>
+
+      {action.value?.failed && (
+        <div role="alert" class="alert mt-3 border-error/10 bg-error/5 text-sm">
+          <ErrorIcon class="h-6 w-6 shrink-0 fill-none stroke-error" />
+          <span>
+            <p class="text-sm font-semibold">Failed to send message.</p>
+            <p class={clsx("text-sm", action.value.fieldErrors && "hidden")}>
+              Please send me an e-mail instead.
+            </p>
+            {[
+              action.value.fieldErrors?.message,
+              action.value.fieldErrors?.email,
+              action.value.fieldErrors?.["cf-turnstile-response"],
+            ]
+              .filter((e) => e)
+              .map((fieldError) => (
+                <p class="mt-1 text-sm" key={fieldError![0]}>
+                  {fieldError![0]}
                 </p>
               ))}
-              {action.value.message && (
-                <p class="mt-1 text-sm">{action.value.message}</p>
-              )}
-            </>
-          )}
-        </span>
-      </div>
+            {action.value.formErrors?.map((error) => (
+              <p class="mt-1 text-sm" key={error}>
+                {error}
+              </p>
+            ))}
+            {action.value.message && (
+              <p class="mt-1 text-sm">{action.value.message}</p>
+            )}
+          </span>
+        </div>
+      )}
     </Form>
   )
 })

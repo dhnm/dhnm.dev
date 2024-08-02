@@ -124,14 +124,14 @@ const Turnstile = component$(
     const unwrappedRef = ref ?? genRef
 
     useTask$(({ track, cleanup }) => {
-      track(() => turnstileState.value)
+      track(() => [turnstileState.value, unwrappedRef.value])
 
       if (turnstileState.value === "error") {
         onError?.(new Error("Turnstile failed to load"))
         return
       }
 
-      if (turnstileState.value !== "ready") return
+      if (turnstileState.value !== "ready" || !unwrappedRef.value) return
 
       const renderParameters: RenderParameters = {
         sitekey,
