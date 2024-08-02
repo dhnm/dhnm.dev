@@ -261,38 +261,32 @@ export const useTurnstileProvider = () =>
 
 const useTurnstile = () => {
   const turnstileState = useContext(turnstileStateContext)
-  if (turnstileState.value !== "unloaded") {
-    return
-  }
-
   const nonce = useServerData<string | undefined>("nonce")
 
   // Can't guarantee this is called on server, so can't use useOnWindow("load")
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(
     () => {
-      if (turnstileState.value !== "unloaded") {
-        return
-      }
-
-      turnstileState.value = "loading"
-      window[TURNSTILE_LOAD_FUNCTION] = $(() => {
-        turnstileState.value = "ready"
-        delete window[TURNSTILE_LOAD_FUNCTION]
-      })
-      const url = `${TURNSTILE_SRC}?onload=${TURNSTILE_LOAD_FUNCTION}&render=explicit`
-      const script = document.createElement("script")
-      if (nonce) script.setAttribute("nonce", nonce)
-      script.src = url
-      script.async = true
-      script.addEventListener(
-        "error",
-        $(() => {
-          turnstileState.value = "error"
+      if (turnstileState.value === "unloaded") {
+        turnstileState.value = "loading"
+        window[TURNSTILE_LOAD_FUNCTION] = $(() => {
+          turnstileState.value = "ready"
           delete window[TURNSTILE_LOAD_FUNCTION]
-        }),
-      )
-      document.head.appendChild(script)
+        })
+        const url = `${TURNSTILE_SRC}?onload=${TURNSTILE_LOAD_FUNCTION}&render=explicit`
+        const script = document.createElement("script")
+        if (nonce) script.setAttribute("nonce", nonce)
+        script.src = url
+        script.async = true
+        script.addEventListener(
+          "error",
+          $(() => {
+            turnstileState.value = "error"
+            delete window[TURNSTILE_LOAD_FUNCTION]
+          }),
+        )
+        document.head.appendChild(script)
+      }
     },
     { strategy: "document-ready" },
   )
