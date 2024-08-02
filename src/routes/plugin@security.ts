@@ -11,15 +11,13 @@ export const onRequest: RequestHandler = (event) => {
   event.sharedMap.set("@nonce", nonce)
 
   const csp = [
-    "default-src 'self' 'unsafe-inline",
-    "font-src 'self' https: data:",
+    "default-src 'self'",
     "form-action 'self'",
     "frame-ancestors 'self'",
-    "img-src 'self' 'unsafe-inline' data: https://cdn.hashnode.com",
-    `script-src 'self' 'unsafe-inline' https: 'nonce-${nonce}' 'strict-dynamic'`,
+    `script-src 'nonce-${nonce}' 'strict-dynamic'`,
     "script-src-attr 'none'",
-    "style-src 'self' https: 'unsafe-inline'",
-    `frame-src 'self' https: 'nonce-${nonce}' 'strict-dynamic'`,
+    "style-src 'self'",
+    `frame-src 'nonce-${nonce}' 'strict-dynamic'`,
     "object-src 'none'",
     "base-uri 'self'",
     "upgrade-insecure-requests",
@@ -29,6 +27,7 @@ export const onRequest: RequestHandler = (event) => {
 
   event.headers.set("X-Robots-Tag", "noindex, nofollow")
 
+  event.headers.set("Cross-Origin-Embedder-Policy", "require-corp")
   event.headers.set("Cross-Origin-Opener-Policy", "same-origin")
   event.headers.set("Cross-Origin-Resource-Policy", "same-origin")
   event.headers.set("Origin-Agent-Cluster", "?1")
@@ -40,7 +39,6 @@ export const onRequest: RequestHandler = (event) => {
   event.headers.set("X-Content-Type-Options", "nosniff")
   event.headers.set("X-DNS-Prefetch-Control", "off")
   event.headers.set("X-Download-Options", "noopen")
-  event.headers.set("X-Frame-Options", "SAMEORIGIN")
   event.headers.set("X-Permitted-Cross-Domain-Policies", "none")
   event.headers.delete("X-Powered-By")
   event.headers.set("X-XSS-Protection", "0")
