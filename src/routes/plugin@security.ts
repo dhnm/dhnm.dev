@@ -20,7 +20,6 @@ export const onRequest: RequestHandler = (event) => {
     `frame-src 'unsafe-inline' https://challenges.cloudflare.com 'nonce-${nonce}' 'strict-dynamic'`,
     "object-src 'none'",
     "base-uri 'self'",
-    "require-trusted-types-for 'script'",
     "upgrade-insecure-requests",
   ].join("; ")
 
