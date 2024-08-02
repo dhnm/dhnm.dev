@@ -2,8 +2,6 @@ import type { RequestHandler } from "@builder.io/qwik-city"
 import { isDev } from "@builder.io/qwik/build"
 
 export const onRequest: RequestHandler = (event) => {
-  if (isDev) return
-
   const nonce = Array.from(crypto.getRandomValues(new Uint8Array(16)), (byte) =>
     ("0" + (byte & 0xff).toString(16)).slice(-2),
   ).join("")
@@ -14,16 +12,22 @@ export const onRequest: RequestHandler = (event) => {
     "default-src 'self'",
     "form-action 'self'",
     "frame-ancestors 'self'",
-    `script-src 'nonce-${nonce}' 'strict-dynamic'`,
+    `script-src 'unsafe-inline' https://challenges.cloudflare.com 'nonce-${nonce}' 'strict-dynamic'`,
     "script-src-attr 'none'",
-    "style-src 'self'",
-    `frame-src 'nonce-${nonce}' 'strict-dynamic'`,
+    "style-src-attr 'unsafe-inline'",
+    `frame-src 'unsafe-inline' 'nonce-${nonce}' 'strict-dynamic'`,
     "object-src 'none'",
     "base-uri 'self'",
+    "require-trusted-types-for 'script'",
     "upgrade-insecure-requests",
-  ]
+  ].join("; ")
 
-  event.headers.set("Content-Security-Policy", csp.join("; "))
+  if (isDev) {
+    console.log(csp)
+    return
+  }
+
+  event.headers.set("Content-Security-Policy", csp)
 
   event.headers.set("X-Robots-Tag", "noindex, nofollow")
 

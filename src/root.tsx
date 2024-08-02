@@ -5,6 +5,7 @@ import {
   ServiceWorkerRegister,
 } from "@builder.io/qwik-city"
 import { RouterHead } from "./components/router-head/router-head"
+import { isDev } from "@builder.io/qwik/build"
 
 import { useTurnstileProvider } from "./components/Turnstile"
 import "./global.css"
@@ -26,7 +27,7 @@ export default component$(() => {
         <meta charset="utf-8" />
         <link rel="manifest" href="/manifest.json" />
         <RouterHead />
-        <ServiceWorkerRegister nonce={nonce} />
+        {!isDev && <ServiceWorkerRegister nonce={nonce} />}
       </head>
       <body>
         <RouterOutlet />
