@@ -154,7 +154,7 @@ export const keyProjects: DecoratedProject[] = [
       "Adapted and refined the app across successive conferences to improve functionality and user satisfaction, achieving user rating of ⭐️4.7/5.",
     ],
     cover: ProjectCover.Porgmun,
-    source: "https://gitlab.com/dhnm/porgmun",
+    source: "https://github.com/dhnm/PORGMUN",
   },
   {
     name: "Website for Sítko Festival",
@@ -165,7 +165,7 @@ export const keyProjects: DecoratedProject[] = [
       "Flexibly managed site updates and content modifications throughout the festival lifecycle to respond to ongoing needs.",
     ],
     cover: ProjectCover.Sitko,
-    source: "https://gitlab.com/dhnm/sitko2018",
+    source: "https://github.com/dhnm/sitko",
   },
 ]
 
@@ -251,7 +251,7 @@ export const explorations: Project[] = [
       "Utility classes for composing command-line input flows to reduce complexity and improve readability.",
       "Extracted from a larger project to serve as a versatile importable module.",
     ],
-    source: "https://gitlab.com/dhnm/composableio",
+    source: "https://github.com/dhnm/composableio",
   },
   {
     name: "JS Calculator",
