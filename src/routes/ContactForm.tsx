@@ -166,7 +166,7 @@ export default component$(() => {
       class="rounded-box border border-base-content/10 bg-base-100/85 p-3 backdrop-blur-xl sm:p-6"
     >
       <div class="-mt-0.5 flex text-sm font-semibold">
-        <MailIcon class="h-5 w-5 fill-none stroke-current" />
+        <MailIcon class="h-5 w-5 stroke-current" />
         <span class="ml-2.5 tracking-tight">Shoot me a message</span>
       </div>
       <p
@@ -253,13 +253,13 @@ export default component$(() => {
           failedVerifyAttempts.value > 2 || "hidden",
         )}
       >
-        <ErrorIcon class="h-6 w-6 shrink-0 fill-none stroke-error" />
+        <ErrorIcon class="h-6 w-6 shrink-0 stroke-error" />
         <span>Human/Robot verification failed.</span>
       </div>
 
       {action.value?.failed && (
         <div role="alert" class="alert mt-3 border-error/10 bg-error/5 text-sm">
-          <ErrorIcon class="h-6 w-6 shrink-0 fill-none stroke-error" />
+          <ErrorIcon class="h-6 w-6 shrink-0 stroke-error" />
           <span>
             <p class="text-sm font-semibold">Failed to send message.</p>
             <p class={clsx("text-sm", action.value.fieldErrors && "hidden")}>

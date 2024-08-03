@@ -92,7 +92,7 @@ export function GitHubIcon(props: PropsOf<"svg">) {
 
 export function MailIcon(props: PropsOf<"svg">) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" {...props}>
       <path
         stroke-linejoin="round"
         stroke-linecap="round"
@@ -112,7 +112,7 @@ export function MailIcon(props: PropsOf<"svg">) {
 
 export function ErrorIcon(props: PropsOf<"svg">) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" {...props}>
       <path
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -125,7 +125,7 @@ export function ErrorIcon(props: PropsOf<"svg">) {
 
 export function SuccessIcon(props: PropsOf<"svg">) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" {...props}>
       <path
         stroke-linecap="round"
         stroke-linejoin="round"
