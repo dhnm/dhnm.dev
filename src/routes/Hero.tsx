@@ -4,17 +4,6 @@ import Container from "~/components/Container"
 import { GitHubIcon, LinkedInIcon } from "~/components/icons"
 import ContactForm from "./ContactForm"
 
-const OpenToWorkIndicator = () => (
-  <div class="flex items-center gap-2">
-    {/* Diode - Green Circle */}
-    <span
-      class="h-3 w-3 rounded-full bg-[radial-gradient(circle,#00ff00_15%,#17a443_85%)] shadow-[0_0_2px_2px_#00ff0060,0_0_4px_4px_#00ff0020]"
-      aria-hidden="true"
-    ></span>
-    <span class="uppercase text-success">Open to work (UK, EU, or Remote)</span>
-  </div>
-)
-
 export const HeroButton = component$(({ href }: { href: string }) => {
   return (
     <a href={href} target="_blank" class="btn btn-primary">
@@ -38,7 +27,6 @@ export default component$(() => (
     <Container id="about">
       <div class="mx-auto flex max-w-xl flex-col items-center gap-y-10 lg:max-w-none lg:flex-row">
         <div class="max-w-2xl">
-          <OpenToWorkIndicator />
           <div class="mt-9 flex flex-wrap gap-2">
             <HeroButton href="https://github.com/dhnm">
               GitHub
