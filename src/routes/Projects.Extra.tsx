@@ -45,7 +45,9 @@ const ProjectGrid = component$(({ projects }: { projects: Project[] }) => (
               ))}
             </ul>
             <ul class="prose mt-2 text-left text-[1rem] text-base-content">
-              {p.descriptionArr?.map((d) => <li key={d}>{d}</li>)}
+              {p.descriptionArr.map((d) => (
+                <li key={d}>{d}</li>
+              ))}
             </ul>
             <div
               class={clsx(

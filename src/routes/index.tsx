@@ -9,7 +9,10 @@ export default component$(() => (
   <>
     <Hero />
     <Projects />
-    {false && <Thoughts />}
+    {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      false && <Thoughts />
+    }
     <Container class="mt-16 sm:mt-36" />
   </>
 ))

@@ -103,8 +103,7 @@ export type ViteImageComponent = FunctionComponent<ViteImageProps>
 export type SimpleProject = {
   name: string
   tags: ProjectTags[]
-  description?: string
-  descriptionArr?: string[]
+  descriptionArr: string[]
   article?: string
   source?: string
   demo?: string
@@ -235,8 +234,6 @@ export const explorations: Project[] = [
   {
     name: "Pomodoro Timer",
     tags: ["JavaScript", "CSS", "jQuery"],
-    description:
-      "Timer app using the Pomodoro Technique with focus and break times.",
     descriptionArr: [
       "Timer app using the Pomodoro Technique with customizable timings to adapt to personalized user needs.",
       "A simple and intuitive interface supports users to manage their time effectively, boosting productivity and preventing burnout.",
