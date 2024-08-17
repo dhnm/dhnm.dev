@@ -161,7 +161,7 @@ export const keyProjects: DecoratedProject[] = [
     descriptionArr: [
       "Designed and developed a responsive website for a university drama festival.",
       "Deployed a beneficial strategy of image serving optimization that enhanced performance as well as alignment with the brand aesthetics.",
-      "Flexibly managed site updates and content modifications throughout the festival lifecycle to respond to ongoing needs.",
+      "Flexibly managed site updates and content modifications throughout the festival lifecycle to respond to evolving needs.",
     ],
     cover: ProjectCover.Sitko,
     source: "https://github.com/dhnm/sitko",
