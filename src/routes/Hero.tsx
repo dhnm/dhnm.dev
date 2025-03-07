@@ -1,7 +1,6 @@
 import { Slot, component$ } from "@builder.io/qwik"
 import Container from "~/components/Container"
 
-import { GitHubIcon, LinkedInIcon } from "~/components/icons"
 import ContactForm from "./ContactForm"
 
 export const HeroButton = component$(({ href }: { href: string }) => {
@@ -14,37 +13,20 @@ export const HeroButton = component$(({ href }: { href: string }) => {
 
 export default component$(() => (
   <>
-    <Container class="my-9 md:my-36">
+    <Container class="my-9 md:my-24">
       <h1 class="max-w-lg text-3xl font-normal !leading-normal md:max-w-3xl md:text-4xl xl:text-5xl">
         <span class="text-xl md:text-2xl xl:text-3xl">
           Hey there! My name is <span class="font-bold">Nhật&nbsp;Minh</span>.
         </span>
-        <br />I am an <span class="font-bold">adaptable&nbsp;learner</span> and
+        <br />I use <span class="font-bold">software & AI</span> solutions
         <br />
-        deliver <span class="font-bold">software&nbsp;solutions</span>.
+        to deliver <span class="font-bold">joy & utility</span> to people.
       </h1>
     </Container>
     <Container id="about">
       <div class="mx-auto flex max-w-xl flex-col items-center gap-y-10 lg:max-w-none lg:flex-row">
         <div class="max-w-2xl">
-          <div class="mt-9 flex flex-wrap gap-2">
-            <HeroButton href="https://github.com/dhnm">
-              GitHub
-              <GitHubIcon class="h-4 w-4 fill-current" />
-            </HeroButton>
-            <HeroButton href="https://linkedin.com/in/dhnm">
-              LinkedIn
-              <LinkedInIcon class="h-4 w-4 fill-current" />
-            </HeroButton>
-          </div>
           <div class="prose mt-9 text-base-content">
-            <p>
-              I specialize in <b>rapid knowledge and skill acquisition</b>. In
-              fact, <b>I compete in learning</b>. I have a track record of
-              internalizing massive amounts of learning material and{" "}
-              <b>successfully applying</b> it under high-pressure settings and{" "}
-              <b>tight deadlines</b>.
-            </p>
             <p>
               I find it particularly rewarding to use <b>code</b> in creating
               solutions that have tangible, <b>real-world impact</b>.
@@ -55,6 +37,12 @@ export default component$(() => (
               <b>across domains and the technology stack</b>. I keep up with
               developments from neural networks to quantum algorithms to
               understand the evolving technological possibilities.
+            </p>
+            <p>
+              I specialize in <b>rapid knowledge and skill acquisition</b>. In
+              fact, <b>I compete in learning</b>. I believe this makes me
+              well-equipped to deal with various challenges in this
+              ever-changing world.
             </p>
             <p>
               Have an interesting <span class="font-extrabold">challenge</span>{" "}
