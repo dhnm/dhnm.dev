@@ -1,8 +1,13 @@
-import { component$, isDev } from "@builder.io/qwik";
-import { QwikCityProvider, RouterOutlet } from "@builder.io/qwik-city";
-import { RouterHead } from "./components/router-head/router-head";
+import { component$, isDev, useServerData } from "@builder.io/qwik"
+import {
+  QwikCityProvider,
+  RouterOutlet,
+  ServiceWorkerRegister,
+} from "@builder.io/qwik-city"
+import { RouterHead } from "./components/router-head/router-head"
 
-import "./global.css";
+import "./global.css"
+import { useTurnstileProvider } from "./components/Turnstile"
 
 export default component$(() => {
   /**
@@ -11,6 +16,9 @@ export default component$(() => {
    *
    * Don't remove the `<head>` and `<body>` elements.
    */
+  const nonce = useServerData<string | undefined>("nonce")
+
+  useTurnstileProvider()
 
   return (
     <QwikCityProvider>
@@ -23,10 +31,11 @@ export default component$(() => {
           />
         )}
         <RouterHead />
+        {!isDev && <ServiceWorkerRegister nonce={nonce} />}
       </head>
       <body lang="en">
         <RouterOutlet />
       </body>
     </QwikCityProvider>
-  );
-});
+  )
+})

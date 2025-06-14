@@ -1,9 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/web-manifest-combined.json",
-  "name": "qwik-project-name",
-  "short_name": "Welcome to Qwik",
+  "name": "dhnm.dev - Personal Website",
+  "short_name": "dhnm.dev",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#fff",
-  "description": "A Qwik project app."
+  "background_color": "#f4f9fe",
+  "description": "I am Nhật Minh and I explore ways of utilizing technology to make our lives more fun and efficient."
 }
